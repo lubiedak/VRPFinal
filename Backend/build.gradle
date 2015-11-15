@@ -1,0 +1,52 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.8.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+war {
+    baseName = 'vrpBackend'
+}
+
+jar {
+    baseName = 'vrpBackend'
+}
+
+repositories {
+    mavenCentral()
+}
+//New dependecies should be discussed with Tech Lead
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile("org.mongodb:mongo-java-driver:2.12.3")
+    compile("log4j:log4j:1.2.17")
+
+    compile("org.springframework.hateoas:spring-hateoas")
+    compile("com.jayway.jsonpath:json-path:0.9.1")
+
+    testCompile("junit:junit:4.12")
+    
+    testCompile("org.mockito:mockito-core:1.10.19")
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.8'
+}
