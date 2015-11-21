@@ -10,5 +10,6 @@ package com.vrp.vrpBackend.service;
 public interface JenkinsService {
 
 	public String triggerBuild();
+	public String getJenkinsInfo();
 	
 }

@@ -1,5 +1,4 @@
 jenkins:
-    path:
-        url: http://127.0.0.1:8081/
-        job: /job/vrp-simple
-        build: /build
+    url: http://127.0.0.1:8081/
+    job: /job/vrp-simple
+    buildTrigger: /build

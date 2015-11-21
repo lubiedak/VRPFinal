@@ -1,9 +1,10 @@
 package com.vrp.vrpBackend.controller;
 
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-public abstract class BaseController {
+public abstract class BaseController extends ResourceSupport{
 
   protected HttpStatus status = HttpStatus.OK;
 
