@@ -40,6 +40,6 @@ public class JenkinsController extends BaseController {
 	@RequestMapping(value = URL + "/info", method = RequestMethod.GET)
 	public ResponseEntity<Object> info() {
 
-		return new ResponseEntity<Object>(service.getJenkinsInfo(), HttpStatus.OK);
+		return new ResponseEntity<Object>(service, HttpStatus.OK);
 	}
 }
