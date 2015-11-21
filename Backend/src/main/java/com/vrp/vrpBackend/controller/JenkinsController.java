@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.vrp.vrpBackend.service.JenkinsService;
 
-
 @Controller
 public class JenkinsController extends BaseController {
 
 	private static final String URL = BASE_URL + "/jenkins";
-	
+
 	@Autowired
 	private JenkinsService service;
-	
-	@RequestMapping(value = URL, method = RequestMethod.GET)
-	  public void actions() {
-	    service.triggerBuild();
-	  }
-	
+
+	@RequestMapping(value = URL+"/build", method = RequestMethod.POST)
+	public String actions() {
+		
+		return service.triggerBuild();
+	}
+
 }
