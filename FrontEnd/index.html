@@ -29,7 +29,8 @@ var width = 1300,
 var force = d3.layout.force()
     .size([width, height])
     .charge(0)
-    .linkDistance(20)
+    .linkDistance(0)
+    .linkStrength(0)
     .gravity(0)
     .on("tick", tick);
 
@@ -70,7 +71,7 @@ d3.json("mockedGraph.json", function(error, graph) {
        // Position the g element like the circle element used to be.
        .attr("transform", function(d, i) {
 
-         return "translate(" + (d.x+1) + "," + (d.y+5) + ")"; 
+         return "translate(" + (d.x) + "," + (d.y+5) + ")"; 
        });
 
 // Add a text element to the previously added g element.

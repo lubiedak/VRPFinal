@@ -65,5 +65,5 @@
   {"id": 62, "name" : "Melrose",        "x": 542, "y": 551, "demand": 687},
   {"id": 63, "name" : "Moffat",         "x": 509, "y": 295, "demand": 792}
 ],
-  "links":  [ ]
+  "links":  [ {"source":1, "target":10}]
 }
