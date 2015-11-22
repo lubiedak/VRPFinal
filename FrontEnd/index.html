@@ -23,13 +23,14 @@
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
-var width = 960,
-    height = 500;
+var width = 1300,
+    height = 1000;
 
 var force = d3.layout.force()
     .size([width, height])
-    .charge(-400)
-    .linkDistance(40)
+    .charge(0)
+    .linkDistance(20)
+    .gravity(0)
     .on("tick", tick);
 
 var drag = force.drag();
@@ -56,7 +57,7 @@ d3.json("mockedGraph.json", function(error, graph) {
   node = node.data(graph.nodes)
     .enter().append("circle")
       .attr("class", "node")
-      .attr("r", 12)
+      .attr("r", 10)
       .attr("fixed", true);
 
   var nodes = svg.append("g")
@@ -68,14 +69,17 @@ d3.json("mockedGraph.json", function(error, graph) {
        .append("g")
        // Position the g element like the circle element used to be.
        .attr("transform", function(d, i) {
-         return "translate(" + d.x + "," + d.y + ")"; 
+
+         return "translate(" + (d.x+1) + "," + (d.y+5) + ")"; 
        });
 
 // Add a text element to the previously added g element.
   nodes.append("text")
      .attr("text-anchor", "middle")
+     .attr("font-family","arial")
+     .attr("font-size","12px")
      .text(function(d) {
-       return d.name;
+       return d.id;
       });
 
 });

@@ -20,17 +20,21 @@ import com.vrp.vrpBackend.service.JenkinsService;
 public class JenkinsServiceImpl implements JenkinsService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JenkinsService.class);
-	
+
 	private String url;
 	private String job;
 	private String buildTrigger;
 
+	@Override
 	public String triggerBuild() {
-		String url = "http://localhost:8081/job/vrp-simple/build";
-
 		RestTemplate template = new RestTemplate();
 
-		return template.postForObject(url, String.class, String.class);
+		return template.postForObject(url + job + buildTrigger, String.class, String.class);
+	}
+
+	@Override
+	public String getJenkinsInfo() {
+		return toString();
 	}
 
 	public String getUrl() {
@@ -56,16 +60,9 @@ public class JenkinsServiceImpl implements JenkinsService {
 	public void setBuildTrigger(String buildTrigger) {
 		this.buildTrigger = buildTrigger;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "JenkinsServiceImpl [url=" + url + ", job=" + job + ", buildTrigger=" + buildTrigger + "]";
 	}
-
-	@Override
-	public String getJenkinsInfo() {
-		return toString();
-	}
-
-	
 }
