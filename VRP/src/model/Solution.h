@@ -8,6 +8,10 @@
 #ifndef MODEL_SOLUTION_H_
 #define MODEL_SOLUTION_H_
 
+#include <vector>
+
+#include "Cycle.h"
+
 class Solution {
 public:
 	Solution();

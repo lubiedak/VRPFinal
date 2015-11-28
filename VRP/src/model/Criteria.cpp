@@ -6,13 +6,17 @@
  */
 
 #include "Criteria.h"
+#include <sstream>
 
-Criteria::Criteria() {
-	// TODO Auto-generated constructor stub
 
+std::string Criteria::toString(){
+	std::stringstream oss;
+    oss<<std::string("class=Criteria")
+	   <<std::string(",maxCapacity=") << maxCapacity
+	   <<std::string(",minCapacity=") << minCapacity
+	   <<std::string(",maxDistance=") << maxDistance
+	   <<std::string(",minDistance=") << minDistance
+	   <<std::string(",maxNodes=")    << maxNodes
+	   <<std::string(",minNodes=")    << minNodes;
+    return oss.str();
 }
-
-Criteria::~Criteria() {
-	// TODO Auto-generated destructor stub
-}
-
