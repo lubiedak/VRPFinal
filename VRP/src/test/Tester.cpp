@@ -7,27 +7,32 @@
 
 #include "Tester.h"
 #include "../solver/PermutationGen.h"
+#include <iostream>
 
-Tester::Tester() {
-	// TODO Auto-generated constructor stub
 
+bool PermutationsGeneration_TEST(bool silentMode) {
+
+	PermutationGen<int> permGen = PermutationGen<int>(3);
+	permGen.setSilentMode(silentMode);
+	permGen.Permute(3, 3);
+
+	//Assert
+	return permGen.getFullPermTable()[3][2] == 1;
+}
+
+Tester::Tester(bool silentMode) {
+	tests["PermutationsGeneration_TEST"] = &PermutationsGeneration_TEST;
+
+	this->silentMode = silentMode;
 }
 
 Tester::~Tester() {
 	// TODO Auto-generated destructor stub
 }
 
-
 void Tester::runAll() {
-
-	PermutationsGeneration_TEST();
-
+	for(auto test : tests){
+		std::cout<<test.first<<": " << (test.second(silentMode) ? "PASSED":"FAILED");
+	}
 }
 
-bool Tester::PermutationsGeneration_TEST() {
-
-	PermutationGen<int> permGen = PermutationGen<int>(3);
-	permGen.Permute(3,3);
-
-	return true;
-}

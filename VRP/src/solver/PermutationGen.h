@@ -20,15 +20,23 @@ public:
 
 	void Permute(int k, int size);
 
-private:
+	void setSilentMode(bool silentMode) {
+		this->silentMode = silentMode;
+	}
 
+	const std::vector<std::vector<T> >& getFullPermTable() const {
+		return fullPermTable;
+	}
+
+private:
 	void Swap(int a, int b);
 	void Print(int size);
-
 
 	std::vector<T> base;
 	std::vector<T> perm;
 	std::vector< std::vector<T> > fullPermTable;
+
+	bool silentMode = false;
 };
 
 #endif /* SOLVER_PERMUTATIONGEN_H_ */

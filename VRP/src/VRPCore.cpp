@@ -13,7 +13,7 @@ using namespace std;
 
 int main() {
 
-	Tester tester;
+	Tester tester(false);
 	tester.runAll();
 
 

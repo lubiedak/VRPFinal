@@ -51,8 +51,12 @@ void PermutationGen<T>::Print(int size) {
 template<typename T>
 void PermutationGen<T>::Permute(int k, int size) {
 	int i;
-	if (k == 0)
-		Print(size);
+	if (k == 0){
+		if(!silentMode)
+			Print(size);
+
+		fullPermTable.push_back(perm);
+	}
 	else {
 		for (i = k - 1; i >= 0; i--) {
 			Swap(i, k - 1);
