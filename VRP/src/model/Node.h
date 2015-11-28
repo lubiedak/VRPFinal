@@ -12,7 +12,6 @@
 
 class Node {
 public:
-	Node();
 	virtual ~Node();
 
 	Node(unsigned id, std::string name, unsigned x, unsigned y, unsigned demand);

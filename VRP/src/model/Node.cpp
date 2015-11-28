@@ -7,14 +7,6 @@
 
 #include "Node.h"
 
-Node::Node() {
-	this->id = 0;
-	this->name = "Node0123";
-	this->x = 1;
-	this->y = 2;
-	this->demand = 3;
-}
-
 Node::~Node() {
 }
 
