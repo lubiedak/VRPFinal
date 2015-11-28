@@ -15,11 +15,11 @@ public:
 	Node();
 	virtual ~Node();
 
-	Node(std::string id, std::string name, unsigned x, unsigned y, unsigned demand);
+	Node(unsigned id, std::string name, unsigned x, unsigned y, unsigned demand);
 
 
-	std::string getId() const {return id;}
-	void setId(std::string id) {this->id = id;}
+	unsigned getId() const {return id;}
+	void setId(unsigned id) {this->id = id;}
 	std::string getName() const {return name;}
 	void setName(std::string name) {this->name = name;}
 	unsigned getX() const {return x;}
@@ -30,7 +30,7 @@ public:
 	void setDemand(unsigned demand) {this->demand = demand;}
 
 private:
-	std::string id;
+	unsigned id;
 	std::string name;
 
 	unsigned x;

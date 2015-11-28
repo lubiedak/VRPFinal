@@ -13,7 +13,7 @@ Node::Node() {
 Node::~Node() {
 }
 
-Node::Node(std::string id, std::string name, unsigned x, unsigned y, unsigned demand) {
+Node::Node(unsigned id, std::string name, unsigned x, unsigned y, unsigned demand) {
 	this->id = id;
 	this->name = name;
 	this->x = x;

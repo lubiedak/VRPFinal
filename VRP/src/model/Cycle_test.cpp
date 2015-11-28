@@ -5,5 +5,5 @@
  *      Author: lubiedak
  */
 
-#include "/home/lubiedak/workspace/VRPFinalRepo/VRP/src/Cycle.h"
+#include "Cycle.h"
 
