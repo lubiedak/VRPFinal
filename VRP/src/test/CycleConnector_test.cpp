@@ -5,5 +5,5 @@
  *      Author: lubiedak
  */
 
-#include "CycleConnector.h"
+#include "../solver/CycleConnector.h"
 

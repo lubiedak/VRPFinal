@@ -5,5 +5,5 @@
  *      Author: lubiedak
  */
 
-#include "Cycle.h"
+#include "../model/Cycle.h"
 

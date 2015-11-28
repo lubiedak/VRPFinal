@@ -9,15 +9,19 @@
 #include "../solver/PermutationGen.h"
 #include <iostream>
 
-
+/**
+ * These tests checks if permutation works correctly
+ */
 bool PermutationsGeneration_TEST(bool silentMode) {
 
-	PermutationGen<int> permGen = PermutationGen<int>(3);
+	int base = 5;
+	PermutationGen<int> permGen = PermutationGen<int>(base);
 	permGen.setSilentMode(silentMode);
-	permGen.Permute(3, 3);
+	permGen.Permute(base, base);
 
 	//Assert
-	return permGen.getFullPermTable()[3][2] == 1;
+	return (permGen.getFullPermTable()[3][2] == 1
+			&& permGen.getFullPermTable()[10][0] == 3);
 }
 
 Tester::Tester(bool silentMode) {

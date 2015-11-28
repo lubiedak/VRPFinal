@@ -5,5 +5,5 @@
  *      Author: lubiedak
  */
 
-#include "CycleCreator.h"
+#include "../solver/CycleCreator.h"
 
