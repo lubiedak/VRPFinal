@@ -7,9 +7,16 @@
 //============================================================================
 
 #include <iostream>
+#include "test/Tester.h"
 using namespace std;
 
+
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello Wdasorld!!!
+
+	Tester tester;
+	tester.runAll();
+
+
+
 	return 0;
 }
