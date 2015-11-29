@@ -6,17 +6,42 @@
  */
 
 #include "Criteria.h"
+
 #include <sstream>
+#include <string>
 
-
-std::string Criteria::toString(){
-	std::stringstream oss;
-    oss<<std::string("class=Criteria")
-	   <<std::string(",maxCapacity=") << maxCapacity
-	   <<std::string(",minCapacity=") << minCapacity
-	   <<std::string(",maxDistance=") << maxDistance
-	   <<std::string(",minDistance=") << minDistance
-	   <<std::string(",maxNodes=")    << maxNodes
-	   <<std::string(",minNodes=")    << minNodes;
-    return oss.str();
+Criteria::Criteria(unsigned maxC, unsigned maxD, unsigned maxN, unsigned minC,
+		unsigned minD, unsigned minN) {
+	properties = std::map<std::string, unsigned>();
+	properties["maxCapacity"] = maxC;
+	properties["maxDistance"] = maxD;
+	properties["maxNodes"] = maxN;
+	properties["minCapacity"] = minC;
+	properties["minDistance"] = minD;
+	properties["minNodes"] = minN;
 }
+
+Criteria::Criteria(unsigned maxC, unsigned maxD, unsigned maxN) :
+		Criteria(maxC, maxD, maxN, 0, 0, 0) {
+}
+
+std::string Criteria::toString() {
+	std::stringstream oss;
+	oss << std::string("class=Criteria");
+	for (auto pair : properties) {
+		oss << delimiter << pair.first << mapDelimiter << pair.second;
+	}
+
+	return oss.str();
+}
+
+std::string Criteria::serialize() {
+	return toString();
+}
+
+bool Criteria::deserialize(std::string str) {
+	std::map<std::string, std::string> values = parse(str);
+
+	return true;
+}
+
