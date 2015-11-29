@@ -18,29 +18,31 @@ public:
 	Criteria(){}
 
 	Criteria(unsigned maxC, unsigned minC, unsigned maxD,
-			 unsigned minD,	unsigned maxN, unsigned minN) :
-		maxCapacity(maxC), minCapacity(minC), maxDistance(maxD),
-		minDistance(minD), maxNodes(maxN), 	  minNodes(minN) {}
+			 unsigned minD,	unsigned maxN, unsigned minN);
 
-	Criteria(unsigned maxC, unsigned maxD, unsigned maxN) :
-		maxCapacity(maxC), minCapacity(0), maxDistance(maxD),
-		minDistance(0),    maxNodes(maxN), minNodes(0) {}
+	Criteria(unsigned maxC, unsigned maxD, unsigned maxN);
 
 	virtual ~Criteria(){};
 	std::string toString();
 
+	virtual std::string serialize();
+	virtual bool deserialize(std::string);
 
-	unsigned maxCapacity;
-	unsigned minCapacity;
 
-	unsigned maxDistance;
-	unsigned minDistance;
+	std::map<std::string, unsigned> properties;
 
-	unsigned maxNodes;
-	unsigned minNodes;
+	unsigned maxCapacity(){return properties["maxCapacity"];}
+	unsigned minCapacity(){return properties["minCapacity"];}
+
+	unsigned maxDistance(){return properties["maxDistance"];}
+	unsigned minDistance(){return properties["minDistance"];}
+
+	unsigned maxNodes(){return properties["maxNodes"];}
+	unsigned minNodes(){return properties["minNodes"];}
 
 
 private:
+
 };
 
 
