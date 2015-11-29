@@ -20,3 +20,6 @@ std::string Criteria::toString(){
 	   <<std::string(",minNodes=")    << minNodes;
     return oss.str();
 }
+
+std::string Criteria::serialize(){
+

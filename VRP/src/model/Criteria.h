@@ -8,9 +8,11 @@
 #ifndef MODEL_CRITERIA_H_
 #define MODEL_CRITERIA_H_
 
-#include <iostream>
+#include <string>
 
-class Criteria {
+#include "serialization/Serialized.h"
+
+class Criteria : public Serialized{
 public:
 
 	Criteria(){}
