@@ -12,13 +12,13 @@
 
 #include "serialization/Serialized.h"
 
-class Criteria : public Serialized{
+class Criteria : public Serialized {
 public:
 
 	Criteria(){}
 
-	Criteria(unsigned maxC, unsigned minC, unsigned maxD,
-			 unsigned minD,	unsigned maxN, unsigned minN);
+	Criteria(unsigned maxC, unsigned maxD, unsigned maxN, unsigned minC,
+			unsigned minD, unsigned minN);
 
 	Criteria(unsigned maxC, unsigned maxD, unsigned maxN);
 
