@@ -1,8 +1,8 @@
 package com.vrp.vrpBackend.service;
 
-import com.vrp.vrpBackend.model.Node;
+import com.vrp.vrpBackend.controller.dto.Nodes;
 
 public interface NodeService {
 
-	public Node save(Node node);
+	public Nodes save(Nodes nodes);
 }
