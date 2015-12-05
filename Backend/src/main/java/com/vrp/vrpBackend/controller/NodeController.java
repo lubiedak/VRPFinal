@@ -1,5 +1,8 @@
 package com.vrp.vrpBackend.controller;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.vrp.vrpBackend.controller.dto.NodesDto;
+import com.vrp.vrpBackend.controller.dto.GenericResponse;
+import com.vrp.vrpBackend.controller.dto.Nodes;
 import com.vrp.vrpBackend.model.GeneratorCfg;
 import com.vrp.vrpBackend.model.Node;
 import com.vrp.vrpBackend.service.NodeService;
@@ -26,15 +30,16 @@ public class NodeController extends BaseController {
 
 	@Autowired
 	private NodesGenerator generator;
+	
+	
+	@RequestMapping(value = URL, method = RequestMethod.GET)
+	public ResponseEntity<Object> endpoints() {
+		GenericResponse response = new GenericResponse("");
 
-	@RequestMapping(value = URL + "/build", method = RequestMethod.POST)
-	public ResponseEntity<Object> actions() {
-
-		Node node = new Node("Dupa");
-		node.setDemand(100);
-		node.setX(50);
-
-		return new ResponseEntity<Object>(nodeService.save(node), HttpStatus.OK);
+		response.add(linkTo(methodOn(NodeController.class).endpoints()).withSelfRel());
+		response.add(linkTo(methodOn(NodeController.class).generate(0, 0, 0, 0, 0, null, null, false)).withRel("generate"));
+		
+		return new ResponseEntity<Object>( response, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = URL + "/generate", method = RequestMethod.POST)
@@ -43,11 +48,14 @@ public class NodeController extends BaseController {
 											@RequestParam int maxY,	      @RequestParam String distribution,
 											@RequestParam String name,    @RequestParam boolean dbSave) {
 
-		GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand, maxX, maxY, distribution, name, dbSave);
+		GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand,
+											maxX, maxY, distribution, name, dbSave);
 
 		List<Node> n = generator.generateNodes(cfg);
-		NodesDto nodes = new NodesDto();
+		Nodes nodes = new Nodes(name);
 		nodes.setNodes(n);
+		if(cfg.isDbSave())
+			nodeService.save(nodes);
 
 		return new ResponseEntity<Object>(nodes, HttpStatus.OK);
 	}

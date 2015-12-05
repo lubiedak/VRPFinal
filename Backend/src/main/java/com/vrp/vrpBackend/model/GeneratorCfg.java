@@ -1,10 +1,13 @@
 package com.vrp.vrpBackend.model;
 
+import javax.validation.constraints.Max;
+
 import lombok.Data;
 import lombok.NonNull;
 
 @Data
 public class GeneratorCfg {
+	@Max(200)
 	private int nodesCount;
 	private int minDemand;
 	private int maxDemand;

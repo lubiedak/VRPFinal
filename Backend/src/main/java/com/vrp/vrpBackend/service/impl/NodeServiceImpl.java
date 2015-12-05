@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import com.vrp.vrpBackend.dao.NodeDao;
-import com.vrp.vrpBackend.model.Node;
+import com.vrp.vrpBackend.controller.dto.Nodes;
+import com.vrp.vrpBackend.dao.NodesDao;
 import com.vrp.vrpBackend.service.JenkinsService;
 import com.vrp.vrpBackend.service.NodeService;
 
@@ -25,11 +25,11 @@ public class NodeServiceImpl implements NodeService {
 	private static final Logger LOG = LoggerFactory.getLogger(JenkinsService.class);
 	
 	@Autowired
-	NodeDao repo;
+	NodesDao repo;
 	
 	@Override
-	public Node save(Node node) {
-		return repo.save(node);
+	public Nodes save(Nodes nodes) {
+		return repo.save(nodes);
 	}
 
 }
