@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.vrp.vrpBackend.controller.dto.NodesDto;
-import com.vrp.vrpBackend.model.GeneratorParams;
+import com.vrp.vrpBackend.model.GeneratorCfg;
 import com.vrp.vrpBackend.model.Node;
 import com.vrp.vrpBackend.service.NodeService;
 import com.vrp.vrpBackend.service.NodesGenerator;
@@ -43,9 +43,9 @@ public class NodeController extends BaseController {
 											@RequestParam int maxY,	      @RequestParam String distribution,
 											@RequestParam String name,    @RequestParam boolean dbSave) {
 
-		GeneratorParams params = new GeneratorParams(nodesCount, minDemand, maxDemand, maxX, maxY, distribution, name, dbSave);
+		GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand, maxX, maxY, distribution, name, dbSave);
 
-		List<Node> n = generator.generateNodes(params);
+		List<Node> n = generator.generateNodes(cfg);
 		NodesDto nodes = new NodesDto();
 		nodes.setNodes(n);
 
