@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +43,7 @@ public class NodeController extends BaseController {
 		return new ResponseEntity<Object>( response, HttpStatus.OK);
 	}
 
+	@CrossOrigin(origins = "http://localhost:1333")
 	@RequestMapping(value = URL + "/generate", method = RequestMethod.POST)
 	public ResponseEntity<Object> generate( @RequestParam int nodesCount, @RequestParam int minDemand,
 											@RequestParam int maxDemand,  @RequestParam int maxX,
