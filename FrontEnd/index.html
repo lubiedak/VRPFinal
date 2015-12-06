@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="css/style.css"/>
 <!-- Include JS File Here -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/registration.js"></script>
 </head>
 <style>
 
@@ -46,6 +45,24 @@
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
+$(document).ready(function() {
+$("#register").click(function() {
+
+var nodes_Count = $("#nodes_Count").val();
+var min_Demand = $("#min_Demand").val();
+var max_Demand = $("#max_Demand").val();
+var max_X = $("#max_X").val();
+var max_Y = $("#max_Y").val();
+if (nodes_Count == '' || min_Demand == '' || max_Demand == '' || max_X == '' || max_Y == '') {
+alert("Please fill all fields...!!!!!!");
+} else {
+
+$.ajax({
+  url:"http://127.0.0.1:8080/rest/node/generate?" + 'nodesCount=' + nodes_Count +'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y,
+  type:"POST",
+  contentType:"application/json",
+  dataType:'json',
+  success: function(data, status){
 var width = 1300,
     height = 1000;
 
@@ -54,9 +71,8 @@ var force = d3.layout.force()
     .charge(0)
     .linkDistance(0)
     .linkStrength(0)
-    .gravity(0)
-    .on("tick", tick);
-
+    .gravity(0);
+console.log(data);
 var drag = force.drag();
 
 var svg = d3.select("body").append("svg")
@@ -66,15 +82,17 @@ var svg = d3.select("body").append("svg")
 var link = svg.selectAll(".link"),
     node = svg.selectAll(".node");
 
-d3.json("mockedGraph.json", function(error, graph) {
-  if (error) throw error;
+  	var graph = JSON.stringify(data);
 
+    d3.json(graph, function(error, sth) {
+
+var linki = [ {"source":1, "target":10}]
   force
       .nodes(graph.nodes)
-      .links(graph.links)
+      .links(linki)
       .start();
 
-  link = link.data(graph.links)
+  link = link.data(linki)
     .enter().append("line")
       .attr("class", "link");
 
@@ -107,15 +125,11 @@ d3.json("mockedGraph.json", function(error, graph) {
       });
 
 });
-
-function tick() {
-  link.attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
-
-  node.attr("cx", function(d) { d.fixed = true; return d.x; })
-      .attr("cy", function(d) { d.fixed = true; return d.y; });
+  }
+});
 }
+});
+});
+
 
 </script>
