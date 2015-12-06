@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<head>
+<title>Registration Form Using jQuery - Demo Preview</title>
+<meta name="robots" content="noindex, nofollow">
+<!-- Include CSS File Here -->
+<link rel="stylesheet" href="css/style.css"/>
+<!-- Include JS File Here -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/registration.js"></script>
+</head>
 <style>
 
 .link {
@@ -20,6 +29,20 @@
 
 </style>
 <body>
+
+<div class="container">
+<div class="main">
+<form class="form" method="post" action="#">
+<h2>Generate Nodes</h2>
+  <label>Nodes Count:</label>    <input type="number" value=50 name="nodes_Count" id="nodes_Count">
+  <label>Minimum Demand:</label> <input type="number" value=150 name="min_Demand" id="min_Demand">
+  <label>Maximum Demand:</label> <input type="number" value=500 name="max_Demand" id="max_Demand">
+  <label>Max X:</label>          <input type="number" value=800 name="max_X" id="max_X">
+  <label>Max Y:</label>          <input type="number" value=600 name="max_Y" id="max_Y">
+  <input type="button" name="register" id="register" value="Register">
+</form>
+</div>
+
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
