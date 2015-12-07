@@ -45,34 +45,18 @@
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
-$(document).ready(function() {
-$("#register").click(function() {
-
-var nodes_Count = $("#nodes_Count").val();
-var min_Demand = $("#min_Demand").val();
-var max_Demand = $("#max_Demand").val();
-var max_X = $("#max_X").val();
-var max_Y = $("#max_Y").val();
-if (nodes_Count == '' || min_Demand == '' || max_Demand == '' || max_X == '' || max_Y == '') {
-alert("Please fill all fields...!!!!!!");
-} else {
-
-$.ajax({
-  url:"http://127.0.0.1:8080/rest/node/generate?" + 'nodesCount=' + nodes_Count +'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y,
-  type:"POST",
-  contentType:"application/json",
-  dataType:'json',
-  success: function(data, status){
-var width = 1300,
-    height = 1000;
+function funk(dd){
+var width = 800,
+    height = 600;
 
 var force = d3.layout.force()
     .size([width, height])
     .charge(0)
     .linkDistance(0)
     .linkStrength(0)
-    .gravity(0);
-console.log(data);
+    .gravity(0)
+    .on("tick", tick);
+
 var drag = force.drag();
 
 var svg = d3.select("body").append("svg")
@@ -82,30 +66,23 @@ var svg = d3.select("body").append("svg")
 var link = svg.selectAll(".link"),
     node = svg.selectAll(".node");
 
-  	var graph = JSON.stringify(data);
+    root =  dd ;
 
-    d3.json(graph, function(error, sth) {
-
-var linki = [ {"source":1, "target":10}]
   force
-      .nodes(graph.nodes)
-      .links(linki)
+      .nodes(root.nodes)
       .start();
 
-  link = link.data(linki)
-    .enter().append("line")
-      .attr("class", "link");
-
-  node = node.data(graph.nodes)
+  node = node.data(root.nodes)
     .enter().append("circle")
       .attr("class", "node")
       .attr("r", 10)
-      .attr("fixed", true);
+      .attr("fixed", true)
+      .call(force.drag);
 
   var nodes = svg.append("g")
        .attr("class", "node")
        .selectAll("circle")
-       .data(graph.nodes)
+       .data(root.nodes)
        .enter()
        // Add one g element for each data node here.
        .append("g")
@@ -124,7 +101,39 @@ var linki = [ {"source":1, "target":10}]
        return d.id;
       });
 
-});
+function tick() {
+  node.attr("cx", function(d) { d.fixed = true; return d.x; })
+      .attr("cy", function(d) { d.fixed = true; return d.y; });
+}
+
+};
+
+
+
+
+$(document).ready(function() {
+$("#register").click(function() {
+
+var nodes_Count = $("#nodes_Count").val();
+var min_Demand = $("#min_Demand").val();
+var max_Demand = $("#max_Demand").val();
+var max_X = $("#max_X").val();
+var max_Y = $("#max_Y").val();
+if (nodes_Count == '' || min_Demand == '' || max_Demand == '' || max_X == '' || max_Y == '') {
+alert("Please fill all fields...!!!!!!");
+} else {
+
+
+
+$.ajax({
+  url:"http://127.0.0.1:8080/rest/node/generate?" + 'nodesCount=' + nodes_Count +'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y,
+  type:"POST",
+  contentType:"application/json",
+  async: false,
+  dataType:'json',
+  success: function(data, status){
+  	funk(data);
+
   }
 });
 }
