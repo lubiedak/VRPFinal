@@ -26,58 +26,62 @@
 					<label>Max X:</label>          <input type="number" class="form-control" value=800 name="max_X" id="max_X">
 				</div>
 				<div class="form-group">
-					<label>Max Y:</label>          <input type="number" class="form-control" value=600 name="max_Y" id="max_Y"></div>
+					<label>Max Y:</label>          <input type="number" class="form-control" value=600 name="max_Y" id="max_Y">
+				</div>
 				<input type="button" name="generate" id="generate" value="Generate">
 			</form>
 		</div>
+	</div>
 
-		<script src="//d3js.org/d3.v3.min.js"></script>
-		<script>
+	<script src="//d3js.org/d3.v3.min.js"></script>
+	<script>
 
-			function funk(dd){
-				var width = 800,
-				height = 600;
+		function draw(graph){
 
-				var force = d3.layout.force()
-				.size([width, height])
-				.charge(0)
-				.linkDistance(0)
-				.linkStrength(0)
-				.gravity(0)
-				.on("tick", tick);
+			var width = 800,
+			height = 600;
 
-				var drag = force.drag();
+			var force = d3.layout.force()
+			.size([width, height])
+			.charge(0)
+			.linkDistance(0)
+			.linkStrength(0)
+			.gravity(0)
+			.on("tick", tick);
 
-				var svg = d3.select("body").append("svg")
+			var svg;
+			var drag = force.drag();
+
+			if(!d3.select("svg").empty()){
+				d3.select("svg").remove();
+			}
+
+			svg = d3.select("body").append("svg")
 				.attr("width", width)
 				.attr("height", height);
 
-				var link = svg.selectAll(".link"),
-				node = svg.selectAll(".node");
+			var	node = svg.selectAll(".node");
 
-				root =  dd ;
+			force
+			.nodes(graph.nodes)
+			.start();
 
-				force
-				.nodes(root.nodes)
-				.start();
+			node = node.data(graph.nodes)
+			.enter().append("circle")
+			.attr("class", "node")
+			.attr("r", 10)
+			.attr("fixed", true)
+			.call(force.drag);
 
-				node = node.data(root.nodes)
-				.enter().append("circle")
-				.attr("class", "node")
-				.attr("r", 10)
-				.attr("fixed", true)
-				.call(force.drag);
-
-				var nodes = svg.append("g")
-				.attr("class", "node")
-				.selectAll("circle")
-				.data(root.nodes)
-				.enter()
-				.append("g")
-				.attr("transform", function(d, i) {
-
-					return "translate(" + (d.x) + "," + (d.y+5) + ")"; 
-				});
+			var nodes = svg.append("g")
+			.attr("class", "node")
+			.selectAll("circle")
+			.data(graph.nodes)
+			.enter()
+			.append("g")
+			.attr("transform", function(d, i) {
+				return "translate(" + (d.x) + "," + (d.y+5) + ")"; 
+			});
 
 // Add a text element to the previously added g element.
 nodes.append("text")
@@ -92,9 +96,7 @@ function tick() {
 	node.attr("cx", function(d) { d.fixed = true; return d.x; })
 	.attr("cy", function(d) { d.fixed = true; return d.y; });
 }
-
 };
-
 
 $(document).ready(function() {
 	$("#generate").click(function() {
@@ -117,8 +119,7 @@ $(document).ready(function() {
 				async: false,
 				dataType:'json',
 				success: function(data, status){
-					funk(data);
-
+					draw(data);
 				}
 			});
 		}
