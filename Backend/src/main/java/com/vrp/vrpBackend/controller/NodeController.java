@@ -37,20 +37,22 @@ public class NodeController extends BaseController {
 		GenericResponse response = new GenericResponse("");
 
 		response.add(linkTo(methodOn(NodeController.class).endpoints()).withSelfRel());
-		response.add(linkTo(methodOn(NodeController.class).generate(0, 0, 0, 0, 0, "dist", "", false)).withRel("generate"));
+		response.add(linkTo(methodOn(NodeController.class).generate(0, 0, 0, 0, 0, "text", "text", false)).withRel("generate"));
+
 		
 		return new ResponseEntity<Object>( response, HttpStatus.OK);
 	}
 
+
 	@RequestMapping(value = URL + "/generate", method = RequestMethod.POST)
-	public ResponseEntity<Object> generate( @RequestParam(value = "nodesCount", required = false, defaultValue = "50") int nodesCount,
-											@RequestParam(value = "minDemand",  required = false, defaultValue = "100") int minDemand,
-											@RequestParam(value = "maxDemand",  required = false, defaultValue = "1000") int maxDemand,
-											@RequestParam(value = "maxX",       required = false, defaultValue = "800") int maxX,
-											@RequestParam(value = "maxY",       required = false, defaultValue = "600") int maxY,
-											@RequestParam(value = "distribution", required = false, defaultValue = "xx") String distribution,
-											@RequestParam(value = "name",       required = false, defaultValue = "xx") String name,
-											@RequestParam(value = "dbSave",     required = false, defaultValue = "true") boolean dbSave) {
+	public ResponseEntity<Object> generate( @RequestParam int nodesCount,
+											@RequestParam int minDemand,
+											@RequestParam int maxDemand, 
+											@RequestParam int maxX,
+											@RequestParam int maxY,
+											@RequestParam(required=false) String distribution,
+											@RequestParam(required=false, defaultValue="xx") String name,
+											@RequestParam(required=false, defaultValue="false") boolean dbSave) {
 
 		GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand,
 											maxX, maxY, distribution, name, dbSave);
