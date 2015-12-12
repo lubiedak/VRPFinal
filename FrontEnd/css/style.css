@@ -44,7 +44,7 @@ text-shadow: 0 1px 0 #fff;
 font-size: 14px;
 font-weight: bold;
 }
-#register {
+#generate {
 font-size: 20px;
 margin-top: 15px;
 background: linear-gradient(#22abe9 5%, #36caf0 100%);
@@ -57,10 +57,26 @@ border-radius: 2px;
 cursor: pointer;
 width: 100%;
 }
-#register:hover{
+#generate:hover{
 background: linear-gradient(#36caf0 5%, #22abe9 100%);
 }
 
+
+.link {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.node {
+  cursor: move;
+  fill: #ccc;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.node.fixed {
+  fill: #f00;
+}
 
 .link {
   stroke: #000;
