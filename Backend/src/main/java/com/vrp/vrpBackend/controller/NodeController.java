@@ -38,6 +38,7 @@ public class NodeController extends BaseController {
 
 		response.add(linkTo(methodOn(NodeController.class).endpoints()).withSelfRel());
 		response.add(linkTo(methodOn(NodeController.class).generate(0, 0, 0, 0, 0, "text", "text", false)).withRel("generate"));
+
 		
 		return new ResponseEntity<Object>( response, HttpStatus.OK);
 	}
@@ -59,6 +60,7 @@ public class NodeController extends BaseController {
 		List<Node> n = generator.generateNodes(cfg);
 		Nodes nodes = new Nodes(name);
 		nodes.setNodes(n);
+		
 		if(cfg.isDbSave())
 			nodeService.save(nodes);
 
