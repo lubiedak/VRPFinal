@@ -12,12 +12,21 @@
 	<div class="container">
 		<div class="main">
 			<form class="form" method="post" action="#">
-				<h2>Generate Nodes</h2>
-				<label>Nodes Count:</label>    <input type="number" value=50 name="nodes_Count" id="nodes_Count">
-				<label>Minimum Demand:</label> <input type="number" value=150 name="min_Demand" id="min_Demand">
-				<label>Maximum Demand:</label> <input type="number" value=500 name="max_Demand" id="max_Demand">
-				<label>Max X:</label>          <input type="number" value=800 name="max_X" id="max_X">
-				<label>Max Y:</label>          <input type="number" value=600 name="max_Y" id="max_Y">
+				<h3>Generate Nodes</h3>
+				<div class="form-group">
+					<label>Nodes Count:</label>    <input type="number" class="form-control" value=50 name="nodes_Count" id="nodes_Count">
+				</div>
+				<div class="form-group">
+					<label>Minimum Demand:</label> <input type="number" class="form-control" value=150 name="min_Demand" id="min_Demand">
+				</div>
+				<div class="form-group">
+					<label>Maximum Demand:</label> <input type="number" class="form-control" value=500 name="max_Demand" id="max_Demand">
+				</div>
+				<div class="form-group">
+					<label>Max X:</label>          <input type="number" class="form-control" value=800 name="max_X" id="max_X">
+				</div>
+				<div class="form-group">
+					<label>Max Y:</label>          <input type="number" class="form-control" value=600 name="max_Y" id="max_Y"></div>
 				<input type="button" name="generate" id="generate" value="Generate">
 			</form>
 		</div>
