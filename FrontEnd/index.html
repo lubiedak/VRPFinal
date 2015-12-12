@@ -1,143 +1,129 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
-<title>Registration Form Using jQuery - Demo Preview</title>
-<meta name="robots" content="noindex, nofollow">
-<!-- Include CSS File Here -->
-<link rel="stylesheet" href="css/style.css"/>
-<!-- Include JS File Here -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<title>VRP App</title>
+	<meta name="robots" content="noindex, nofollow">
+	<!-- Include CSS File Here -->
+	<link rel="stylesheet" href="css/style.css"/>
+	<!-- Include JS File Here -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
-<style>
-
-.link {
-  stroke: #000;
-  stroke-width: 1.5px;
-}
-
-.node {
-  cursor: move;
-  fill: #ccc;
-  stroke: #000;
-  stroke-width: 1.5px;
-}
-
-.node.fixed {
-  fill: #f00;
-}
-
-</style>
 <body>
+	<div class="container">
+		<div class="main">
+			<form class="form" method="post" action="#">
+				<h3>Generate Nodes</h3>
+				<div class="form-group">
+					<label>Nodes Count:</label>    <input type="number" class="form-control" value=50 name="nodes_Count" id="nodes_Count">
+				</div>
+				<div class="form-group">
+					<label>Minimum Demand:</label> <input type="number" class="form-control" value=150 name="min_Demand" id="min_Demand">
+				</div>
+				<div class="form-group">
+					<label>Maximum Demand:</label> <input type="number" class="form-control" value=500 name="max_Demand" id="max_Demand">
+				</div>
+				<div class="form-group">
+					<label>Max X:</label>          <input type="number" class="form-control" value=800 name="max_X" id="max_X">
+				</div>
+				<div class="form-group">
+					<label>Max Y:</label>          <input type="number" class="form-control" value=600 name="max_Y" id="max_Y">
+				</div>
+				<input type="button" name="generate" id="generate" value="Generate">
+			</form>
+		</div>
+	</div>
 
-<div class="container">
-<div class="main">
-<form class="form" method="post" action="#">
-<h2>Generate Nodes</h2>
-  <label>Nodes Count:</label>    <input type="number" value=50 name="nodes_Count" id="nodes_Count">
-  <label>Minimum Demand:</label> <input type="number" value=150 name="min_Demand" id="min_Demand">
-  <label>Maximum Demand:</label> <input type="number" value=500 name="max_Demand" id="max_Demand">
-  <label>Max X:</label>          <input type="number" value=800 name="max_X" id="max_X">
-  <label>Max Y:</label>          <input type="number" value=600 name="max_Y" id="max_Y">
-  <input type="button" name="register" id="register" value="Register">
-</form>
-</div>
+	<script src="//d3js.org/d3.v3.min.js"></script>
+	<script>
 
-<script src="//d3js.org/d3.v3.min.js"></script>
-<script>
+		function draw(graph){
 
-function funk(dd){
-var width = 800,
-    height = 600;
+			var width = 800,
+			height = 600;
 
-var force = d3.layout.force()
-    .size([width, height])
-    .charge(0)
-    .linkDistance(0)
-    .linkStrength(0)
-    .gravity(0)
-    .on("tick", tick);
+			var force = d3.layout.force()
+			.size([width, height])
+			.charge(0)
+			.linkDistance(0)
+			.linkStrength(0)
+			.gravity(0)
+			.on("tick", tick);
 
-var drag = force.drag();
+			var svg;
+			var drag = force.drag();
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+			if(!d3.select("svg").empty()){
+				d3.select("svg").remove();
+			}
 
-var link = svg.selectAll(".link"),
-    node = svg.selectAll(".node");
+			svg = d3.select("body").append("svg")
+				.attr("width", width)
+				.attr("height", height);
 
-    root =  dd ;
+			var	node = svg.selectAll(".node");
 
-  force
-      .nodes(root.nodes)
-      .start();
+			force
+			.nodes(graph.nodes)
+			.start();
 
-  node = node.data(root.nodes)
-    .enter().append("circle")
-      .attr("class", "node")
-      .attr("r", 10)
-      .attr("fixed", true)
-      .call(force.drag);
+			node = node.data(graph.nodes)
+			.enter().append("circle")
+			.attr("class", "node")
+			.attr("r", 10)
+			.attr("fixed", true)
+			.call(force.drag);
 
-  var nodes = svg.append("g")
-       .attr("class", "node")
-       .selectAll("circle")
-       .data(root.nodes)
-       .enter()
-       // Add one g element for each data node here.
-       .append("g")
-       // Position the g element like the circle element used to be.
-       .attr("transform", function(d, i) {
-
-         return "translate(" + (d.x) + "," + (d.y+5) + ")"; 
-       });
+			var nodes = svg.append("g")
+			.attr("class", "node")
+			.selectAll("circle")
+			.data(graph.nodes)
+			.enter()
+			.append("g")
+			.attr("transform", function(d, i) {
+				return "translate(" + (d.x) + "," + (d.y+5) + ")"; 
+			});
 
 // Add a text element to the previously added g element.
-  nodes.append("text")
-     .attr("text-anchor", "middle")
-     .attr("font-family","arial")
-     .attr("font-size","12px")
-     .text(function(d) {
-       return d.id;
-      });
+nodes.append("text")
+.attr("text-anchor", "middle")
+.attr("font-family","arial")
+.attr("font-size","9pt")
+.text(function(d) {
+	return d.id;
+});
 
 function tick() {
-  node.attr("cx", function(d) { d.fixed = true; return d.x; })
-      .attr("cy", function(d) { d.fixed = true; return d.y; });
+	node.attr("cx", function(d) { d.fixed = true; return d.x; })
+	.attr("cy", function(d) { d.fixed = true; return d.y; });
 }
-
 };
 
-
-
-
 $(document).ready(function() {
-$("#register").click(function() {
+	$("#generate").click(function() {
 
-var nodes_Count = $("#nodes_Count").val();
-var min_Demand = $("#min_Demand").val();
-var max_Demand = $("#max_Demand").val();
-var max_X = $("#max_X").val();
-var max_Y = $("#max_Y").val();
-if (nodes_Count == '' || min_Demand == '' || max_Demand == '' || max_X == '' || max_Y == '') {
-alert("Please fill all fields...!!!!!!");
-} else {
+		var nodes_Count = $("#nodes_Count").val();
+		var min_Demand = $("#min_Demand").val();
+		var max_Demand = $("#max_Demand").val();
+		var max_X = $("#max_X").val();
+		var max_Y = $("#max_Y").val();
+		if (nodes_Count == '' || min_Demand == '' || max_Demand == '' || max_X == '' || max_Y == '') {
+			alert("Please fill all fields...!!!!!!");
+		} else {
 
 
 
-$.ajax({
-  url:"http://127.0.0.1:8080/rest/node/generate?" + 'nodesCount=' + nodes_Count +'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y,
-  type:"POST",
-  contentType:"application/json",
-  async: false,
-  dataType:'json',
-  success: function(data, status){
-  	funk(data);
-
-  }
-});
-}
-});
+			$.ajax({
+				url:"http://127.0.0.1:8080/rest/node/generate?" + 'nodesCount=' + nodes_Count +'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y,
+				type:"POST",
+				contentType:"application/json",
+				async: false,
+				dataType:'json',
+				success: function(data, status){
+					draw(data);
+				}
+			});
+		}
+	});
 });
 
 
