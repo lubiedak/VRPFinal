@@ -1,5 +1,5 @@
 # Front End ReadMe
-> A guide to setting up and developing the front-end component of BookIt V2
+> A guide to setting up and developing the front-end component of VRP
 
 Node.js is a Javascript Platform for server-side programming, it allows the front-end to run on network and as such provides a realistic environment to test and develop. Node Package Manager or NPM is Node's package manager, which can be utilised for Anuglar, Ember, Javascript and a variety of other front-end tools. It provides a means to utilise packages such as Browserify, Grunt, Gulp and Bower, which will be explained later in the ReadMe.
 
@@ -34,7 +34,7 @@ $ node -v
 Now we can use NPM to install packages
 
 ## Install Grunt globally
-Grunt is a task runner for JavaScript and allows the automation of tasks and processes. To achieve this, Grunt utilises a GruntFile.js in the project folder which details the relevant task for the project. For BookIt 2.0 the WebUI is run on a local server utilising `grunt-connect`
+Grunt is a task runner for JavaScript and allows the automation of tasks and processes. To achieve this, Grunt utilises a GruntFile.js in the project folder which details the relevant task for the project. For VRP 2.0 the WebUI is run on a local server utilising `grunt-connect`
 
 In order to use grunt we need to install `grunt-cli` globally.
 
@@ -88,5 +88,5 @@ Now that the front-end is up and running, navigate to the Backend folder in the 
 $ gradle clean build
 ```
 ```
-$ java -jar build/libs/bookit.jar
+$ java -jar build/libs/build/libs/vrpBackend.jar 
 ```
