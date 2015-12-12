@@ -36,11 +36,7 @@
 	<script src="//d3js.org/d3.v3.min.js"></script>
 	<script>
 
-		function draw(graph){
-
-			var width = 800,
-			height = 600;
-
+		function draw(graph, width, height){
 			var force = d3.layout.force()
 			.size([width, height])
 			.charge(0)
@@ -119,7 +115,7 @@ $(document).ready(function() {
 				async: false,
 				dataType:'json',
 				success: function(data, status){
-					draw(data);
+					draw(data, max_X, max_Y);
 				}
 			});
 		}
