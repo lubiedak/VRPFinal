@@ -18,13 +18,20 @@ class Problem {
 public:
 	Problem();
 	virtual ~Problem();
+	void analyze();
 
 private:
+
+	unsigned findBiggestDemander();
+	unsigned sumDemands();
+
+	unsigned biggestDemander;
+	unsigned demandsSum;
+
 	Criteria criteria;
 	std::vector<Node> nodes;
 	std::vector<Cycle> cycles;
-
-
+	std::vector< std::vector<short> > distances;
 };
 
 #endif /* MODEL_PROBLEM_H_ */

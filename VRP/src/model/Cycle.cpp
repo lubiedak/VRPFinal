@@ -7,10 +7,6 @@
 
 #include "Cycle.h"
 
-Cycle::Cycle() {
-	// TODO Auto-generated constructor stub
-
-}
 
 Cycle::~Cycle() {
 	// TODO Auto-generated destructor stub

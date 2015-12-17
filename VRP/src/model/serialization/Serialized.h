@@ -33,6 +33,9 @@ public:
 	const char mapDelimiter = '=';
 	const char delimiter = ',';
 
+	virtual ~Serialized() {
+	}
+
 private:
 
 	std::vector<std::string> split(std::string str, char del) {
