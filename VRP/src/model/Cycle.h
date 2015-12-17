@@ -11,11 +11,18 @@
 #include <string>
 #include <vector>
 #include "Node.h"
+#include "serialization/Serialized.h"
 
-class Cycle {
+class Cycle : public Serialized  {
 public:
 	Cycle();
 	virtual ~Cycle();
+
+	std::string toString();
+
+	virtual std::string serialize();
+	virtual bool deserialize(std::string);
+
 
 private:
     unsigned id;

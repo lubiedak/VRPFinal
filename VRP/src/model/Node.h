@@ -9,12 +9,19 @@
 #define MODEL_NODE_H_
 
 #include <string>
+#include "serialization/Serialized.h"
 
-class Node {
+class Node : public Serialized   {
 public:
+	Node();
 	virtual ~Node();
 
-	Node(unsigned id, std::string name, unsigned x, unsigned y, unsigned demand);
+	Node(unsigned id, const std::string& name, unsigned x, unsigned y, unsigned demand);
+
+	std::string toString();
+
+	virtual std::string serialize();
+	virtual bool deserialize(std::string);
 
 
 	unsigned getId() const {return id;}
