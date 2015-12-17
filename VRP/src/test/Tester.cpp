@@ -10,15 +10,19 @@
 #include <iostream>
 #include <utility>
 
-#include "Criteria_test.h"
 #include "PermutationGen_test.h"
+#include "SerializationTest.h"
 
 
 Tester::Tester(bool silentMode) {
-	tests["PermutationsGeneration_TEST"] = &PermutationsGeneration_TEST;
-	tests["SerializationModel_TEST"] = &SerializationModel_TEST;
-
 	this->silentMode = silentMode;
+
+	tests["PermutationsGeneration_TEST"] = &PermutationsGeneration_TEST;
+	tests["CriteriaSerialization_TEST"]  = &CriteriaSerialization_TEST;
+	tests["NodeSerialization_TEST"]      = &NodeSerialization_TEST;
+	tests["CycleSerialization_TEST"]     = &CycleSerialization_TEST;
+	tests["ProblemSerialization_TEST"]   = &ProblemSerialization_TEST;
+	tests["SolutionSerialization_TEST"]  = &SolutionSerialization_TEST;
 }
 
 Tester::~Tester() {
@@ -27,7 +31,7 @@ Tester::~Tester() {
 
 void Tester::runAll() {
 	for(auto test : tests){
-		std::cout<<test.first<<": " << (test.second(silentMode) ? "PASSED":"FAILED")<<std::endl;
+		std::cout<<test.first<<": " << (test.second(this->silentMode) ? "PASSED":"FAILED")<<std::endl;
 	}
 }
 
