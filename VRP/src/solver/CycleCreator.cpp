@@ -16,3 +16,11 @@ CycleCreator::~CycleCreator() {
 	// TODO Auto-generated destructor stub
 }
 
+bool CycleCreator::optimize(std::vector<Cycle>& cycles) {
+	return true;
+}
+
+bool CycleCreator::create(Problem& problem) {
+
+	return true;
+}
