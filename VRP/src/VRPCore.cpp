@@ -17,8 +17,9 @@ using namespace std;
 
 int main() {
 
-	Tester tester(false);
+	Tester tester(true);
 	tester.runAll();
 
 	return 0;
 }
+
