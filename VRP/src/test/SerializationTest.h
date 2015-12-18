@@ -1,11 +1,12 @@
 /*
- * Criteria_test.h
+ * SerializationTest.h
  *
  *  Created on: 28 Nov 2015
  *      Author: lubiedak
  */
 
 #include "../model/Criteria.h"
+#include "../model/Cycle.h"
 
 bool CriteriaSerialization_TEST(bool silentMode) {
 	Criteria cr = Criteria(1, 2, 3);
@@ -21,10 +22,15 @@ bool CriteriaSerialization_TEST(bool silentMode) {
 }
 
 bool CycleSerialization_TEST(bool silentMode) {
+	Cycle c;
+	std::cout<<c.serialize();
+
 	return true;
 }
 
 bool NodeSerialization_TEST(bool silentMode) {
+	Node n;
+	std::cout<<n.serialize();
 	return true;
 }
 

@@ -28,9 +28,6 @@ public:
 	virtual std::string serialize();
 	virtual bool deserialize(std::string);
 
-
-	std::map<std::string, unsigned> properties;
-
 	unsigned maxCapacity(){return properties["maxCapacity"];}
 	unsigned minCapacity(){return properties["minCapacity"];}
 
@@ -40,9 +37,8 @@ public:
 	unsigned maxNodes(){return properties["maxNodes"];}
 	unsigned minNodes(){return properties["minNodes"];}
 
-
 private:
-
+	std::map<std::string, unsigned> properties;
 };
 
 
