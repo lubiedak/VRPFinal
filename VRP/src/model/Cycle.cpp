@@ -7,8 +7,9 @@
 
 #include "Cycle.h"
 
-Cycle::Cycle(): id(0), distance(0), demand(0), capacity(0) {
+Cycle::Cycle() : id(0), distance(0), demand(0), capacity(0) {
 	nodes = std::vector<Node>();
+	membersCount = 5;
 }
 
 Cycle& Cycle::operator =(const Cycle& c) {
@@ -17,7 +18,17 @@ Cycle& Cycle::operator =(const Cycle& c) {
 	this->demand = c.demand;
 	this->distance = c.distance;
 	this->nodes = c.nodes;
+	this->membersCount = c.membersCount;
 	return *this;
+}
+
+Cycle::Cycle(const Cycle& c) {
+	id = c.id;
+	distance = c.distance;
+	demand = c.demand;
+	capacity = c.capacity;
+	nodes = c.nodes;
+	membersCount = c.membersCount;
 }
 
 Cycle::~Cycle() {
@@ -29,10 +40,11 @@ std::string Cycle::toString() {
 	oss << std::string("class=Cycle");
 	oss << delimiter << "id" << mapDelimiter << id;
 	oss << delimiter << "distance" << mapDelimiter << distance;
-	oss << delimiter << "demand"   << mapDelimiter << demand;
+	oss << delimiter << "demand" << mapDelimiter << demand;
 	oss << delimiter << "capacity" << mapDelimiter << capacity;
-	for(auto n : nodes){
-		oss << delimiter << "nodeId" << mapDelimiter << n.getId();
+	int i = 0;
+	for (auto n : nodes) {
+		oss << delimiter << "nodeId" << i++ << mapDelimiter << n.getId();
 	}
 
 	return oss.str();
@@ -41,15 +53,6 @@ std::string Cycle::toString() {
 std::string Cycle::serialize() {
 	return toString();
 }
-
-Cycle::Cycle(const Cycle& c) {
-	id = c.id;
-	distance = c.distance;
-	demand = c.demand;
-	capacity = c.capacity;
-	nodes = c.nodes;
-}
-
 
 
 bool Cycle::deserialize(std::string allocator) {

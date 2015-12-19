@@ -36,6 +36,7 @@ public:
 
 	const char mapDelimiter = '=';
 	const char delimiter = ',';
+	int membersCount = 0;
 
 private:
 

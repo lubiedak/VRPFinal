@@ -15,6 +15,7 @@ Node::~Node() {
 
 Node::Node(unsigned id, const std::string& name, unsigned x, unsigned y,
 		unsigned demand) : id(id), name(name), x(x), y(y), demand(demand) {
+	membersCount=5;
 }
 Node::Node(const Node& n) : Node(n.id, n.name, n.x, n.y, n.demand) {
 }
@@ -25,6 +26,7 @@ Node& Node::operator =(const Node& n) {
 	this->x = n.x;
 	this->y = n.y;
 	this->demand = n.demand;
+	this->membersCount = 5;
 	return *this;
 }
 

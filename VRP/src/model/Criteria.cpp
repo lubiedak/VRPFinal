@@ -19,18 +19,22 @@ Criteria::Criteria(unsigned maxC, unsigned maxD, unsigned maxN, unsigned minC,
 	properties["minCapacity"] = minC;
 	properties["minDistance"] = minD;
 	properties["minNodes"] = minN;
+	membersCount = 6;
 }
 
 Criteria::Criteria(unsigned maxC, unsigned maxD, unsigned maxN) :
 		Criteria(maxC, maxD, maxN, 0, 0, 0) {
+	membersCount = 6;
 }
 
 Criteria::Criteria(const Criteria& c) {
 	properties = c.properties;
+	membersCount = 6;
 }
 
 Criteria& Criteria::operator =(const Criteria& c) {
 	this->properties = c.properties;
+	this->membersCount = c.membersCount;
 	return *this;
 }
 
