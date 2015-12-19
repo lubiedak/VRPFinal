@@ -10,7 +10,6 @@
 
 Problem::Problem() {
 	// TODO Auto-generated constructor stub
-
 }
 
 Problem::~Problem() {

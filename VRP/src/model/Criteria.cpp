@@ -10,9 +10,9 @@
 #include <sstream>
 #include <string>
 
-Criteria::Criteria(unsigned maxC, unsigned maxD, unsigned maxN, unsigned minC,
-		unsigned minD, unsigned minN) {
-	properties = std::map<std::string, unsigned>();
+Criteria::Criteria(unsigned short maxC, unsigned short maxD, unsigned short maxN, unsigned short minC,
+		unsigned short minD, unsigned short minN) {
+	properties = std::map<std::string, short unsigned>();
 	properties["maxCapacity"] = maxC;
 	properties["maxDistance"] = maxD;
 	properties["maxNodes"] = maxN;
@@ -22,7 +22,7 @@ Criteria::Criteria(unsigned maxC, unsigned maxD, unsigned maxN, unsigned minC,
 	membersCount = 6;
 }
 
-Criteria::Criteria(unsigned maxC, unsigned maxD, unsigned maxN) :
+Criteria::Criteria(unsigned short maxC, unsigned short maxD, unsigned short maxN) :
 		Criteria(maxC, maxD, maxN, 0, 0, 0) {
 	membersCount = 6;
 }

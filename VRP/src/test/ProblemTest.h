@@ -9,6 +9,7 @@
 #define TEST_PROBLEMTEST_H_
 
 #include "../model/Problem.h"
+#include "resources/ProblemsForTest.h"
 
 bool DistancesCreation_TEST(bool silentMode) {
 	Problem p = Problem();
@@ -18,6 +19,20 @@ bool DistancesCreation_TEST(bool silentMode) {
 	p.generateDistances();
 	std::vector<std::vector<unsigned short>> dist = p.getDistances();
 	return dist[0][1] == 5;
+}
+
+bool RandomProblem_TEST(bool silentMode){
+	ProblemGenParams params;
+	params.maxDemand = 600;
+	params.minDemand = 100;
+	params.maxX = 1000;
+	params.maxY = 1000;
+	params.nodes = 24;
+
+	Criteria c(1000,1000,5);
+
+	Problem p = createRandomProblem(c, params);
+
 }
 
 

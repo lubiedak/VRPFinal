@@ -17,10 +17,10 @@ public:
 
 	Criteria(){}
 
-	Criteria(unsigned maxC, unsigned maxD, unsigned maxN, unsigned minC,
-			unsigned minD, unsigned minN);
+	Criteria(unsigned short maxC, unsigned short maxD, unsigned short maxN, unsigned short minC,
+			unsigned short minD, unsigned short minN);
 
-	Criteria(unsigned maxC, unsigned maxD, unsigned maxN);
+	Criteria(unsigned short maxC, unsigned short maxD, unsigned short maxN);
 
 	Criteria(const Criteria& c);
 
@@ -32,18 +32,18 @@ public:
 	virtual std::string serialize();
 	virtual bool deserialize(std::string);
 
-	unsigned maxCapacity(){return properties["maxCapacity"];}
-	unsigned minCapacity(){return properties["minCapacity"];}
+	unsigned short maxCapacity(){return properties["maxCapacity"];}
+	unsigned short minCapacity(){return properties["minCapacity"];}
 
-	unsigned maxDistance(){return properties["maxDistance"];}
-	unsigned minDistance(){return properties["minDistance"];}
+	unsigned short maxDistance(){return properties["maxDistance"];}
+	unsigned short minDistance(){return properties["minDistance"];}
 
-	unsigned maxNodes(){return properties["maxNodes"];}
-	unsigned minNodes(){return properties["minNodes"];}
+	unsigned short maxNodes(){return properties["maxNodes"];}
+	unsigned short minNodes(){return properties["minNodes"];}
 
 
 private:
-	std::map<std::string, unsigned> properties;
+	std::map<std::string, short unsigned> properties;
 };
 
 
