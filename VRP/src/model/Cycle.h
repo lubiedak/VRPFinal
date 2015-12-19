@@ -27,10 +27,10 @@ public:
 
 
 private:
-    unsigned id;
-    unsigned distance;
-    unsigned demand;
-    unsigned capacity;
+	uint32_t id;
+	uint16_t distance;
+	uint16_t demand;
+	uint16_t capacity;
     std::vector<Node> nodes;
 };
 

@@ -14,7 +14,7 @@ Node::Node() :
 Node::~Node() {
 }
 
-Node::Node(unsigned id, const std::string& name, unsigned x, unsigned y, unsigned demand) :
+Node::Node(uint32_t id, const std::string& name, uint16_t x, uint16_t y, uint16_t demand) :
 		id(id), name(name), x(x), y(y), demand(demand) {
 	membersCount = 5;
 }

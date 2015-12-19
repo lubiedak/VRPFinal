@@ -9,12 +9,15 @@
 #define SOLVER_CYCLECREATOR_H_
 
 #include <vector>
+
 #include "../model/Cycle.h"
 #include "../model/Problem.h"
+#include "PermutationGen.h"
+#include <stdint.h>
 
 class CycleCreator {
 public:
-	CycleCreator();
+	CycleCreator(Problem p, Criteria c);
 	virtual ~CycleCreator();
 
 	/**
@@ -26,7 +29,17 @@ public:
 	 * Responsible for creating all optimised cycles
 	 * based on problem criteria
 	 */
-	bool create(Problem& problem);
+	bool create();
+
+private:
+	PermutationGen<int> permGen;
+	Problem problem;
+	Criteria criteria;
+
+	uint32_t countN(Problem p, unsigned maxNodes);
+	uint16_t countPossibleCycles();
+	uint32_t NumberOfSetBits(int i);
+	uint16_t SumCargo( uint32_t set, const std::vector<Node>& nodes);
 };
 
 #endif /* SOLVER_CYCLECREATOR_H_ */

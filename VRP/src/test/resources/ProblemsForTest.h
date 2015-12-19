@@ -33,6 +33,7 @@ Problem problem1() {
 	nodes.push_back(Node(1, "X1", 0, 0, 0));
 
 	Problem problem = Problem();
+	return problem;
 
 }
 
@@ -40,9 +41,11 @@ Problem createRandomProblem(Criteria criteria, ProblemGenParams p) {
 	Problem problem;
 	problem.setCriteria(criteria);
 	srand(time(NULL));
-	for (int i = 0; i < p.nodes; ++i) {
-		Node n = Node(i, std::string("rand", rand() % p.maxX, rand() % p.maxY,
-						p.minDemand + rand() % (p.maxDemand - p.minDemand)));
+	for (uint16_t i = 0; i < p.nodes; ++i) {
+		Node n = Node(i, std::string("rand"),
+				rand() % p.maxX,
+				rand() % p.maxY,
+				p.minDemand + rand() % (p.maxDemand - p.minDemand));
 		problem.addNode(n);
 	}
 	problem.generateDistances();

@@ -9,7 +9,9 @@
 #define TEST_PROBLEMTEST_H_
 
 #include "../model/Problem.h"
+
 #include "resources/ProblemsForTest.h"
+
 
 bool DistancesCreation_TEST(bool silentMode) {
 	Problem p = Problem();
@@ -32,7 +34,7 @@ bool RandomProblem_TEST(bool silentMode){
 	Criteria c(1000,1000,5);
 
 	Problem p = createRandomProblem(c, params);
-
+	return true;
 }
 
 
