@@ -7,11 +7,17 @@
 
 #include "Cycle.h"
 
-Cycle::Cycle() {
-	id = 0;
-	distance = 0;
-	demand = 0;
-	capacity = 0;
+Cycle::Cycle(): id(0), distance(0), demand(0), capacity(0) {
+	nodes = std::vector<Node>();
+}
+
+Cycle& Cycle::operator =(const Cycle& c) {
+	this->id = c.id;
+	this->capacity = c.capacity;
+	this->demand = c.demand;
+	this->distance = c.distance;
+	this->nodes = c.nodes;
+	return *this;
 }
 
 Cycle::~Cycle() {
@@ -35,6 +41,16 @@ std::string Cycle::toString() {
 std::string Cycle::serialize() {
 	return toString();
 }
+
+Cycle::Cycle(const Cycle& c) {
+	id = c.id;
+	distance = c.distance;
+	demand = c.demand;
+	capacity = c.capacity;
+	nodes = c.nodes;
+}
+
+
 
 bool Cycle::deserialize(std::string allocator) {
 	return true;

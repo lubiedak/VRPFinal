@@ -25,6 +25,15 @@ Criteria::Criteria(unsigned maxC, unsigned maxD, unsigned maxN) :
 		Criteria(maxC, maxD, maxN, 0, 0, 0) {
 }
 
+Criteria::Criteria(const Criteria& c) {
+	properties = c.properties;
+}
+
+Criteria& Criteria::operator =(const Criteria& c) {
+	this->properties = c.properties;
+	return *this;
+}
+
 std::string Criteria::toString() {
 	std::stringstream oss;
 	oss << std::string("class=Criteria");
@@ -39,9 +48,12 @@ std::string Criteria::serialize() {
 	return toString();
 }
 
+
+
 bool Criteria::deserialize(std::string str) {
 	std::map<std::string, std::string> values = parse(str);
 
 	return true;
 }
+
 

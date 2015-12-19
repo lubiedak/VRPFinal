@@ -16,6 +16,11 @@
 class Serialized {
 
 public:
+	Serialized(){}
+	Serialized(const Serialized& s) {}
+	virtual ~Serialized() {
+	}
+
 	virtual std::string serialize() = 0;
 	virtual bool deserialize(std::string) = 0;
 
@@ -26,15 +31,11 @@ public:
 			auto key_val = split(tag, '=');
 			tag_map.insert(std::make_pair(key_val[0], key_val[1]));
 		}
-
 		return tag_map;
 	}
 
 	const char mapDelimiter = '=';
 	const char delimiter = ',';
-
-	virtual ~Serialized() {
-	}
 
 private:
 
