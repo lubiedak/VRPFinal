@@ -9,21 +9,44 @@
 #define TEST_RESOURCES_PROBLEMSFORTEST_H_
 
 #include <vector>
+#include <stdlib.h>
+#include <time.h>
 
 #include "../../model/Criteria.h"
 #include "../../model/Node.h"
 #include "../../model/Problem.h"
+
+struct ProblemGenParams {
+	unsigned nodes;
+	unsigned short maxX;
+	unsigned short maxY;
+	unsigned short minDemand;
+	unsigned short maxDemand;
+};
 
 Problem problem1() {
 
 	Criteria criteria = Criteria(1000, 20000, 5);
 
 	std::vector<Node> nodes = std::vector<Node>();
-	nodes.push_back(Node(0,"Depot",0,0,0 ));
-	nodes.push_back(Node(1,"X1",0,0,0 ));
+	nodes.push_back(Node(0, "Depot", 0, 0, 0));
+	nodes.push_back(Node(1, "X1", 0, 0, 0));
 
 	Problem problem = Problem();
 
+}
+
+Problem createRandomProblem(Criteria criteria, ProblemGenParams p) {
+	Problem problem;
+	problem.setCriteria(criteria);
+	srand(time(NULL));
+	for (int i = 0; i < p.nodes; ++i) {
+		Node n = Node(i, std::string("rand", rand() % p.maxX, rand() % p.maxY,
+						p.minDemand + rand() % (p.maxDemand - p.minDemand)));
+		problem.addNode(n);
+	}
+	problem.generateDistances();
+	return problem;
 }
 
 #endif /* TEST_RESOURCES_PROBLEMSFORTEST_H_ */
