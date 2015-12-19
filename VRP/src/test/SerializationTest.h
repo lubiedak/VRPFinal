@@ -16,22 +16,29 @@ bool CriteriaSerialization_TEST(bool silentMode) {
 
 	if (!silentMode) {
 		std::cout << expectedCR << std::endl;
-		std::cout << cr.toString() << std::endl;
+		std::cout << cr.serialize() << std::endl;
 	}
-	return 0 == expectedCR.compare(cr.toString());
+	return 0 == expectedCR.compare(cr.serialize());
 }
 
 bool CycleSerialization_TEST(bool silentMode) {
 	Cycle c;
-	std::cout<<c.serialize();
-
-	return true;
+	std::string expectedC = "class=Cycle,id=0,distance=0,demand=0,capacity=0";
+	if (!silentMode) {
+		std::cout << expectedC << std::endl;
+		std::cout << c.serialize() << std::endl;
+	}
+	return 0 == expectedC.compare(c.serialize());
 }
 
 bool NodeSerialization_TEST(bool silentMode) {
 	Node n;
-	std::cout<<n.serialize();
-	return true;
+	std::string expectedN = "class=Node,id=0,name=node,x=0,y=0,demand=0";
+	if (!silentMode) {
+		std::cout << expectedN << std::endl;
+		std::cout << n.serialize() << std::endl;
+	}
+	return 0 == expectedN.compare(n.serialize());
 }
 
 

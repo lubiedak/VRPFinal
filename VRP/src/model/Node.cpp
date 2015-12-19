@@ -14,12 +14,18 @@ Node::~Node() {
 }
 
 Node::Node(unsigned id, const std::string& name, unsigned x, unsigned y,
-		unsigned demand) {
-	this->id = id;
-	this->name = name;
-	this->x = x;
-	this->y = y;
-	this->demand = demand;
+		unsigned demand) : id(id), name(name), x(x), y(y), demand(demand) {
+}
+Node::Node(const Node& n) : Node(n.id, n.name, n.x, n.y, n.demand) {
+}
+
+Node& Node::operator =(const Node& n) {
+	this->id = n.id;
+	this->name = n.name;
+	this->x = n.x;
+	this->y = n.y;
+	this->demand = n.demand;
+	return *this;
 }
 
 std::string Node::toString() {
@@ -41,4 +47,5 @@ std::string Node::serialize() {
 bool Node::deserialize(std::string allocator) {
 	return true;
 }
+
 

@@ -11,9 +11,11 @@
 #include <string>
 #include "serialization/Serialized.h"
 
-class Node : public Serialized   {
+class Node : public Serialized {
 public:
 	Node();
+	Node(const Node& n);
+	Node& operator=(const Node&);
 	virtual ~Node();
 
 	Node(unsigned id, const std::string& name, unsigned x, unsigned y, unsigned demand);

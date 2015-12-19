@@ -16,6 +16,8 @@
 class Cycle : public Serialized  {
 public:
 	Cycle();
+	Cycle(const Cycle& c);
+	Cycle& operator=(const Cycle&);
 	virtual ~Cycle();
 
 	std::string toString();

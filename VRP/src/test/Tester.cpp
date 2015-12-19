@@ -12,6 +12,7 @@
 
 #include "PermutationGen_test.h"
 #include "SerializationTest.h"
+#include "ProblemTest.h"
 
 
 Tester::Tester(bool silentMode) {
@@ -23,6 +24,7 @@ Tester::Tester(bool silentMode) {
 	tests["CycleSerialization_TEST"]     = &CycleSerialization_TEST;
 	tests["ProblemSerialization_TEST"]   = &ProblemSerialization_TEST;
 	tests["SolutionSerialization_TEST"]  = &SolutionSerialization_TEST;
+	tests["DistancesCreation_TEST"]      = &DistancesCreation_TEST;
 }
 
 Tester::~Tester() {

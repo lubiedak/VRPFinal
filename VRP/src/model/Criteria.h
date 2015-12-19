@@ -22,6 +22,10 @@ public:
 
 	Criteria(unsigned maxC, unsigned maxD, unsigned maxN);
 
+	Criteria(const Criteria& c);
+
+	Criteria& operator=(const Criteria& c);
+
 	virtual ~Criteria(){};
 	std::string toString();
 
@@ -36,6 +40,7 @@ public:
 
 	unsigned maxNodes(){return properties["maxNodes"];}
 	unsigned minNodes(){return properties["minNodes"];}
+
 
 private:
 	std::map<std::string, unsigned> properties;
