@@ -35,8 +35,8 @@ uint16_t CycleCreator::countPossibleCycles() {
 	uint16_t counter = 0;
 	uint16_t baseCounter = 0;
 
-	uint16_t cycleSize, cargo=0;
-	for (uint32_t i = 1; i < N; ++i) {
+	uint16_t cycleSize=0, cargo=0;
+	for (uint32_t i = 1; i <= N; ++i) {
 		cycleSize = NumberOfSetBits(i);
 		if (cycleSize >= criteria.minNodes() && cycleSize <= criteria.maxNodes()) {
 			cargo = SumCargo(i, problem.getNodes());
@@ -50,12 +50,11 @@ uint16_t CycleCreator::countPossibleCycles() {
 			}
 		}
 	}
-
 	return counter;
 }
 
 unsigned CycleCreator::countN(Problem p, unsigned maxNodes) {
-	return (unsigned) (pow(2.0, p.size()) - 1 - pow(2.0, p.size() - maxNodes));
+	return (unsigned) (pow(2.0, p.size()) - pow(2.0, p.size() - maxNodes));
 }
 
 uint32_t CycleCreator::NumberOfSetBits(int i) {
