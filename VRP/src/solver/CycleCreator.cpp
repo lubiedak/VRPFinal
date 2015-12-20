@@ -25,7 +25,7 @@ bool CycleCreator::optimize(std::vector<Cycle>& cycles) {
 
 bool CycleCreator::create() {
 
-
+	uint16_t size = countPossibleCycles();
 	return true;
 }
 
@@ -35,10 +35,10 @@ uint16_t CycleCreator::countPossibleCycles() {
 	uint16_t counter = 0;
 	uint16_t baseCounter = 0;
 
-	uint16_t cycle_size, cargo;
+	uint16_t cycleSize, cargo=0;
 	for (uint32_t i = 1; i < N; ++i) {
-		cycle_size = NumberOfSetBits(i);
-		if (cycle_size <= criteria.maxNodes()) {
+		cycleSize = NumberOfSetBits(i);
+		if (cycleSize >= criteria.minNodes() && cycleSize <= criteria.maxNodes()) {
 			cargo = SumCargo(i, problem.getNodes());
 			if (cargo > criteria.minCapacity() && cargo < criteria.maxCapacity()) {
 				if (i & problem.getBiggestDemander()) {
@@ -67,9 +67,11 @@ uint32_t CycleCreator::NumberOfSetBits(int i) {
 uint16_t CycleCreator::SumCargo( uint32_t set, const std::vector<Node>& nodes)
 {
 	uint16_t cargo = 0;
-    for (uint16_t j = 0; j < nodes.size(); ++j)
-    {
-        cargo += (set) * nodes[j].getDemand();
+    for (uint16_t j = 0; j < nodes.size(); ++j) {
+        cargo += (set & 1) * nodes[j].getDemand();
+        set = set >> 1;
+        if(!set)
+        	break;
     }
     return cargo;
 }

@@ -17,11 +17,11 @@
 #include "../../model/Problem.h"
 
 struct ProblemGenParams {
-	unsigned nodes;
-	unsigned short maxX;
-	unsigned short maxY;
-	unsigned short minDemand;
-	unsigned short maxDemand;
+	uint16_t nodes;
+	uint16_t maxX;
+	uint16_t maxY;
+	uint16_t minDemand;
+	uint16_t maxDemand;
 };
 
 Problem problem1() {

@@ -10,6 +10,7 @@
 
 #include "../model/Problem.h"
 
+#include "../solver/CycleCreator.h"
 #include "resources/ProblemsForTest.h"
 
 
@@ -31,9 +32,12 @@ bool RandomProblem_TEST(bool silentMode){
 	params.maxY = 1000;
 	params.nodes = 24;
 
-	Criteria c(1000,1000,5);
+	Criteria c(1000,1000,5,500,0,2);
 
 	Problem p = createRandomProblem(c, params);
+
+	CycleCreator cc(p,c);
+	cc.create();
 	return true;
 }
 
