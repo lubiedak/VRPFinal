@@ -17,11 +17,11 @@
 #include "../../model/Problem.h"
 
 struct ProblemGenParams {
-	unsigned nodes;
-	unsigned short maxX;
-	unsigned short maxY;
-	unsigned short minDemand;
-	unsigned short maxDemand;
+	uint16_t nodes;
+	uint16_t maxX;
+	uint16_t maxY;
+	uint16_t minDemand;
+	uint16_t maxDemand;
 };
 
 Problem problem1() {
@@ -33,6 +33,7 @@ Problem problem1() {
 	nodes.push_back(Node(1, "X1", 0, 0, 0));
 
 	Problem problem = Problem();
+	return problem;
 
 }
 
@@ -40,9 +41,11 @@ Problem createRandomProblem(Criteria criteria, ProblemGenParams p) {
 	Problem problem;
 	problem.setCriteria(criteria);
 	srand(time(NULL));
-	for (int i = 0; i < p.nodes; ++i) {
-		Node n = Node(i, std::string("rand", rand() % p.maxX, rand() % p.maxY,
-						p.minDemand + rand() % (p.maxDemand - p.minDemand)));
+	for (uint16_t i = 0; i < p.nodes; ++i) {
+		Node n = Node(i, std::string("rand"),
+				rand() % p.maxX,
+				rand() % p.maxY,
+				p.minDemand + rand() % (p.maxDemand - p.minDemand));
 		problem.addNode(n);
 	}
 	problem.generateDistances();

@@ -25,24 +25,26 @@ public:
 	void setCriteria(const Criteria& criteria) {this->criteria = criteria;}
 	const std::vector<Cycle>& getCycles() const {return cycles;}
 	void setCycles(const std::vector<Cycle>& cycles) {this->cycles = cycles;}
-	const std::vector<std::vector<unsigned short> >& getDistances() const {return distances;}
+	const std::vector<std::vector<uint16_t> >& getDistances() const {return distances;}
 	void setDistances(const std::vector<std::vector<unsigned short> >& distances) {this->distances = distances;}
 	const std::vector<Node>& getNodes() const {return nodes;}
 	void setNodes(const std::vector<Node>& nodes) {this->nodes = nodes;}
 	void addNode(const Node& node){nodes.push_back(node);}
+	uint16_t size(){ return nodes.size() - 1;}
+	uint16_t getBiggestDemander() const {return biggestDemander;}
 
 private:
 
-	unsigned findBiggestDemander();
-	unsigned sumDemands();
+	uint16_t findBiggestDemander();
+	uint16_t sumDemands();
 
-	unsigned biggestDemander;
-	unsigned demandsSum;
+	uint16_t biggestDemander;
+	uint16_t demandsSum;
 
 	Criteria criteria;
 	std::vector<Node> nodes;
 	std::vector<Cycle> cycles;
-	std::vector< std::vector<unsigned short> > distances;
+	std::vector< std::vector<uint16_t> > distances;
 };
 
 #endif /* MODEL_PROBLEM_H_ */

@@ -17,10 +17,10 @@ public:
 
 	Criteria(){}
 
-	Criteria(unsigned maxC, unsigned maxD, unsigned maxN, unsigned minC,
-			unsigned minD, unsigned minN);
+	Criteria(uint16_t maxC, uint16_t maxD, uint16_t maxN,
+			 uint16_t minC,	uint16_t minD, uint16_t minN);
 
-	Criteria(unsigned maxC, unsigned maxD, unsigned maxN);
+	Criteria(uint16_t maxC, uint16_t maxD, uint16_t maxN);
 
 	Criteria(const Criteria& c);
 
@@ -32,18 +32,18 @@ public:
 	virtual std::string serialize();
 	virtual bool deserialize(std::string);
 
-	unsigned maxCapacity(){return properties["maxCapacity"];}
-	unsigned minCapacity(){return properties["minCapacity"];}
+	uint16_t maxCapacity(){return properties["maxCapacity"];}
+	uint16_t minCapacity(){return properties["minCapacity"];}
 
-	unsigned maxDistance(){return properties["maxDistance"];}
-	unsigned minDistance(){return properties["minDistance"];}
+	uint16_t maxDistance(){return properties["maxDistance"];}
+	uint16_t minDistance(){return properties["minDistance"];}
 
-	unsigned maxNodes(){return properties["maxNodes"];}
-	unsigned minNodes(){return properties["minNodes"];}
+	uint16_t maxNodes(){return properties["maxNodes"];}
+	uint16_t minNodes(){return properties["minNodes"];}
 
 
 private:
-	std::map<std::string, unsigned> properties;
+	std::map<std::string, uint16_t> properties;
 };
 
 

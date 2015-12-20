@@ -28,7 +28,7 @@ public:
 		std::map<std::string, std::string> tag_map;
 
 		for (const std::string& tag : split(str, delimiter)) {
-			auto key_val = split(tag, '=');
+			auto key_val = split(tag, mapDelimiter);
 			tag_map.insert(std::make_pair(key_val[0], key_val[1]));
 		}
 		return tag_map;
@@ -36,6 +36,7 @@ public:
 
 	const char mapDelimiter = '=';
 	const char delimiter = ',';
+	int membersCount = 0;
 
 private:
 

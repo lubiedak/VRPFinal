@@ -10,6 +10,7 @@
 
 #include <string>
 #include "serialization/Serialized.h"
+#include <stdint.h>
 
 class Node : public Serialized {
 public:
@@ -18,32 +19,31 @@ public:
 	Node& operator=(const Node&);
 	virtual ~Node();
 
-	Node(unsigned id, const std::string& name, unsigned x, unsigned y, unsigned demand);
+	Node(uint32_t id, const std::string& name, uint16_t x, uint16_t y, uint16_t demand);
 
 	std::string toString();
 
 	virtual std::string serialize();
 	virtual bool deserialize(std::string);
 
-
-	unsigned getId() const {return id;}
-	void setId(unsigned id) {this->id = id;}
-	std::string getName() const {return name;}
-	void setName(std::string name) {this->name = name;}
-	unsigned getX() const {return x;}
-	void setX(unsigned x) {this->x = x;}
-	unsigned getY() const {return y;}
-	void setY(unsigned y) {this->y = y;}
-	unsigned getDemand() const {return demand;}
-	void setDemand(unsigned demand) {this->demand = demand;}
+	uint16_t getDemand() const {return demand;}
+	void setDemand(uint16_t demand) {this->demand = demand;}
+	uint32_t getId() const {return id;}
+	void setId(uint32_t id) {this->id = id;}
+	const std::string& getName() const {return name;}
+	void setName(const std::string& name) {this->name = name;}
+	uint16_t getX() const {return x;}
+	void setX(uint16_t x) {this->x = x;}
+	uint16_t getY() const {return y;}
+	void setY(uint16_t y) {this->y = y;}
 
 private:
-	unsigned id;
+	uint32_t id;
 	std::string name;
 
-	unsigned x;
-	unsigned y;
-	unsigned demand;
+	uint16_t x;
+	uint16_t y;
+	uint16_t demand;
 
 };
 

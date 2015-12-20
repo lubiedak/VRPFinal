@@ -10,6 +10,10 @@
 
 #include "../model/Problem.h"
 
+#include "../solver/CycleCreator.h"
+#include "resources/ProblemsForTest.h"
+
+
 bool DistancesCreation_TEST(bool silentMode) {
 	Problem p = Problem();
 	p.addNode(Node(0,"",0,0,0));
@@ -18,6 +22,23 @@ bool DistancesCreation_TEST(bool silentMode) {
 	p.generateDistances();
 	std::vector<std::vector<unsigned short>> dist = p.getDistances();
 	return dist[0][1] == 5;
+}
+
+bool RandomProblem_TEST(bool silentMode){
+	ProblemGenParams params;
+	params.maxDemand = 600;
+	params.minDemand = 100;
+	params.maxX = 1000;
+	params.maxY = 1000;
+	params.nodes = 24;
+
+	Criteria c(1000,1000,5,500,0,2);
+
+	Problem p = createRandomProblem(c, params);
+
+	CycleCreator cc(p,c);
+	cc.create();
+	return true;
 }
 
 

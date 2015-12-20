@@ -10,7 +10,6 @@
 
 Problem::Problem() {
 	// TODO Auto-generated constructor stub
-
 }
 
 Problem::~Problem() {
@@ -22,10 +21,10 @@ void Problem::analyze() {
 	demandsSum = sumDemands();
 }
 
-unsigned Problem::findBiggestDemander() {
-	unsigned bigDemand = 0;
-	unsigned demander = 0;
-	for (unsigned i = 0; i < nodes.size(); ++i) {
+uint16_t Problem::findBiggestDemander() {
+	uint16_t bigDemand = 0;
+	uint16_t demander = 0;
+	for (uint16_t i = 0; i < nodes.size(); ++i) {
 		if (nodes[i].getDemand() > bigDemand) {
 			bigDemand = nodes[i].getDemand();
 			demander = i;
@@ -46,9 +45,9 @@ void Problem::generateDistances() {
 	}
 }
 
-unsigned Problem::sumDemands() {
-	unsigned demand = 0;
-	for (unsigned i = 0; i < nodes.size(); ++i) {
+uint16_t Problem::sumDemands() {
+	uint16_t demand = 0;
+	for (uint16_t i = 0; i < nodes.size(); ++i) {
 		demand += nodes[i].getDemand();
 	}
 	return demand;
