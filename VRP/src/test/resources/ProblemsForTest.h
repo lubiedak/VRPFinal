@@ -29,19 +29,25 @@ Problem problem1() {
 	Criteria criteria = Criteria(1000, 20000, 5);
 
 	std::vector<Node> nodes = std::vector<Node>();
-	nodes.push_back(Node(0, "Depot", 0, 0, 0));
-	nodes.push_back(Node(1, "X1", 0, 0, 0));
+	Node depot(0, "Depot", 0, 0, 0);
+	nodes.push_back(Node(1, "X1", 60, 60, 300));
+	nodes.push_back(Node(1, "X2", 60, 70, 300));
+	nodes.push_back(Node(1, "X3", 120, 120, 300));
+	nodes.push_back(Node(1, "X4", 120, 130, 300));
+	nodes.push_back(Node(1, "X5", 140, 130, 300));
 
-	Problem problem = Problem();
+	Problem problem = Problem(criteria, depot);
+	problem.setNodes(nodes);
+	problem.generateDistances();
 	return problem;
 
 }
 
 Problem createRandomProblem(Criteria criteria, ProblemGenParams p) {
-	Problem problem;
+	Problem problem(criteria, Node(0, "Depot", 0, 0, 0));
 	problem.setCriteria(criteria);
 	srand(time(NULL));
-	for (uint16_t i = 0; i < p.nodes; ++i) {
+	for (uint16_t i = 1; i < p.nodes; ++i) {
 		Node n = Node(i, std::string("rand"),
 				rand() % p.maxX,
 				rand() % p.maxY,

@@ -15,7 +15,7 @@
 
 
 bool DistancesCreation_TEST(bool silentMode) {
-	Problem p = Problem();
+	Problem p = Problem(Criteria(0,0,0), Node());
 	p.addNode(Node(0,"",0,0,0));
 	p.addNode(Node(0,"",3,4,0));
 

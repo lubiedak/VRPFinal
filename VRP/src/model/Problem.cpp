@@ -7,13 +7,26 @@
 
 #include "Problem.h"
 #include <math.h>
+#include <iostream>
 
-Problem::Problem() {
-	// TODO Auto-generated constructor stub
+Problem::Problem(Criteria criteria, Node depot) :
+		criteria(criteria), depot(depot) {
+	std::cout << "WARNING: Problem creation. Nodes not specified." << std::endl;
+	analyze();
 }
 
-Problem::~Problem() {
-	// TODO Auto-generated destructor stub
+Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes) :
+		criteria(criteria), depot(depot), nodes(nodes) {
+	std::cout << "WARNING: Problem creation. Distances not specified. Counting defaults"
+			  << std::endl;
+	generateDistances();
+	analyze();
+}
+
+Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes,
+		std::vector<std::vector<uint16_t> > distances) :
+		criteria(criteria), depot(depot), nodes(nodes), distances(distances) {
+	analyze();
 }
 
 void Problem::analyze() {
@@ -45,6 +58,8 @@ void Problem::generateDistances() {
 	}
 }
 
+
+
 uint16_t Problem::sumDemands() {
 	uint16_t demand = 0;
 	for (uint16_t i = 0; i < nodes.size(); ++i) {
@@ -52,3 +67,4 @@ uint16_t Problem::sumDemands() {
 	}
 	return demand;
 }
+

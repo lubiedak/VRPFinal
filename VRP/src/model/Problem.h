@@ -16,8 +16,11 @@
 
 class Problem {
 public:
-	Problem();
-	virtual ~Problem();
+	Problem(Criteria criteria, Node depot);
+	Problem(Criteria criteria, Node depot, std::vector<Node> nodes);
+	Problem(Criteria criteria, Node depot, std::vector<Node> nodes,
+			std::vector< std::vector<uint16_t> > distances);
+	virtual ~Problem(){};
 	void generateDistances();
 	void analyze();
 
@@ -30,6 +33,7 @@ public:
 	const std::vector<Node>& getNodes() const {return nodes;}
 	void setNodes(const std::vector<Node>& nodes) {this->nodes = nodes;}
 	void addNode(const Node& node){nodes.push_back(node);}
+	void setDepot(const Node& node){depot = node;}
 	uint16_t size(){ return nodes.size() - 1;}
 	uint16_t getBiggestDemander() const {return biggestDemander;}
 
@@ -37,14 +41,16 @@ private:
 
 	uint16_t findBiggestDemander();
 	uint16_t sumDemands();
+	bool checkProblemCorrectness();
 
 	uint16_t biggestDemander;
 	uint16_t demandsSum;
 
 	Criteria criteria;
+	Node depot;
 	std::vector<Node> nodes;
-	std::vector<Cycle> cycles;
 	std::vector< std::vector<uint16_t> > distances;
+	std::vector<Cycle> cycles;
 };
 
 #endif /* MODEL_PROBLEM_H_ */
