@@ -22,9 +22,16 @@ public:
 
 	std::string toString();
 
+	uint16_t selfOptimize(const std::vector<std::vector<uint16_t>>& distances,
+						  const std::vector<std::vector<int>>& perms);
+
 	virtual std::string serialize();
 	virtual bool deserialize(std::string);
 
+	void setDemand(uint16_t demand) {this->demand = demand;}
+	void setDistance(uint16_t distance) {this->distance = distance;}
+	void setId(uint32_t id) {this->id = id;}
+	void setNodes(const std::vector<Node>& nodes) {this->nodes = nodes;}
 
 private:
 	uint32_t id;
