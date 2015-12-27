@@ -31,10 +31,10 @@ Problem problem1() {
 	std::vector<Node> nodes = std::vector<Node>();
 	Node depot(0, "Depot", 0, 0, 0);
 	nodes.push_back(Node(1, "X1", 60, 60, 300));
-	nodes.push_back(Node(1, "X2", 60, 70, 300));
-	nodes.push_back(Node(1, "X3", 120, 120, 300));
-	nodes.push_back(Node(1, "X4", 120, 130, 300));
-	nodes.push_back(Node(1, "X5", 140, 130, 300));
+	nodes.push_back(Node(2, "X2", 60, 70, 300));
+	nodes.push_back(Node(3, "X3", 120, 120, 300));
+	nodes.push_back(Node(4, "X4", 120, 130, 300));
+	nodes.push_back(Node(5, "X5", 140, 130, 300));
 
 	Problem problem = Problem(criteria, depot);
 	problem.setNodes(nodes);

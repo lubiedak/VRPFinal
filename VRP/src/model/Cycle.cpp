@@ -58,3 +58,9 @@ std::string Cycle::serialize() {
 bool Cycle::deserialize(std::string allocator) {
 	return true;
 }
+
+uint16_t Cycle::selfOptimize( const std::vector<std::vector<uint16_t> >& distances,
+							  const std::vector<std::vector<int> >& perms) {
+
+	return 0;
+}
