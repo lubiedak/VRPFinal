@@ -37,9 +37,9 @@ private:
 	Criteria criteria;
 
 	uint32_t countN(Problem p, unsigned maxNodes);
-	uint16_t countPossibleCycles();
+	std::vector<uint32_t> countPossibleCycles();
 	uint32_t NumberOfSetBits(int i);
-	uint16_t SumCargo( uint32_t set, const std::vector<Node>& nodes);
+	uint16_t SumDemand( uint32_t set, const std::vector<Node>& nodes);
 };
 
 #endif /* SOLVER_CYCLECREATOR_H_ */

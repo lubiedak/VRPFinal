@@ -23,6 +23,7 @@ public:
 	virtual ~Problem(){};
 	void generateDistances();
 	void analyze();
+	uint16_t approxCyclesCount();
 
 	const Criteria& getCriteria() const {return criteria;}
 	void setCriteria(const Criteria& criteria) {this->criteria = criteria;}
@@ -31,10 +32,11 @@ public:
 	const std::vector<std::vector<uint16_t> >& getDistances() const {return distances;}
 	void setDistances(const std::vector<std::vector<unsigned short> >& distances) {this->distances = distances;}
 	const std::vector<Node>& getNodes() const {return nodes;}
+	std::vector<Node> getNodesAndDepot(uint32_t) const;
 	void setNodes(const std::vector<Node>& nodes) {this->nodes = nodes;}
 	void addNode(const Node& node){nodes.push_back(node);}
 	void setDepot(const Node& node){depot = node;}
-	uint16_t size(){ return nodes.size() - 1;}
+	uint16_t size() const { return nodes.size(); }
 	uint16_t getBiggestDemander() const {return biggestDemander;}
 
 private:
