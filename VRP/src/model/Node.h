@@ -19,7 +19,7 @@ public:
 	Node& operator=(const Node&);
 	virtual ~Node();
 
-	Node(uint32_t id, const std::string& name, uint16_t x, uint16_t y, uint16_t demand);
+	Node(uint32_t id, const std::string& name, int32_t x, int32_t y, uint16_t demand);
 
 	std::string toString();
 
@@ -32,17 +32,17 @@ public:
 	void setId(uint32_t id) {this->id = id;}
 	const std::string& getName() const {return name;}
 	void setName(const std::string& name) {this->name = name;}
-	uint16_t getX() const {return x;}
-	void setX(uint16_t x) {this->x = x;}
-	uint16_t getY() const {return y;}
-	void setY(uint16_t y) {this->y = y;}
+	int32_t getX() const {return x;}
+	void setX(int32_t x) {this->x = x;}
+	int32_t getY() const {return y;}
+	void setY(int32_t y) {this->y = y;}
 
 private:
 	uint32_t id;
 	std::string name;
 
-	uint16_t x;
-	uint16_t y;
+	int32_t x;
+	int32_t y;
 	uint16_t demand;
 
 };

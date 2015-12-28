@@ -32,12 +32,12 @@ uint16_t CycleCreator::create() {
 	 * 5 ==> 101 ==> Node_0 and Node_2
 	 */
 	std::vector<uint32_t> cycleIds = countPossibleCycles();
-	std::vector<Cycle> cycles(cycleIds.size());
+	cycles = std::vector<Cycle> (cycleIds.size());
 	std::vector<std::vector<int>> perms = permGen.getFullPermTable();
 
 	for (uint16_t i = 0; i < cycleIds.size(); ++i) {
 		cycles[i].setId(cycleIds[i]);
-		cycles[i].setDemand(SumDemand(i, problem.getNodes()));
+		cycles[i].setDemand(SumDemand(cycleIds[i], problem.getNodes()));
 		cycles[i].setNodes(problem.getNodesAndDepot(cycleIds[i]));
 		uint16_t distance = cycles[i].selfOptimize(problem.getDistances(),
 				perms);
