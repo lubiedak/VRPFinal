@@ -36,7 +36,7 @@ bool RandomProblem_TEST(bool silentMode){
 
 	Problem p = createRandomProblem(c, params);
 
-	CycleCreator cc(p,c);
+	CycleCreator cc(p);
 	cc.create();
 	return true;
 }

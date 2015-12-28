@@ -32,14 +32,14 @@ public:
 	virtual std::string serialize();
 	virtual bool deserialize(std::string);
 
-	uint16_t maxCapacity(){return properties["maxCapacity"];}
-	uint16_t minCapacity(){return properties["minCapacity"];}
+	uint16_t maxCapacity() const {return properties.at("maxCapacity");}
+	uint16_t minCapacity() const {return properties.at("minCapacity");}
 
-	uint16_t maxDistance(){return properties["maxDistance"];}
-	uint16_t minDistance(){return properties["minDistance"];}
+	uint16_t maxDistance() const {return properties.at("maxDistance");}
+	uint16_t minDistance() const {return properties.at("minDistance");}
 
-	uint16_t maxNodes(){return properties["maxNodes"];}
-	uint16_t minNodes(){return properties["minNodes"];}
+	uint16_t maxNodes() const {return properties.at("maxNodes");}
+	uint16_t minNodes() const {return properties.at("minNodes");}
 
 
 private:

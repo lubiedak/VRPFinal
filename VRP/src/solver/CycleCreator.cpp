@@ -8,14 +8,13 @@
 #include "CycleCreator.h"
 
 #include <cmath>
+#include <iostream>
 
-#include "../model/Criteria.h"
-#include "../model/Node.h"
-#include "CyclesSet.h"
 
-CycleCreator::CycleCreator(Problem p, Criteria c) :
-		problem(p), criteria(c) {
-	permGen = PermutationGen<int>(c.maxNodes());
+CycleCreator::CycleCreator(const Problem& p) :
+		problem(p) {
+	permGen = PermutationGen<int>(problem.getMaxNodes());
+	permGen.Permute(problem.getMaxNodes(),problem.getMaxNodes());
 }
 
 CycleCreator::~CycleCreator() {
@@ -35,7 +34,6 @@ bool CycleCreator::create() {
 	std::vector<uint32_t> cycleIds = countPossibleCycles();
 	std::vector<Cycle> cycles(cycleIds.size());
 	std::vector<std::vector<int>> perms = permGen.getFullPermTable();
-	std::vector<CyclesSet> simpleCycles(cycleIds.size(), CyclesSet(0, 0, 0, 1));
 
 	for (uint16_t i = 0; i < cycleIds.size(); ++i) {
 		cycles[i].setId(cycleIds[i]);
@@ -43,15 +41,15 @@ bool CycleCreator::create() {
 		cycles[i].setNodes(problem.getNodesAndDepot(cycleIds[i]));
 		uint16_t distance = cycles[i].selfOptimize(problem.getDistances(),
 				perms);
-		simpleCycles[i] = CyclesSet(cycleIds[i], distance, i, 1);
+		cycles[i].setDistance(distance);
 	}
-
+	std::cout<<cycleIds.size()<<" cycles has been created"<<std::endl;
 
 	return true;
 }
 
 std::vector<uint32_t> CycleCreator::countPossibleCycles() {
-	uint32_t N = countN(problem, criteria.maxNodes());
+	uint32_t N = countN();
 
 	std::vector<uint32_t> cycleIds(0);
 	cycleIds.reserve(problem.approxCyclesCount());
@@ -59,9 +57,9 @@ std::vector<uint32_t> CycleCreator::countPossibleCycles() {
 
 	for (uint32_t id = 1; id <= N; ++id) {
 		cycleSize = NumberOfSetBits(id);
-		if (cycleSize >= criteria.minNodes() && cycleSize <= criteria.maxNodes()) {
+		if (cycleSize >= problem.getMinNodes() && cycleSize <= problem.getMaxNodes()) {
 			cargo = SumDemand(id, problem.getNodes());
-			if (cargo > criteria.minCapacity() && cargo < criteria.maxCapacity()) {
+			if (cargo >= problem.getMinCapacity() && cargo <= problem.getMaxCapacity()) {
 				cycleIds.push_back(id);
 			}
 		}
@@ -69,8 +67,8 @@ std::vector<uint32_t> CycleCreator::countPossibleCycles() {
 	return cycleIds;
 }
 
-unsigned CycleCreator::countN(Problem p, unsigned maxNodes) {
-	return (unsigned) (pow(2.0, p.size()) - pow(2.0, p.size() - maxNodes));
+unsigned CycleCreator::countN() {
+	return (unsigned) (pow(2.0, problem.size()) - pow(2.0, problem.size() - problem.getMaxNodes()));
 }
 
 uint32_t CycleCreator::NumberOfSetBits(int i) {
