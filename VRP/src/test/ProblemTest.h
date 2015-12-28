@@ -10,6 +10,9 @@
 
 #include "../model/Problem.h"
 
+#include <iostream>
+#include <string>
+
 #include "../solver/CycleCreator.h"
 #include "resources/ProblemsForTest.h"
 
@@ -30,7 +33,7 @@ bool RandomProblem_TEST(bool silentMode){
 	params.minDemand = 100;
 	params.maxX = 1000;
 	params.maxY = 1000;
-	params.nodes = 24;
+	params.nodes = 20;
 
 	Criteria c(1000,1000,5,500,0,2);
 
@@ -39,6 +42,30 @@ bool RandomProblem_TEST(bool silentMode){
 	CycleCreator cc(p);
 	cc.create();
 	return true;
+}
+
+bool Problem5Nodes_TEST(bool silentMode){
+	Problem p = problem5Nodes();
+	CycleCreator cc(p);
+
+	cc.create();
+	std::vector<Cycle> cycles = cc.getCycles();
+	for(Cycle c : cycles){
+		std::cout<<c.toString()<<std::endl;
+	}
+	return 25 == cycles.size();
+}
+
+bool Problem6Nodes_TEST(bool silentMode){
+	Problem p = problem6Nodes();
+	CycleCreator cc(p);
+
+	cc.create();
+	std::vector<Cycle> cycles = cc.getCycles();
+	for(Cycle c : cycles){
+		std::cout<<c.toString()<<std::endl;
+	}
+	return 56 == cycles.size();
 }
 
 

@@ -108,10 +108,11 @@ uint16_t Cycle::countMinimumDistance(const std::vector<std::vector<uint16_t> >& 
 	}
 
 	// change nodes order
-	std::vector<Node> nodesCopy(nodes.begin(), nodes.end());
+	std::vector<Node> nodesCopy = nodes;
 	for(uint16_t i  = 1; i < size; i++){
-		nodes[i] = nodesCopy[perms[bestPerm][i-1]];
+		nodes[i] = nodesCopy[perms[bestPerm][i-1]+1];
 	}
+
 
 	return minDistance;
 }

@@ -47,14 +47,15 @@ uint16_t Problem::findBiggestDemander() {
 }
 
 void Problem::generateDistances() {
-	uint16_t size = nodes.size()+1; //nodes+depot
-	distances = std::vector<std::vector<unsigned short> >(size,
-			std::vector<unsigned short>(size));
+	std::vector<Node> nodesAndDepot = nodes;
+	nodesAndDepot.insert(nodesAndDepot.begin(), depot);
+	uint16_t size = nodesAndDepot.size();
+	distances = std::vector<std::vector<uint16_t> >(size, std::vector<uint16_t>(size));
 	for (unsigned i = 0; i < size; ++i) {
 		for (unsigned j = 0; j < size; ++j) {
-			distances[i][j] = (int) sqrt(
-					  pow(0.0 + nodes[i].getX() - nodes[j].getX(), 2.0)
-					+ pow(0.0 + nodes[i].getY() - nodes[j].getY(), 2.0));
+			int x = nodesAndDepot[i].getX() - nodesAndDepot[j].getX();
+			int y = nodesAndDepot[i].getY() - nodesAndDepot[j].getY();
+			distances[i][j] = (uint16_t) round(sqrt(0.0f + x*x + y*y));
 		}
 	}
 }

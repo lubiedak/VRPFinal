@@ -24,23 +24,39 @@ struct ProblemGenParams {
 	uint16_t maxDemand;
 };
 
-Problem problem1() {
+Problem problem5Nodes() {
 
 	Criteria criteria = Criteria(1000, 20000, 5);
 
 	std::vector<Node> nodes = std::vector<Node>();
 	Node depot(0, "Depot", 0, 0, 0);
-	nodes.push_back(Node(1, "X1", 60, 60, 300));
-	nodes.push_back(Node(2, "X2", 60, 70, 300));
+	nodes.push_back(Node(1, "X1", 10, 60, 300));
+	nodes.push_back(Node(2, "X2", 20, 70, 300));
 	nodes.push_back(Node(3, "X3", 120, 120, 300));
 	nodes.push_back(Node(4, "X4", 120, 130, 300));
 	nodes.push_back(Node(5, "X5", 140, 130, 300));
 
-	Problem problem = Problem(criteria, depot);
-	problem.setNodes(nodes);
+	Problem problem = Problem(criteria, depot, nodes);
 	problem.generateDistances();
 	return problem;
+}
 
+Problem problem6Nodes() {
+
+	Criteria criteria = Criteria(1000, 20000, 5);
+
+	std::vector<Node> nodes = std::vector<Node>();
+	Node depot(0, "Depot", 0, 0, 0);
+	nodes.push_back(Node(1, "X1", 10, 60, 220));
+	nodes.push_back(Node(2, "X2", 20, 70, 220));
+	nodes.push_back(Node(3, "X3", 120, 120, 220));
+	nodes.push_back(Node(4, "X4", 120, 130, 220));
+	nodes.push_back(Node(5, "X5", 140, 130, 220));
+	nodes.push_back(Node(6, "X6", 140, 170, 220));
+
+	Problem problem = Problem(criteria, depot, nodes);
+	problem.generateDistances();
+	return problem;
 }
 
 Problem createRandomProblem(Criteria criteria, ProblemGenParams p) {

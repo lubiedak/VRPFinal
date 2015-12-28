@@ -32,11 +32,14 @@ public:
 	 * Responsible for creating all optimised cycles
 	 * based on problem criteria
 	 */
-	bool create();
+	uint16_t create();
+
+	const std::vector<Cycle>& getCycles() const {return cycles;}
 
 private:
 	PermutationGen<int> permGen;
 	const Problem& problem;
+	std::vector<Cycle> cycles;
 
 	uint32_t countN();
 	std::vector<uint32_t> countPossibleCycles();
