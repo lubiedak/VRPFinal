@@ -36,7 +36,7 @@ private:
 	std::vector<T> perm;
 	std::vector< std::vector<T> > fullPermTable;
 
-	bool silentMode = false;
+	bool silentMode = true;
 };
 
 #endif /* SOLVER_PERMUTATIONGEN_H_ */

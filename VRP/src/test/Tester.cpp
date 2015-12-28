@@ -34,7 +34,8 @@ Tester::~Tester() {
 
 void Tester::runAll() {
 	for(auto test : tests){
-		std::cout<<test.first<<": " << (test.second(this->silentMode) ? "PASSED":"FAILED")<<std::endl;
+		std::cout<<test.first<<": ";
+		std::cout<< (test.second(this->silentMode) ? "PASSED":"FAILED")<<std::endl;
 	}
 }
 

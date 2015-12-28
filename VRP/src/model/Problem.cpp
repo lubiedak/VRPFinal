@@ -59,7 +59,7 @@ void Problem::generateDistances() {
 	}
 }
 
-uint16_t Problem::approxCyclesCount() {
+uint16_t Problem::approxCyclesCount() const {
 	//TODO - finding better way
 	return size()*30;
 }
@@ -76,6 +76,7 @@ std::vector<Node> Problem::getNodesAndDepot(uint32_t set) const {
     }
 	return chosenNodes;
 }
+
 
 uint16_t Problem::sumDemands() {
 	uint16_t demand = 0;

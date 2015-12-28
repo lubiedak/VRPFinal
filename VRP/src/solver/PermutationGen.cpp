@@ -64,7 +64,6 @@ void PermutationGen<T>::Permute(int k, int size) {
 			Swap(i, k - 1);
 		}
 	}
-
 }
 
 template class PermutationGen<int>;

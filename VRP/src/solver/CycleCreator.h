@@ -8,16 +8,19 @@
 #ifndef SOLVER_CYCLECREATOR_H_
 #define SOLVER_CYCLECREATOR_H_
 
+#include <stdint.h>
 #include <vector>
 
+#include "../model/Criteria.h"
 #include "../model/Cycle.h"
+#include "../model/Node.h"
 #include "../model/Problem.h"
 #include "PermutationGen.h"
-#include <stdint.h>
+
 
 class CycleCreator {
 public:
-	CycleCreator(Problem p, Criteria c);
+	CycleCreator(const Problem& p);
 	virtual ~CycleCreator();
 
 	/**
@@ -33,10 +36,9 @@ public:
 
 private:
 	PermutationGen<int> permGen;
-	Problem problem;
-	Criteria criteria;
+	const Problem& problem;
 
-	uint32_t countN(Problem p, unsigned maxNodes);
+	uint32_t countN();
 	std::vector<uint32_t> countPossibleCycles();
 	uint32_t NumberOfSetBits(int i);
 	uint16_t SumDemand( uint32_t set, const std::vector<Node>& nodes);

@@ -7,8 +7,9 @@
 
 #include "CycleConnector.h"
 
-CycleConnector::CycleConnector() {
-	// TODO Auto-generated constructor stub
+CycleConnector::CycleConnector(const Problem& problem,
+		const std::vector<Cycle>& cycles) :
+		problem(problem), cycles(cycles) {
 
 }
 

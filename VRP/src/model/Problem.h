@@ -23,7 +23,7 @@ public:
 	virtual ~Problem(){};
 	void generateDistances();
 	void analyze();
-	uint16_t approxCyclesCount();
+	uint16_t approxCyclesCount() const;
 
 	const Criteria& getCriteria() const {return criteria;}
 	void setCriteria(const Criteria& criteria) {this->criteria = criteria;}
@@ -38,6 +38,13 @@ public:
 	void setDepot(const Node& node){depot = node;}
 	uint16_t size() const { return nodes.size(); }
 	uint16_t getBiggestDemander() const {return biggestDemander;}
+
+	uint16_t getMaxNodes() const {return criteria.maxNodes();}
+	uint16_t getMinNodes() const {return criteria.minNodes();}
+	uint16_t getMaxCapacity() const {return criteria.maxCapacity();}
+	uint16_t getMinCapacity() const {return criteria.minCapacity();}
+	uint16_t getMaxDistance() const {return criteria.maxDistance();}
+	uint16_t getMinDistance() const {return criteria.minDistance();}
 
 private:
 

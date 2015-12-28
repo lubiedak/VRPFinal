@@ -28,6 +28,7 @@ Criteria::Criteria(uint16_t maxC, uint16_t maxD, uint16_t maxN) :
 }
 
 Criteria::Criteria(const Criteria& c) {
+	properties = std::map<std::string, uint16_t>();
 	properties = c.properties;
 	membersCount = 6;
 }
