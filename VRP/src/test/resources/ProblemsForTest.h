@@ -52,7 +52,7 @@ Problem problem6Nodes() {
 	nodes.push_back(Node(3, "X3", 120, 120, 220));
 	nodes.push_back(Node(4, "X4", 120, 130, 220));
 	nodes.push_back(Node(5, "X5", 140, 130, 220));
-	nodes.push_back(Node(5, "X5", 140, 170, 220));
+	nodes.push_back(Node(6, "X6", 140, 170, 220));
 
 	Problem problem = Problem(criteria, depot, nodes);
 	problem.generateDistances();

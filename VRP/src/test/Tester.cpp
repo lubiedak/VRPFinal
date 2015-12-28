@@ -27,6 +27,7 @@ Tester::Tester(bool silentMode) {
 	tests["DistancesCreation_TEST"]      = &DistancesCreation_TEST;
 	tests["RandomProblem_TEST"]          = &RandomProblem_TEST;
 	tests["Problem5Nodes_TEST"]			 = &Problem5Nodes_TEST;
+	tests["Problem6Nodes_TEST"]			 = &Problem6Nodes_TEST;
 }
 
 Tester::~Tester() {

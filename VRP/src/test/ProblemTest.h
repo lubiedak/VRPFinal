@@ -47,6 +47,12 @@ bool Problem5Nodes_TEST(bool silentMode){
 	return 25 == cc.create();
 }
 
+bool Problem6Nodes_TEST(bool silentMode){
+	Problem p = problem6Nodes();
+	CycleCreator cc(p);
+	return 56 == cc.create();
+}
+
 
 
 #endif /* TEST_PROBLEMTEST_H_ */
