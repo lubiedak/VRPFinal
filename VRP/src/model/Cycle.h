@@ -23,7 +23,7 @@ public:
 	std::string toString();
 
 	uint16_t selfOptimize(const std::vector<std::vector<uint16_t>>& distances,
-						  const std::vector<std::vector<int>>& perms);
+						  std::vector<std::vector<int>>& perms);
 
 	virtual std::string serialize();
 	virtual bool deserialize(std::string);
@@ -39,6 +39,10 @@ private:
 	uint16_t demand;
 	uint16_t capacity;
     std::vector<Node> nodes;
+
+    void checkPermSize(std::vector<std::vector<int>>& perms);
+    uint16_t countMinimumDistance(const std::vector<std::vector<uint16_t> >& distances,
+    							  const std::vector<std::vector<int>>& perms);
 };
 
 #endif /* CYCLE_H_ */

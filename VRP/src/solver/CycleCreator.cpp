@@ -11,6 +11,7 @@
 
 #include "../model/Criteria.h"
 #include "../model/Node.h"
+#include "CyclesSet.h"
 
 CycleCreator::CycleCreator(Problem p, Criteria c) :
 		problem(p), criteria(c) {
@@ -25,21 +26,24 @@ bool CycleCreator::optimize(std::vector<Cycle>& cycles) {
 	return true;
 }
 
-/**
- * cycleId is binary representation of cycle from vector of cycles
- * 5 ==> 101 ==> Node_0 and Node_2
- */
-bool CycleCreator::create() {
 
+bool CycleCreator::create() {
+	/**
+	 * cycleId is binary representation of cycle from vector of cycles
+	 * 5 ==> 101 ==> Node_0 and Node_2
+	 */
 	std::vector<uint32_t> cycleIds = countPossibleCycles();
 	std::vector<Cycle> cycles(cycleIds.size());
 	std::vector<std::vector<int>> perms = permGen.getFullPermTable();
+	std::vector<CyclesSet> simpleCycles(cycleIds.size(), CyclesSet(0, 0, 0, 1));
 
-	for(uint16_t i = 0 ; i < cycleIds.size(); ++i){
+	for (uint16_t i = 0; i < cycleIds.size(); ++i) {
 		cycles[i].setId(cycleIds[i]);
 		cycles[i].setDemand(SumDemand(i, problem.getNodes()));
 		cycles[i].setNodes(problem.getNodesAndDepot(cycleIds[i]));
-		cycles[i].selfOptimize(problem.getDistances(), perms);
+		uint16_t distance = cycles[i].selfOptimize(problem.getDistances(),
+				perms);
+		simpleCycles[i] = CyclesSet(cycleIds[i], distance, i, 1);
 	}
 
 

@@ -7,6 +7,13 @@
 
 #include "Cycle.h"
 
+#include <cstdint>
+#include <sstream>
+
+#include "../solver/PermutationGen.h"
+
+const uint32_t permBorders[] = {0,1,2,6,24,120,720,5040,40320};
+
 Cycle::Cycle() : id(0), distance(0), demand(0), capacity(0) {
 	nodes = std::vector<Node>();
 	membersCount = 5;
@@ -60,7 +67,51 @@ bool Cycle::deserialize(std::string allocator) {
 }
 
 uint16_t Cycle::selfOptimize( const std::vector<std::vector<uint16_t> >& distances,
-							  const std::vector<std::vector<int> >& perms) {
+							  std::vector<std::vector<int> >& perms) {
 
-	return 0;
+	if(nodes.size()-1 == 0)
+		return 0;
+	checkPermSize(perms);
+	distance = countMinimumDistance(distances, perms);
+
+	return distance;
+}
+
+void Cycle::checkPermSize(std::vector<std::vector<int>>& perms){
+	uint16_t size = nodes.size()-1;
+	if(size > perms[0].size()){
+		PermutationGen<int> permGen(size);
+		perms = permGen.getFullPermTable();
+	}
+}
+
+uint16_t Cycle::countMinimumDistance(const std::vector<std::vector<uint16_t> >& distances,
+									 const std::vector<std::vector<int> >& perms) {
+	uint16_t size = nodes.size()-1;
+	uint16_t minDistance = 20000;
+	uint16_t bestPerm = 0;
+	uint16_t dist = 0;
+
+	for(uint32_t i = 0; i < permBorders[size]; ++i){
+		// depot and first
+		dist =  distances[nodes[0].getId()][1 + nodes[perms[i][0]].getId()];
+		//last and depot
+		dist += distances[1 + nodes[perms[i][size-1]].getId()][nodes[0].getId()];
+
+		for(int j = 1; j < size; ++j){
+			dist += distances[1 + nodes[perms[i][j-1]].getId()][1 + nodes[perms[i][j]].getId()];
+		}
+		if(dist < minDistance){
+			minDistance = dist;
+			bestPerm = i;
+		}
+	}
+
+	// change nodes order
+	std::vector<Node> nodesCopy(nodes.begin(), nodes.end());
+	for(uint16_t i  = 1; i < size; i++){
+		nodes[i] = nodesCopy[perms[bestPerm][i-1]];
+	}
+
+	return minDistance;
 }
