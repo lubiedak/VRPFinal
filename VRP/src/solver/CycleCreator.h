@@ -32,7 +32,7 @@ public:
 	 * Responsible for creating all optimised cycles
 	 * based on problem criteria
 	 */
-	bool create();
+	uint16_t create();
 
 private:
 	PermutationGen<int> permGen;

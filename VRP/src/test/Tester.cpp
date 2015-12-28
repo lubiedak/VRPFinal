@@ -26,6 +26,7 @@ Tester::Tester(bool silentMode) {
 	tests["SolutionSerialization_TEST"]  = &SolutionSerialization_TEST;
 	tests["DistancesCreation_TEST"]      = &DistancesCreation_TEST;
 	tests["RandomProblem_TEST"]          = &RandomProblem_TEST;
+	tests["Problem5Nodes_TEST"]			 = &Problem5Nodes_TEST;
 }
 
 Tester::~Tester() {

@@ -26,7 +26,7 @@ bool CycleCreator::optimize(std::vector<Cycle>& cycles) {
 }
 
 
-bool CycleCreator::create() {
+uint16_t CycleCreator::create() {
 	/**
 	 * cycleId is binary representation of cycle from vector of cycles
 	 * 5 ==> 101 ==> Node_0 and Node_2
@@ -45,7 +45,7 @@ bool CycleCreator::create() {
 	}
 	std::cout<<cycleIds.size()<<" cycles has been created"<<std::endl;
 
-	return true;
+	return cycleIds.size();
 }
 
 std::vector<uint32_t> CycleCreator::countPossibleCycles() {
