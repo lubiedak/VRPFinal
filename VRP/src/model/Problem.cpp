@@ -40,7 +40,7 @@ uint16_t Problem::findBiggestDemander() {
 	for (uint16_t i = 0; i < nodes.size(); ++i) {
 		if (nodes[i].getDemand() > bigDemand) {
 			bigDemand = nodes[i].getDemand();
-			demander = i;
+			demander = nodes[i].getId();
 		}
 	}
 	return demander;
@@ -87,3 +87,6 @@ uint16_t Problem::sumDemands() {
 	return demand;
 }
 
+uint16_t Problem::estimateCyclesNeeded() {
+	return demandsSum/nodes.size();
+}

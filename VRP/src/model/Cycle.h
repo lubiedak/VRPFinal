@@ -30,8 +30,15 @@ public:
 
 	void setDemand(uint16_t demand) {this->demand = demand;}
 	void setDistance(uint16_t distance) {this->distance = distance;}
+	uint16_t getDistance() const {return distance;}
+
 	void setId(uint32_t id) {this->id = id;}
+	uint32_t getId() const {return id;}
+
 	void setNodes(const std::vector<Node>& nodes) {this->nodes = nodes;}
+
+	bool contains(uint16_t nodeId) const;
+
 
 private:
 	uint32_t id;
