@@ -87,6 +87,6 @@ uint16_t Problem::sumDemands() {
 	return demand;
 }
 
-uint16_t Problem::estimateCyclesNeeded() {
+uint16_t Problem::estimateConnectionsNeeded() {
 	return demandsSum/nodes.size();
 }

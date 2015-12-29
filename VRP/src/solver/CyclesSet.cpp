@@ -13,6 +13,11 @@ CyclesSet::CyclesSet(const Cycle& cycle, uint16_t firstElem, uint16_t size) :
 	cycles[0] = firstElem;
 }
 
+CyclesSet::CyclesSet(uint32_t id, uint16_t distance, uint16_t size) :
+		id(id), distance(distance) {
+	cycles = new uint16_t[size];
+}
+
 CyclesSet::~CyclesSet() {
 	delete[] cycles;
 }

@@ -22,7 +22,7 @@ public:
 	CycleConnector(const Problem& problem, const std::vector<Cycle>& cycles);
 	virtual ~CycleConnector();
 
-	std::vector<Solution> connect();
+	void connect();
 
 
 private:
@@ -32,6 +32,7 @@ private:
 
 	const Problem& problem;
 	std::vector<Solution> solutions;
+	uint32_t allNodesConnected;
 
 	void prepareData();
 };
