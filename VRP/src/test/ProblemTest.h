@@ -56,6 +56,7 @@ bool Problem5Nodes_TEST(bool silentMode){
 	}
 
 	CycleConnector ccon(p, cycles);
+	ccon.connect();
 
 	return 25 == cycles.size();
 }

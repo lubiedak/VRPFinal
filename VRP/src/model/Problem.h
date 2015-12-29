@@ -48,7 +48,7 @@ public:
 	uint16_t getMaxDistance() const {return criteria.maxDistance();}
 	uint16_t getMinDistance() const {return criteria.minDistance();}
 
-	uint16_t estimateCyclesNeeded();
+	uint16_t estimateConnectionsNeeded();
 
 private:
 
