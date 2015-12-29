@@ -30,7 +30,7 @@ Problem problem5Nodes() {
 
 	std::vector<Node> nodes = std::vector<Node>();
 	Node depot(0, "Depot", 0, 0, 0);
-	nodes.push_back(Node(1, "X1", 10, 60, 300));
+	nodes.push_back(Node(1, "X1", 10, 60, 301));
 	nodes.push_back(Node(2, "X2", 20, 70, 300));
 	nodes.push_back(Node(3, "X3", 120, 120, 300));
 	nodes.push_back(Node(4, "X4", 120, 130, 300));

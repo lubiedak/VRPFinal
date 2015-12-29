@@ -116,3 +116,11 @@ uint16_t Cycle::countMinimumDistance(const std::vector<std::vector<uint16_t> >& 
 
 	return minDistance;
 }
+
+bool Cycle::contains(uint16_t nodeId) const{
+	for(Node n : nodes){
+		if(nodeId == n.getId())
+			return true;
+	}
+	return false;
+}

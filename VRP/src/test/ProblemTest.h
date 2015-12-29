@@ -14,6 +14,7 @@
 #include <string>
 
 #include "../solver/CycleCreator.h"
+#include "../solver/CycleConnector.h"
 #include "resources/ProblemsForTest.h"
 
 
@@ -53,6 +54,9 @@ bool Problem5Nodes_TEST(bool silentMode){
 	for(Cycle c : cycles){
 		std::cout<<c.toString()<<std::endl;
 	}
+
+	CycleConnector ccon(p, cycles);
+
 	return 25 == cycles.size();
 }
 

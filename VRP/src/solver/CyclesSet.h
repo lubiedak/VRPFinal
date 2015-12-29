@@ -10,9 +10,11 @@
 
 #include <cstdint>
 
+#include "../model/Cycle.h"
+
 class CyclesSet {
 public:
-	CyclesSet(uint32_t id, uint16_t distance, uint16_t firstElem, uint16_t size);
+	CyclesSet(const Cycle& cycle, uint16_t firstElem, uint16_t size);
 	virtual ~CyclesSet();
 
 	uint32_t id;
