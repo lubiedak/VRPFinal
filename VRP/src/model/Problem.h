@@ -38,7 +38,7 @@ public:
 	void addNode(const Node& node){nodes.push_back(node);}
 	void setDepot(const Node& node){depot = node;}
 
-	uint16_t size() const { return nodes.size(); }
+	uint32_t size() const { return nodes.size(); }
 	uint16_t getBiggestDemander() const {return biggestDemander;}
 
 	uint16_t getMaxNodes() const {return criteria.maxNodes();}

@@ -19,8 +19,16 @@
 
 
 void printCycles(const std::vector<Cycle>& cycles){
+	int i =0;
 	for(Cycle c : cycles){
-		std::cout<<c.toString()<<std::endl;
+		std::cout<<i<<"  "<<c.toString()<<std::endl;
+		++i;
+	}
+}
+
+void printConnected(const std::vector<CyclesSet*>& connected){
+	for(CyclesSet* c : connected){
+		std::cout<<c->toString()<<std::endl;
 	}
 }
 
@@ -87,11 +95,13 @@ bool Problem10Nodes_TEST(bool silentMode){
 	cc.create();
 	std::vector<Cycle> cycles = cc.getCycles();
 
-	if(!silentMode)
+	//if(!silentMode)
 		printCycles(cycles);
 
 	CycleConnector ccon(p, cycles);
-	ccon.connect();
+	std::vector<CyclesSet*> connected = ccon.connect();
+	//if(!silentMode)
+		printConnected(connected);
 
 	return 175 == cycles.size();
 }

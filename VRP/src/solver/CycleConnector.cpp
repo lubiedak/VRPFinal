@@ -7,6 +7,7 @@
 
 #include "CycleConnector.h"
 #include <cmath>
+#include <iostream>
 
 CycleConnector::CycleConnector(const Problem& problem,
 		const std::vector<Cycle>& cycles) :
@@ -19,7 +20,7 @@ CycleConnector::~CycleConnector() {
 	// TODO Auto-generated destructor stub
 }
 
-void CycleConnector::connect() {
+std::vector<CyclesSet*> CycleConnector::connect() {
 
 	uint16_t connIteration = 1;
 	connected = connect(connIteration, specialCycles);
@@ -27,14 +28,13 @@ void CycleConnector::connect() {
 
 	uint16_t connectionsNeeded = problem.estimateConnectionsNeeded();
 
-	while (connIteration <= connectionsNeeded) {
-		if (isSolved(connected))
-			break;
+	while (!isSolved(connected)) {
 		connected = connect(connIteration, connected);
+		std::cout<<"Iteration: "<<connIteration<<",Size"<<connected.size()<<std::endl;
 		connIteration++;
 	}
 
-	int a = 2;
+	return findSolved(connected);
 }
 
 void CycleConnector::prepareData() {
@@ -46,7 +46,7 @@ void CycleConnector::prepareData() {
 		else
 			baseCycles.push_back(new CyclesSet(cycles[i], i, 1));
 	}
-	allNodesConnected = pow(problem.size(), 2.0) - 1;
+	allNodesConnected = uint32_t(pow(2.0, problem.size()) - 1);
 }
 
 std::vector<CyclesSet*> CycleConnector::connect(uint16_t it,
@@ -58,16 +58,29 @@ std::vector<CyclesSet*> CycleConnector::connect(uint16_t it,
 		for (uint16_t j = 0; j < baseCycles.size(); ++j) {
 			if (0 == (actualCycleSets[i]->id & baseCycles[j]->id)) {
 				uint32_t id = actualCycleSets[i]->id | baseCycles[j]->id;
+				uint16_t distance = baseCycles[j]->distance + actualCycleSets[i]->distance;
 
-				CyclesSet* cycleSet = new CyclesSet(id,
-						baseCycles[j]->distance + actualCycleSets[i]->distance,
-						it + 1);
-				for(int k = 0; k < it+1; k++){
-					cycleSet->cycles[k] = actualCycleSets[i]->cycles[k];
+				if(shortestConnections.find(id) == shortestConnections.end()){
+					shortestConnections[id] = distance;
+					CyclesSet* cycleSet = new CyclesSet(id, distance, it + 1);
+					for (int k = 0; k < it + 1; k++) {
+						cycleSet->cycles[k] = actualCycleSets[i]->cycles[k];
+					}
+
+					cycleSet->cycles[it] = baseCycles[j]->cycles[0];
+					connected.push_back(cycleSet);
+				}else if(shortestConnections.at(id) > distance)
+				{
+					shortestConnections[id] = distance;
+
+					CyclesSet* cycleSet = new CyclesSet(id, distance, it + 1);
+					for (int k = 0; k < it + 1; k++) {
+						cycleSet->cycles[k] = actualCycleSets[i]->cycles[k];
+					}
+
+					cycleSet->cycles[it] = baseCycles[j]->cycles[0];
+					connected.push_back(cycleSet);
 				}
-
-				cycleSet->cycles[it] = baseCycles[j]->cycles[0];
-				connected.push_back(cycleSet);
 			}
 		}
 	}
@@ -82,4 +95,17 @@ bool CycleConnector::isSolved(const std::vector<CyclesSet*>& connected) {
 		}
 	}
 	return false;
+}
+
+std::vector<CyclesSet*> CycleConnector::findSolved(
+		const std::vector<CyclesSet*>& actualCycleSets) {
+
+	std::vector<CyclesSet*> connected;
+
+	for (auto cs : actualCycleSets) {
+		if ((cs->id & allNodesConnected) == allNodesConnected) {
+			connected.push_back(cs);
+		}
+	}
+	return connected;
 }
