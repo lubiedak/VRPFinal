@@ -21,11 +21,11 @@ CycleConnector::~CycleConnector() {
 
 void CycleConnector::connect() {
 
-	std::vector<CyclesSet*> connected = connect(specialCycles);
+	connected = connect(specialCycles);
 	uint16_t connectionsCount = 2; //2 cycles connected already;
 	uint16_t connectionsNeeded = problem.estimateConnectionsNeeded();
 
-	while(connectionsCount < connectionsNeeded){
+	while(connectionsCount <= connectionsNeeded){
 		if(isSolved(connected))
 			break;
 		connected = connect(connected);

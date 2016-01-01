@@ -30,6 +30,7 @@ private:
 	const std::vector<Cycle>& cycles;
 	std::vector<CyclesSet*> specialCycles;
 	std::vector<CyclesSet*> baseCycles;
+	std::vector<CyclesSet*> connected;
 
 	std::vector<Solution> solutions;
 	uint32_t allNodesConnected;

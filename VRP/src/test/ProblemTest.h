@@ -73,6 +73,20 @@ bool Problem6Nodes_TEST(bool silentMode){
 	return 56 == cycles.size();
 }
 
+bool Problem10Nodes_TEST(bool silentMode){
+	Problem p = problem10Nodes();
+	CycleCreator cc(p);
 
+	cc.create();
+	std::vector<Cycle> cycles = cc.getCycles();
+	for(Cycle c : cycles){
+		std::cout<<c.toString()<<std::endl;
+	}
+
+	CycleConnector ccon(p, cycles);
+	ccon.connect();
+
+	return 175 == cycles.size();
+}
 
 #endif /* TEST_PROBLEMTEST_H_ */
