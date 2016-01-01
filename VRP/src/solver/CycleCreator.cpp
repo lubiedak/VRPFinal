@@ -15,6 +15,7 @@ CycleCreator::CycleCreator(const Problem& p) :
 		problem(p) {
 	permGen = PermutationGen<int>(problem.getMaxNodes());
 	permGen.Permute(problem.getMaxNodes(),problem.getMaxNodes());
+	silentMode = false;
 }
 
 CycleCreator::~CycleCreator() {
@@ -43,7 +44,8 @@ uint16_t CycleCreator::create() {
 				perms);
 		cycles[i].setDistance(distance);
 	}
-	std::cout<<cycleIds.size()<<" cycles has been created"<<std::endl;
+	if(!silentMode)
+		std::cout<<cycleIds.size()<<" cycles has been created"<<std::endl;
 
 	return cycleIds.size();
 }

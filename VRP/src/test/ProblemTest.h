@@ -18,6 +18,20 @@
 #include "resources/ProblemsForTest.h"
 
 
+void printCycles(const std::vector<Cycle>& cycles){
+	int i =0;
+	for(Cycle c : cycles){
+		std::cout<<i<<"  "<<c.toString()<<std::endl;
+		++i;
+	}
+}
+
+void printConnected(const std::vector<CyclesSet*>& connected){
+	for(CyclesSet* c : connected){
+		std::cout<<c->toString()<<std::endl;
+	}
+}
+
 bool DistancesCreation_TEST(bool silentMode) {
 	Problem p = Problem(Criteria(0,0,0), Node());
 	p.addNode(Node(0,"",0,0,0));
@@ -51,9 +65,9 @@ bool Problem5Nodes_TEST(bool silentMode){
 
 	cc.create();
 	std::vector<Cycle> cycles = cc.getCycles();
-	for(Cycle c : cycles){
-		std::cout<<c.toString()<<std::endl;
-	}
+
+	if(!silentMode)
+		printCycles(cycles);
 
 	CycleConnector ccon(p, cycles);
 	ccon.connect();
@@ -67,12 +81,30 @@ bool Problem6Nodes_TEST(bool silentMode){
 
 	cc.create();
 	std::vector<Cycle> cycles = cc.getCycles();
-	for(Cycle c : cycles){
-		std::cout<<c.toString()<<std::endl;
-	}
+
+	if(!silentMode)
+		printCycles(cycles);
+
 	return 56 == cycles.size();
 }
 
+bool Problem10Nodes_TEST(bool silentMode){
+	Problem p = problem10Nodes();
+	CycleCreator cc(p);
+
+	cc.create();
+	std::vector<Cycle> cycles = cc.getCycles();
+
+	//if(!silentMode)
+		printCycles(cycles);
+
+	CycleConnector ccon(p, cycles);
+	std::vector<CyclesSet*> connected = ccon.connect();
+	//if(!silentMode)
+		printConnected(connected);
+
+	return 175 == cycles.size();
+}
 
 
 #endif /* TEST_PROBLEMTEST_H_ */

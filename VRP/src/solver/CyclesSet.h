@@ -9,6 +9,7 @@
 #define SOLVER_CYCLESSET_H_
 
 #include <cstdint>
+#include <string>
 
 #include "../model/Cycle.h"
 
@@ -18,8 +19,11 @@ public:
 	CyclesSet(uint32_t id, uint16_t distance, uint16_t size);
 	virtual ~CyclesSet();
 
+	std::string toString();
+
 	uint32_t id;
 	uint16_t distance;
+	uint32_t size;
 	uint16_t *cycles;
 };
 

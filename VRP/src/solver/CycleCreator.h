@@ -41,6 +41,8 @@ private:
 	const Problem& problem;
 	std::vector<Cycle> cycles;
 
+	bool silentMode;
+
 	uint32_t countN();
 	std::vector<uint32_t> countPossibleCycles();
 	uint32_t NumberOfSetBits(int i);

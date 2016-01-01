@@ -28,6 +28,7 @@ Tester::Tester(bool silentMode) {
 	tests["RandomProblem_TEST"]          = &RandomProblem_TEST;
 	tests["Problem5Nodes_TEST"]			 = &Problem5Nodes_TEST;
 	tests["Problem6Nodes_TEST"]			 = &Problem6Nodes_TEST;
+	tests["Problem10Nodes_TEST"]		 = &Problem10Nodes_TEST;
 }
 
 Tester::~Tester() {
@@ -36,8 +37,8 @@ Tester::~Tester() {
 
 void Tester::runAll() {
 	for(auto test : tests){
-		std::cout<<test.first<<": ";
-		std::cout<< (test.second(this->silentMode) ? "PASSED":"FAILED")<<std::endl;
+		std::cout<<test.first<<": STARTED"<<std::endl;
+		std::cout<<test.first<<": "<< (test.second(this->silentMode) ? "PASSED":"FAILED")<<std::endl;
 	}
 }
 

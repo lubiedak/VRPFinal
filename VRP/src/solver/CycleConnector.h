@@ -22,19 +22,25 @@ public:
 	CycleConnector(const Problem& problem, const std::vector<Cycle>& cycles);
 	virtual ~CycleConnector();
 
-	void connect();
+	std::vector<CyclesSet*> connect();
 
 
 private:
+	const Problem& problem;
 	const std::vector<Cycle>& cycles;
 	std::vector<CyclesSet*> specialCycles;
 	std::vector<CyclesSet*> baseCycles;
+	std::vector<CyclesSet*> connected;
 
-	const Problem& problem;
+	std::map<uint32_t, uint16_t> shortestConnections;
+
 	std::vector<Solution> solutions;
 	uint32_t allNodesConnected;
 
 	void prepareData();
+	std::vector<CyclesSet*> connect(uint16_t it, const std::vector<CyclesSet*>& actualCycleSets);
+	std::vector<CyclesSet*> findSolved(const std::vector<CyclesSet*>& actualCycleSets);
+	bool isSolved(const std::vector<CyclesSet*>& connected);
 };
 
 #endif /* SOLVER_CYCLECONNECTOR_H_ */

@@ -87,6 +87,6 @@ uint16_t Problem::sumDemands() {
 	return demand;
 }
 
-uint16_t Problem::estimateConnectionsNeeded() {
-	return demandsSum/nodes.size();
+uint16_t Problem::estimateConnectionsNeeded() const {
+	return demandsSum/criteria.maxCapacity() + 1;
 }
