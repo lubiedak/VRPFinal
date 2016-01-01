@@ -36,7 +36,7 @@ private:
 	uint32_t allNodesConnected;
 
 	void prepareData();
-	std::vector<CyclesSet*> connect(const std::vector<CyclesSet*>& actualCycleSets);
+	std::vector<CyclesSet*> connect(uint16_t it, const std::vector<CyclesSet*>& actualCycleSets);
 	bool isSolved(const std::vector<CyclesSet*>& connected);
 };
 
