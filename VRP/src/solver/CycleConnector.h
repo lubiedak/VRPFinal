@@ -26,15 +26,17 @@ public:
 
 
 private:
+	const Problem& problem;
 	const std::vector<Cycle>& cycles;
 	std::vector<CyclesSet*> specialCycles;
 	std::vector<CyclesSet*> baseCycles;
 
-	const Problem& problem;
 	std::vector<Solution> solutions;
 	uint32_t allNodesConnected;
 
 	void prepareData();
+	std::vector<CyclesSet*> connect(const std::vector<CyclesSet*>& actualCycleSets);
+	bool isSolved(const std::vector<CyclesSet*>& connected);
 };
 
 #endif /* SOLVER_CYCLECONNECTOR_H_ */
