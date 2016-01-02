@@ -24,16 +24,15 @@ std::vector<CyclesSet*> CycleConnector::connect() {
 
 	uint16_t connIteration = 1;
 	connected = connect(connIteration, specialCycles);
-	connIteration++;
 
 	uint16_t connectionsNeeded = problem.estimateConnectionsNeeded();
 
 	while (!isSolved(connected)) {
-		connected = connect(connIteration, connected);
 		std::cout<<"Iteration: "<<connIteration<<",Size"<<connected.size()<<std::endl;
 		connIteration++;
+		connected = connect(connIteration, connected);
 	}
-
+	std::cout<<"Iteration: "<<connIteration<<",Size"<<connected.size()<<std::endl;
 	return findSolved(connected);
 }
 

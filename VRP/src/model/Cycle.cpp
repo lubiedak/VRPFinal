@@ -85,6 +85,10 @@ void Cycle::checkPermSize(std::vector<std::vector<int>>& perms){
 	}
 }
 
+bool Cycle::operator <(const Cycle& c) const {
+	return distance < c.distance;
+}
+
 uint16_t Cycle::countMinimumDistance(const std::vector<std::vector<uint16_t> >& distances,
 									 const std::vector<std::vector<int> >& perms) {
 	uint16_t size = nodes.size()-1;
@@ -109,7 +113,7 @@ uint16_t Cycle::countMinimumDistance(const std::vector<std::vector<uint16_t> >& 
 
 	// change nodes order
 	std::vector<Node> nodesCopy = nodes;
-	for(uint16_t i  = 1; i < size; i++){
+	for(uint16_t i  = 1; i <= size; i++){
 		nodes[i] = nodesCopy[perms[bestPerm][i-1]+1];
 	}
 

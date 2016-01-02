@@ -18,6 +18,7 @@ public:
 	Cycle();
 	Cycle(const Cycle& c);
 	Cycle& operator=(const Cycle&);
+	bool operator<(const Cycle&) const;
 	virtual ~Cycle();
 
 	std::string toString();
