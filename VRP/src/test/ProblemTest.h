@@ -15,6 +15,7 @@
 
 #include "../solver/CycleCreator.h"
 #include "../solver/CycleConnector.h"
+#include "../solver/Solution.h"
 #include "resources/ProblemsForTest.h"
 
 
@@ -72,6 +73,13 @@ bool Problem5Nodes_TEST(bool silentMode){
 	CycleConnector ccon(p, cycles);
 	ccon.connect();
 
+	std::vector<Solution> solutions = ccon.getSolutions();
+	if(!silentMode){
+		for(Solution sol : solutions){
+			std::cout<<sol.toString();
+		}
+	}
+
 	return 25 == cycles.size();
 }
 
@@ -102,6 +110,13 @@ bool Problem10Nodes_TEST(bool silentMode){
 	std::vector<CyclesSet*> connected = ccon.connect();
 	//if(!silentMode)
 		printConnected(connected);
+
+	std::vector<Solution> solutions = ccon.getSolutions();
+	if(!silentMode){
+		for(Solution sol : solutions){
+			std::cout<<sol.toString();
+		}
+	}
 
 	return 175 == cycles.size();
 }

@@ -13,7 +13,7 @@
 #include "../model/Cycle.h"
 #include "CyclesSet.h"
 #include "../model/Problem.h"
-#include "../model/Solution.h"
+#include "Solution.h"
 
 
 
@@ -24,6 +24,7 @@ public:
 
 	std::vector<CyclesSet*> connect();
 
+	const std::vector<Solution>& getSolutions() const {return solutions;}
 
 private:
 	const Problem& problem;
@@ -43,6 +44,7 @@ private:
 	bool isSolved(const std::vector<CyclesSet*>& connected);
 	void addCyclesSet(std::vector<CyclesSet*>& connected, CyclesSet& actualCycleSet, CyclesSet& baseCycle,
 			uint16_t distance, uint32_t id, uint16_t it);
+	void transformCycleSetsToSolutions(const std::vector<CyclesSet*>& connected);
 };
 
 #endif /* SOLVER_CYCLECONNECTOR_H_ */

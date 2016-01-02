@@ -48,7 +48,8 @@ std::string Cycle::toString() {
 	oss << delimiter << "id" << mapDelimiter << id;
 	oss << delimiter << "distance" << mapDelimiter << distance;
 	oss << delimiter << "demand" << mapDelimiter << demand;
-	oss << delimiter << "capacity" << mapDelimiter << capacity;
+	// TODO
+	//oss << delimiter << "capacity" << mapDelimiter << capacity;
 	int i = 0;
 	for (auto n : nodes) {
 		oss << delimiter << "nodeId" << i++ << mapDelimiter << n.getId();
