@@ -23,7 +23,7 @@ public:
 
 	uint32_t id;
 	uint16_t distance;
-	uint32_t size;
+	uint16_t size;
 	uint16_t *cycles;
 };
 

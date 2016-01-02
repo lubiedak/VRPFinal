@@ -18,6 +18,7 @@ public:
 	Cycle();
 	Cycle(const Cycle& c);
 	Cycle& operator=(const Cycle&);
+	bool operator<(const Cycle&) const;
 	virtual ~Cycle();
 
 	std::string toString();
@@ -29,6 +30,8 @@ public:
 	virtual bool deserialize(std::string);
 
 	void setDemand(uint16_t demand) {this->demand = demand;}
+	uint16_t getDemand() const {return demand;}
+
 	void setDistance(uint16_t distance) {this->distance = distance;}
 	uint16_t getDistance() const {return distance;}
 

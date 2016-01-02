@@ -9,6 +9,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
 
 CycleCreator::CycleCreator(const Problem& p) :
@@ -46,6 +47,8 @@ uint16_t CycleCreator::create() {
 	}
 	if(!silentMode)
 		std::cout<<cycleIds.size()<<" cycles has been created"<<std::endl;
+
+    std::sort(cycles.begin(), cycles.end());
 
 	return cycleIds.size();
 }
