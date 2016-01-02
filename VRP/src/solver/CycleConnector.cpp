@@ -55,30 +55,18 @@ std::vector<CyclesSet*> CycleConnector::connect(uint16_t it,
 
 	for (uint16_t i = 0; i < actualCycleSets.size(); ++i) {
 		for (uint16_t j = 0; j < baseCycles.size(); ++j) {
+			//IF They don't have common Node
 			if (0 == (actualCycleSets[i]->id & baseCycles[j]->id)) {
 				uint32_t id = actualCycleSets[i]->id | baseCycles[j]->id;
 				uint16_t distance = baseCycles[j]->distance + actualCycleSets[i]->distance;
 
 				if(shortestConnections.find(id) == shortestConnections.end()){
 					shortestConnections[id] = distance;
-					CyclesSet* cycleSet = new CyclesSet(id, distance, it + 1);
-					for (int k = 0; k < it + 1; k++) {
-						cycleSet->cycles[k] = actualCycleSets[i]->cycles[k];
-					}
-
-					cycleSet->cycles[it] = baseCycles[j]->cycles[0];
-					connected.push_back(cycleSet);
+					addCyclesSet(connected, *actualCycleSets[i], *baseCycles[j], distance, id, it);
 				}else if(shortestConnections.at(id) > distance)
 				{
 					shortestConnections[id] = distance;
-
-					CyclesSet* cycleSet = new CyclesSet(id, distance, it + 1);
-					for (int k = 0; k < it + 1; k++) {
-						cycleSet->cycles[k] = actualCycleSets[i]->cycles[k];
-					}
-
-					cycleSet->cycles[it] = baseCycles[j]->cycles[0];
-					connected.push_back(cycleSet);
+					addCyclesSet(connected, *actualCycleSets[i], *baseCycles[j], distance, id, it);
 				}
 			}
 		}
@@ -87,11 +75,9 @@ std::vector<CyclesSet*> CycleConnector::connect(uint16_t it,
 }
 
 bool CycleConnector::isSolved(const std::vector<CyclesSet*>& connected) {
-
 	for (auto cs : connected) {
-		if ((cs->id & allNodesConnected) == allNodesConnected) {
+		if ((cs->id & allNodesConnected) == allNodesConnected)
 			return true;
-		}
 	}
 	return false;
 }
@@ -107,4 +93,16 @@ std::vector<CyclesSet*> CycleConnector::findSolved(
 		}
 	}
 	return connected;
+}
+
+void CycleConnector::addCyclesSet(std::vector<CyclesSet*>& connected, CyclesSet& actualCycleSet, CyclesSet& baseCycle,
+		uint16_t distance, uint32_t id, uint16_t it) {
+
+	CyclesSet* cycleSet = new CyclesSet(id, distance, it + 1);
+	for (int k = 0; k < it + 1; k++) {
+		cycleSet->cycles[k] = actualCycleSet.cycles[k];
+	}
+
+	cycleSet->cycles[it] = baseCycle.cycles[0];
+	connected.push_back(cycleSet);
 }

@@ -41,6 +41,8 @@ private:
 	std::vector<CyclesSet*> connect(uint16_t it, const std::vector<CyclesSet*>& actualCycleSets);
 	std::vector<CyclesSet*> findSolved(const std::vector<CyclesSet*>& actualCycleSets);
 	bool isSolved(const std::vector<CyclesSet*>& connected);
+	void addCyclesSet(std::vector<CyclesSet*>& connected, CyclesSet& actualCycleSet, CyclesSet& baseCycle,
+			uint16_t distance, uint32_t id, uint16_t it);
 };
 
 #endif /* SOLVER_CYCLECONNECTOR_H_ */
