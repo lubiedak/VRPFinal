@@ -16,7 +16,11 @@
 class Serialized {
 
 public:
-	Serialized(){}
+	Serialized(){
+		mapDelimiter = '=';
+		delimiter = ',';
+		membersCount = 0;
+	}
 	Serialized(const Serialized& s) {}
 	virtual ~Serialized() {
 	}
@@ -34,9 +38,9 @@ public:
 		return tag_map;
 	}
 
-	const char mapDelimiter = '=';
-	const char delimiter = ',';
-	int membersCount = 0;
+	char mapDelimiter;
+	char delimiter;
+	int membersCount;
 
 private:
 
