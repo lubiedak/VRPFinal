@@ -23,7 +23,7 @@ bool CriteriaSerialization_TEST(bool silentMode) {
 
 bool CycleSerialization_TEST(bool silentMode) {
 	Cycle c;
-	std::string expectedC = "class=Cycle,id=0,distance=0,demand=0,capacity=0";
+	std::string expectedC = "class=Cycle,id=0,distance=0,demand=0";
 	if (!silentMode) {
 		std::cout << expectedC << std::endl;
 		std::cout << c.serialize() << std::endl;

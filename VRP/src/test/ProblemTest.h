@@ -40,7 +40,7 @@ bool DistancesCreation_TEST(bool silentMode) {
 
 	p.generateDistances();
 	std::vector<std::vector<unsigned short>> dist = p.getDistances();
-	return dist[0][1] == 5;
+	return dist[1][2] == 5;
 }
 
 bool RandomProblem_TEST(bool silentMode){
