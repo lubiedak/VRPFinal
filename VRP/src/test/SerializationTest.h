@@ -41,6 +41,15 @@ bool NodeSerialization_TEST(bool silentMode) {
 	return 0 == expectedN.compare(n.serialize());
 }
 
+bool NodeDeserialization_TEST(bool silentMode) {
+	Node n(13, "xyz", 10, 20, 30);
+	std::string expectedN = n.serialize();
+	Node n2;
+	n2.deserialize(expectedN);
+
+	return n2 == n;
+}
+
 
 bool SolutionSerialization_TEST(bool silentMode) {
 	return true;

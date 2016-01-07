@@ -6,6 +6,8 @@
  */
 
 #include "Node.h"
+#include <stdexcept>
+#include <iostream>
 
 Node::Node() :
 		Node(0, std::string("node"), 0, 0, 0) {
@@ -33,6 +35,10 @@ Node& Node::operator =(const Node& n) {
 	return *this;
 }
 
+bool Node::operator ==(const Node& n) {
+	return id == n.id && name.compare(n.name) == 0 && x == n.x && y == n.y && demand == n.demand;
+}
+
 std::string Node::toString() {
 	std::stringstream oss;
 	oss << std::string("class=Node");
@@ -49,7 +55,55 @@ std::string Node::serialize() {
 	return toString();
 }
 
-bool Node::deserialize(std::string allocator) {
+
+bool Node::deserialize(std::string nodeStr) {
+	std::map<std::string, std::string> params = parse(nodeStr);
+
+	if(params.at("class").compare("Node") != 0)
+		return false;
+
+	Node nodeCopy = *this;
+
+	std::string err = "DESERIALIZATION ERROR of ";
+
+	try{
+		id = (uint32_t)(std::stoi(params.at("id")));
+	}catch(const std::out_of_range& e){
+		std::cout<<err<<nodeStr<<" field 'id' doesn't exist"<<std::endl;
+	}catch(const std::invalid_argument& e){
+		std::cout<<err<<nodeStr<<" field 'id'"<<std::endl;
+	}
+
+	try{
+		name = params["name"];
+	}catch(const std::out_of_range& e){
+		std::cout<<err<<nodeStr<<" field 'name' doesn't exist"<<std::endl;
+	}
+
+	try{
+		x = (int32_t)(std::stoi(params["x"]));
+	}catch(const std::out_of_range& e){
+		std::cout<<err<<nodeStr<<" field 'x' doesn't exist"<<std::endl;
+	}catch(const std::invalid_argument& e){
+		std::cout<<err<<nodeStr<<" field 'x'"<<std::endl;
+	}
+
+	try{
+		y = (int32_t)(std::stoi(params["y"]));
+	}catch(const std::out_of_range& e){
+		std::cout<<err<<nodeStr<<" field 'y' doesn't exist"<<std::endl;
+	}catch(const std::invalid_argument& e){
+		std::cout<<err<<nodeStr<<" field 'y'"<<std::endl;
+	}
+
+	try{
+		demand = (uint16_t)(std::stoi(params["demand"]));
+	}catch(const std::out_of_range& e){
+		std::cout<<err<<nodeStr<<" field 'demand' doesn't exist"<<std::endl;
+	}catch(const std::invalid_argument& e){
+		std::cout<<err<<nodeStr<<" field 'demand'"<<std::endl;
+	}
+
 	return true;
 }
 

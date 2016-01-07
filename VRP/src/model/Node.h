@@ -17,6 +17,7 @@ public:
 	Node();
 	Node(const Node& n);
 	Node& operator=(const Node&);
+	bool operator==(const Node&);
 	virtual ~Node();
 
 	Node(uint32_t id, const std::string& name, int32_t x, int32_t y, uint16_t demand);

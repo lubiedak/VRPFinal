@@ -29,6 +29,7 @@ Tester::Tester(bool silentMode) {
 	tests["Problem5Nodes_TEST"]			 = &Problem5Nodes_TEST;
 	tests["Problem6Nodes_TEST"]			 = &Problem6Nodes_TEST;
 	tests["Problem10Nodes_TEST"]		 = &Problem10Nodes_TEST;
+	tests["NodeDeserialization_TEST"]	 = &NodeDeserialization_TEST;
 }
 
 Tester::~Tester() {
