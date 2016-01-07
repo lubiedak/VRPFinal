@@ -75,6 +75,11 @@ Problem problem10Nodes() {
 	nodes.push_back(Node(8, "X8", 440, 130, 300));
 	nodes.push_back(Node(9, "X9", 220, 120, 300));
 	nodes.push_back(Node(10, "X10", 220, 130, 300));
+	nodes.push_back(Node(11, "X1", 10, 60, 300));
+	nodes.push_back(Node(12, "X2", 20, 70, 300));
+	nodes.push_back(Node(13, "X3", 120, 120, 300));
+	nodes.push_back(Node(14, "X4", 120, 130, 300));
+	nodes.push_back(Node(15, "X5", 140, 130, 300));
 
 	Problem problem = Problem(criteria, depot, nodes);
 	problem.generateDistances();

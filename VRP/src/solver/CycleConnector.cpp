@@ -29,6 +29,7 @@ std::vector<CyclesSet*> CycleConnector::connect() {
 	while (!isSolved(connected)) {
 		connIteration++;
 		connected = connect(connIteration, connected);
+		std::cout<<"iteration: "<<connIteration<<"connected "<<connected.size()<<std::endl;
 	}
 	connected = findSolved(connected);
 	transformCycleSetsToSolutions(connected);
