@@ -13,7 +13,7 @@
 template <typename T>
 class PermutationGen {
 public:
-	PermutationGen();
+	PermutationGen(){ silentMode = true;};
 	PermutationGen(int size);
 	PermutationGen(std::vector<T> base);
 	virtual ~PermutationGen();
@@ -36,7 +36,7 @@ private:
 	std::vector<T> perm;
 	std::vector< std::vector<T> > fullPermTable;
 
-	bool silentMode = true;
+	bool silentMode;
 };
 
 #endif /* SOLVER_PERMUTATIONGEN_H_ */
