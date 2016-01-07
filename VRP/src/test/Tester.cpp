@@ -29,6 +29,7 @@ Tester::Tester(bool silentMode) {
 	tests["Problem5Nodes_TEST"]			 = &Problem5Nodes_TEST;
 	tests["Problem6Nodes_TEST"]			 = &Problem6Nodes_TEST;
 	tests["Problem10Nodes_TEST"]		 = &Problem10Nodes_TEST;
+	tests["NodeDeserialization_TEST"]	 = &NodeDeserialization_TEST;
 }
 
 Tester::~Tester() {
@@ -36,9 +37,15 @@ Tester::~Tester() {
 }
 
 void Tester::runAll() {
+	int failed = 0;
+	int passed = 0;
 	for(auto test : tests){
 		std::cout<<test.first<<": STARTED"<<std::endl;
-		std::cout<<test.first<<": "<< (test.second(this->silentMode) ? "PASSED":"FAILED")<<std::endl;
+		bool status = test.second(this->silentMode);
+		status ? passed++ : failed++;
+		std::cout<<test.first<<": "<< ( status ? "PASSED":"FAILED")<<std::endl;
 	}
+	std::cout<<std::endl<<"Tests summary:"<<std::endl<<passed<<" tests passed, "
+			<<failed<<" tests failed"<<std::endl;
 }
 

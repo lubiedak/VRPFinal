@@ -23,7 +23,7 @@ bool CriteriaSerialization_TEST(bool silentMode) {
 
 bool CycleSerialization_TEST(bool silentMode) {
 	Cycle c;
-	std::string expectedC = "class=Cycle,id=0,distance=0,demand=0,capacity=0";
+	std::string expectedC = "class=Cycle,id=0,distance=0,demand=0";
 	if (!silentMode) {
 		std::cout << expectedC << std::endl;
 		std::cout << c.serialize() << std::endl;
@@ -39,6 +39,15 @@ bool NodeSerialization_TEST(bool silentMode) {
 		std::cout << n.serialize() << std::endl;
 	}
 	return 0 == expectedN.compare(n.serialize());
+}
+
+bool NodeDeserialization_TEST(bool silentMode) {
+	Node n(13, "xyz", 10, 20, 30);
+	std::string expectedN = n.serialize();
+	Node n2;
+	n2.deserialize(expectedN);
+
+	return n2 == n;
 }
 
 
