@@ -11,6 +11,7 @@
 
 template<typename T>
 PermutationGen<T>::PermutationGen() {
+	 silentMode = true;
 }
 
 template<typename T>

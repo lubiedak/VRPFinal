@@ -13,7 +13,7 @@
 template <typename T>
 class PermutationGen {
 public:
-	PermutationGen(){ silentMode = true;};
+	PermutationGen();
 	PermutationGen(int size);
 	PermutationGen(std::vector<T> base);
 	virtual ~PermutationGen();
