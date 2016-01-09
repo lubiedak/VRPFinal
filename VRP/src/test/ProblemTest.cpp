@@ -121,3 +121,28 @@ bool Problem10Nodes_TEST(bool silentMode){
 	return 175 == cycles.size();
 }
 
+bool Problem20Nodes_TEST(bool silentMode){
+	Problem p = problem20Nodes();
+	CycleCreator cc(p);
+
+	cc.create();
+	std::vector<Cycle> cycles = cc.getCycles();
+
+	//if(!silentMode)
+		printCycles(cycles);
+
+	CycleConnector ccon(p, cycles);
+	std::vector<CyclesSet*> connected = ccon.connect();
+	//if(!silentMode)
+		printConnected(connected);
+
+	std::vector<Solution> solutions = ccon.getSolutions();
+	if(!silentMode){
+		for(Solution sol : solutions){
+			std::cout<<sol.toString();
+		}
+	}
+
+	return 175 == cycles.size();
+}
+
