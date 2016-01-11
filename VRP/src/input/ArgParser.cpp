@@ -55,13 +55,13 @@ bool ArgParser::checkArgumentsCorrectness()
         std::cout << "Non-option #" << i << ": " << parser_.nonOption(i) << "\n";
 
 
-    for(int type = POINTS; type <= WORKSPACE; type++)
+    for(int type = INPUT; type <= WORKSPACE; type++)
     {
         option::Option* opt = options_[type];
         if(!opt)
         {
         	std::cout<<"Missing argument type: "<<usage[type].help<<std::endl;
-            if(type == POINTS) //required arguments
+            if(type == INPUT) //required arguments
             {
                 success = false;
                 std::cout<<"ERROR: missing required arguments to run application"<<std::endl;
@@ -77,7 +77,7 @@ bool ArgParser::checkIfFilesExists()
     std::cout<<"Start checking arguments ..."<<std::endl;
 
     FileDirChecker fileDirChecker;
-    for(int type = POINTS; type < WORKSPACE; type++)
+    for(int type = INPUT; type < WORKSPACE; type++)
     {
         for( option::Option* opt = options_[type]; opt; opt = opt->next())
         {

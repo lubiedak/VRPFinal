@@ -15,31 +15,31 @@ struct Arg: public option::Arg
   static option::ArgStatus Unknown(const option::Option& option, bool msg)
   {
     if (msg) printError("Unknown option '", option, "'\n");
-    return option::ARG_ILLEGAL;
+    	return option::ARG_ILLEGAL;
   }
 
   static option::ArgStatus Required(const option::Option& option, bool msg)
   {
     if (option.arg != 0)
-  ;    return option::ARG_OK;
+       return option::ARG_OK;
 
     if (msg) printError("Option '", option, "' requires an argument\n");
-    return option::ARG_ILLEGAL;
+    	return option::ARG_ILLEGAL;
   }
 };
 
-enum  optionIndex { UNKNOWN, HELP, POINTS, COST, FLEET, SETUP, WORKSPACE };
+enum  optionIndex { UNKNOWN, HELP, INPUT, RANDOM, TEST, DEBUG, WORKSPACE };
 const option::Descriptor usage[] =
 {
-    {UNKNOWN,  0,"" , ""    ,option::Arg::None, "USAGE: VRPCore [options]\n\nOptions:" },
-    {HELP,     0,"" , "help",option::Arg::Optional,  "  --help           \tPrint usage and exit." },
-    {POINTS,   0,"p", "points",option::Arg::Optional,        "  --points,    -p  \tPoints file path. (MANDATORY)" },
-    {COST,     0,"c", "cost",option::Arg::Optional,  "  --cost,      -c  \tCost file path." },
-    {FLEET,    0,"f", "fleet",option::Arg::Optional, "  --fleet,     -f  \tCities file path." },
-    {SETUP,    0,"s", "setup",option::Arg::Optional, "  --setup,     -s  \tSetup file path." },
+    {UNKNOWN,  0,"" , ""    ,  option::Arg::None, "USAGE: VRPCore [options]\n\nOptions:" },
+    {HELP,     0,"h", "help",  option::Arg::Optional, "  --help       -h  \tPrint usage and exit." },
+    {INPUT,    0,"i", "input", option::Arg::Optional, "  --input,     -i  \tPoints file path. (MANDATORY)" },
+    {RANDOM,   0,"r", "random",option::Arg::Optional, "  --random,    -r  \tCost file path." },
+    {TEST,     0,"t", "test",  option::Arg::Optional, "  --test,      -t  \tCities file path." },
+    {DEBUG,    0,"d", "debug", option::Arg::Optional, "  --debug,     -d  \tSetup file path." },
     {WORKSPACE,0,"w", "workspace",option::Arg::Optional,     "  --workspace, -w  \tWorkspace dir path." },
-    {UNKNOWN,  0,"" ,  ""   ,option::Arg::None, "\nExamples:\n"
-                                            "  VRPCore --points=points_file --workspace=workspace_dir\n"
+    {UNKNOWN,  0,"" ,  ""   ,  option::Arg::None, "\nExamples:\n"
+                                            "  VRPCore2.0 --input=input_file --workspace=workspace_dir\n"
                                             "  VRPCore -ppoints_file -wworkspace_dir\n" },
     {0,0,0,0,0,0}
 };

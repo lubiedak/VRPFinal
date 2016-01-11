@@ -16,8 +16,9 @@
 using namespace std;
 
 
-int main() {
-
+int main(int argc, char** argv)
+{
+    ArgParser argParser(argc, argv);
 	Tester tester(true);
 	tester.runAll();
 
