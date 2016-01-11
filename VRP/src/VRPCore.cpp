@@ -11,6 +11,7 @@
 
 #include "model/Criteria.h"
 #include "test/Tester.h"
+#include "input/ArgParser.h"
 
 using namespace std;
 
