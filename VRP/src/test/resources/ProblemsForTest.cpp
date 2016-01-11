@@ -67,7 +67,7 @@ Problem problem10Nodes() {
 }
 
 Problem problem20Nodes() {
-	Criteria criteria = Criteria(1000, 20000, 5, 200, 0, 0);
+	Criteria criteria = Criteria(1000, 20000, 5, 600, 0, 0);
 
 	std::vector<Node> nodes = std::vector<Node>();
 	Node depot(0, "Depot", 0, 0, 0);

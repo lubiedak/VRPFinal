@@ -22,7 +22,7 @@ public:
 	CycleConnector(const Problem& problem, const std::vector<Cycle>& cycles);
 	virtual ~CycleConnector();
 
-	std::vector<CyclesSet*> connect();
+	void connect();
 
 	const std::vector<Solution>& getSolutions() const {return solutions;}
 
@@ -31,19 +31,24 @@ private:
 	const std::vector<Cycle>& cycles;
 	std::vector<CyclesSet*> specialCycles;
 	std::vector<CyclesSet*> baseCycles;
-	std::vector<CyclesSet*> connected;
 
-	std::map<uint32_t, uint16_t> shortestConnections;
+	std::map<uint32_t, CyclesSet*> shortestConnected;
 
 	std::vector<Solution> solutions;
 	uint32_t allNodesConnected;
 
 	void prepareData();
-	std::vector<CyclesSet*> connect(uint16_t it, const std::vector<CyclesSet*>& actualCycleSets);
-	std::vector<CyclesSet*> findSolved(const std::vector<CyclesSet*>& actualCycleSets);
-	bool isSolved(const std::vector<CyclesSet*>& connected);
+
+	void connectMap(uint16_t it);
+	bool fullyConnected();
+
+	std::vector<CyclesSet*> findSolved();
 	void addCyclesSet(std::vector<CyclesSet*>& connected, CyclesSet& actualCycleSet, CyclesSet& baseCycle,
 			uint16_t distance, uint32_t id, uint16_t it);
+
+	void addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle,
+				uint16_t distance, uint32_t id, uint16_t it);
+
 	void transformCycleSetsToSolutions(const std::vector<CyclesSet*>& connected);
 };
 

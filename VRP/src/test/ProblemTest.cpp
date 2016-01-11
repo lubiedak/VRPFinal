@@ -107,7 +107,8 @@ bool Problem10Nodes_TEST(bool silentMode){
 		printCycles(cycles);
 
 	CycleConnector ccon(p, cycles);
-	std::vector<CyclesSet*> connected = ccon.connect();
+	ccon.connect();
+	/*
 	//if(!silentMode)
 		printConnected(connected);
 
@@ -116,7 +117,7 @@ bool Problem10Nodes_TEST(bool silentMode){
 		for(Solution sol : solutions){
 			std::cout<<sol.toString();
 		}
-	}
+	}*/
 
 	return 175 == cycles.size();
 }
@@ -132,9 +133,8 @@ bool Problem20Nodes_TEST(bool silentMode){
 		printCycles(cycles);
 
 	CycleConnector ccon(p, cycles);
-	std::vector<CyclesSet*> connected = ccon.connect();
-	//if(!silentMode)
-		printConnected(connected);
+	ccon.connect();
+
 
 	std::vector<Solution> solutions = ccon.getSolutions();
 	if(!silentMode){
