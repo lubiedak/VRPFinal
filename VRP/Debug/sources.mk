@@ -28,4 +28,5 @@ src/model \
 src/model/serialization \
 src/solver \
 src/test \
+src/test/resources \
 

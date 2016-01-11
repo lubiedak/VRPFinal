@@ -96,15 +96,19 @@ uint16_t Cycle::countMinimumDistance(const std::vector<std::vector<uint16_t> >& 
 	uint16_t minDistance = 20000;
 	uint16_t bestPerm = 0;
 	uint16_t dist = 0;
+	uint16_t depotId = nodes[0].getId();
+	uint16_t first=0;
+	uint16_t last=0;
 
 	for(uint32_t i = 0; i < permBorders[size]; ++i){
-		// depot and first
-		dist =  distances[nodes[0].getId()][1 + nodes[perms[i][0]].getId()];
-		//last and depot
-		dist += distances[1 + nodes[perms[i][size-1]].getId()][nodes[0].getId()];
+		first = nodes[1 + perms[i][0]].getId();
+		last = nodes[1 + perms[i][size-1]].getId();
+
+		dist =  distances[depotId][first];
+		dist += distances[last][depotId];
 
 		for(int j = 1; j < size; ++j){
-			dist += distances[1 + nodes[perms[i][j-1]].getId()][1 + nodes[perms[i][j]].getId()];
+			dist += distances[nodes[1 + perms[i][j-1]].getId()][nodes[1 + perms[i][j]].getId()];
 		}
 		if(dist < minDistance){
 			minDistance = dist;

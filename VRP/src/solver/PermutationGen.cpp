@@ -11,10 +11,12 @@
 
 template<typename T>
 PermutationGen<T>::PermutationGen() {
+	 silentMode = true;
 }
 
 template<typename T>
 PermutationGen<T>::PermutationGen(int size) {
+	 silentMode = true;
 	this->base = std::vector<T>(size);
 	this->perm = std::vector<T>(size);
 	for(int i =0; i< size; ++i){
@@ -25,6 +27,7 @@ PermutationGen<T>::PermutationGen(int size) {
 
 template<typename T>
 PermutationGen<T>::PermutationGen(std::vector<T> base) {
+	 silentMode = true;
 	this->base = base;
 	this->perm = base;
 }
