@@ -19,9 +19,11 @@ using namespace std;
 int main(int argc, char** argv)
 {
     ArgParser argParser(argc, argv);
-	Tester tester(true);
-	tester.runAll();
-
+    //if ( argParser.parse() )
+    {
+    	Tester tester(true);
+    	tester.runAll();
+    }
 	return 0;
 }
 
