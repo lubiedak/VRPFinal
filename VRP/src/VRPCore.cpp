@@ -11,15 +11,19 @@
 
 #include "model/Criteria.h"
 #include "test/Tester.h"
+#include "input/ArgParser.h"
 
 using namespace std;
 
 
-int main() {
-
-	Tester tester(true);
-	tester.runAll();
-
+int main(int argc, char** argv)
+{
+    ArgParser argParser(argc, argv);
+    //if ( argParser.parse() )
+    {
+    	Tester tester(true);
+    	tester.runAll();
+    }
 	return 0;
 }
 

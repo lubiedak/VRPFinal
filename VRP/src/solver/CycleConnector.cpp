@@ -58,14 +58,16 @@ void CycleConnector::connectMap(uint16_t it) {
 
 	for (auto conn : newConnected) {
 		++i;
+		uint32_t id1 = conn.second->id;
 		for (uint16_t j = 0; j < baseCycles.size(); ++j) {
 			//IF They don't have common Node
-			if ( 0 == (conn.second->id & baseCycles[j]->id) ) {
+
+			if ( 0 == (id1 & baseCycles[j]->id) ) {
 				if(i > step){
 					std::cout<<i<<" from "<<size<<" analyzed."<<std::endl;
 					step+=step;
 				}
-				uint32_t id = conn.second->id | baseCycles[j]->id;
+				uint32_t id = (id1 | baseCycles[j]->id);
 
 				if(!foundFirstFull && id == allNodesConnected)
 					foundFirstFull = true;
