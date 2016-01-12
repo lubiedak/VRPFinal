@@ -7,7 +7,7 @@
 
 #include "Solution.h"
 
-Solution::Solution(CyclesSet& cs, const std::vector<Cycle>& cycles) {
+Solution::Solution(CyclesSet& cs, const std::vector<Cycle>& cycles) : Serialized(){
 	demand = 0;
 	for (uint16_t i = 0; i < cs.size; ++i) {
 		optimizedCycles.push_back(cycles[cs.cycles[i]]);
