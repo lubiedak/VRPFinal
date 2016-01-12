@@ -21,7 +21,7 @@ int main(int argc, char** argv)
     ArgParser argParser(argc, argv);
     //if ( argParser.parse() )
     {
-    	Tester tester(true);
+    	Tester tester(false);
     	tester.runAll();
     }
 	return 0;

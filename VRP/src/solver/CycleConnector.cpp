@@ -22,15 +22,14 @@ CycleConnector::~CycleConnector() {
 void CycleConnector::connect() {
 	uint16_t connIteration = 1;
 	connectMap(connIteration);
-	std::cout<<"iteration: "<<connIteration<<" connected: "<<shortestConnected.size()<<std::endl;
+	std::cout<<"iteration: "<<connIteration<<" connected: "<<connections.size()<<std::endl;
 
 	while (!fullyConnected()) {
 		connIteration++;
 		connectMap(connIteration);
-		std::cout<<"iteration: "<<connIteration<<" connected: "<<shortestConnected.size()<<std::endl;
+		std::cout<<"iteration: "<<connIteration<<" connected: "<<connections.size()<<std::endl;
 	}
-	std::vector<CyclesSet*> connected = findSolved();
-	transformCycleSetsToSolutions(connected);
+	solution = Solution(*connections[allNodesConnected], cycles);
 }
 
 void CycleConnector::prepareData() {
@@ -39,7 +38,7 @@ void CycleConnector::prepareData() {
 	for (uint16_t i = 0; i < cycles.size(); ++i) {
 		if (cycles[i].contains(biggestDemanderId)){
 			specialCycles.push_back(new CyclesSet(cycles[i], i, 1));
-			shortestConnected[cycles[i].getId()] = new CyclesSet(cycles[i], i, 1);
+			connections[cycles[i].getId()] = new CyclesSet(cycles[i], i, 1);
 		}else{
 			baseCycles.push_back(new CyclesSet(cycles[i], i, 1));
 		}
@@ -49,7 +48,7 @@ void CycleConnector::prepareData() {
 
 void CycleConnector::connectMap(uint16_t it) {
 
-	std::map<uint32_t, CyclesSet*> newConnected = shortestConnected;
+	std::map<uint32_t, CyclesSet*> newConnected = connections;
 	uint32_t size = newConnected.size();
 	uint32_t step = size/4;
 	uint32_t i = 0;
@@ -76,36 +75,23 @@ void CycleConnector::connectMap(uint16_t it) {
 					uint16_t distance = baseCycles[j]->distance
 							+ conn.second->distance;
 
-					if (shortestConnected.find(id) == shortestConnected.end()) {
+					if (connections.find(id) == connections.end()) {
 
 						addCyclesSetToMap(*conn.second, *baseCycles[j],	distance, id, it);
 						if(id == allNodesConnected)
-						std::cout<<"NE: "<<shortestConnected.at(id)->toString()<<std::endl;
+						std::cout<<"NE: "<<connections.at(id)->toString()<<std::endl;
 
-					} else if (shortestConnected.at(id)->distance > distance) {
+					} else if (connections.at(id)->distance > distance) {
 
 						addCyclesSetToMap(*conn.second, *baseCycles[j],	distance, id, it);
 						if(id == allNodesConnected)
-							std::cout<<"DE: "<<shortestConnected.at(id)->toString()<<std::endl;
+							std::cout<<"DE: "<<connections.at(id)->toString()<<std::endl;
 					}
 				}
 			}
 		}
 	}
-	//return connected;
 }
-
-std::vector<CyclesSet*> CycleConnector::findSolved() {
-	std::vector<CyclesSet*> connected;
-
-	for (auto cs : shortestConnected) {
-		if ((cs.first & allNodesConnected) == allNodesConnected) {
-			connected.push_back(cs.second);
-		}
-	}
-	return connected;
-}
-
 
 void CycleConnector::addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle, uint16_t distance,
 		uint32_t id, uint16_t it) {
@@ -116,16 +102,11 @@ void CycleConnector::addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& bas
 	}
 
 	cycleSet->cycles[it] = baseCycle.cycles[0];
-	shortestConnected[id] = cycleSet;
+	connections[id] = cycleSet;
 }
 
 bool CycleConnector::fullyConnected() {
-	return shortestConnected.find(allNodesConnected) != shortestConnected.end();
+	return connections.find(allNodesConnected) != connections.end();
 }
 
-void CycleConnector::transformCycleSetsToSolutions(const std::vector<CyclesSet*>& connected) {
-	for(CyclesSet* cs : connected){
-		solutions.push_back(Solution(*cs, cycles));
-	}
-}
 

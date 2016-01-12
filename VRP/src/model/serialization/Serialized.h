@@ -21,7 +21,7 @@ public:
 		delimiter = ',';
 		membersCount = 0;
 	}
-	Serialized(const Serialized& s) {}
+	Serialized(const Serialized& s) : Serialized() {}
 	virtual ~Serialized() {
 	}
 
