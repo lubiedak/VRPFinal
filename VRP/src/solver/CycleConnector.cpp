@@ -17,6 +17,9 @@ CycleConnector::CycleConnector(const Problem& problem,
 
 CycleConnector::~CycleConnector() {
 	// TODO Auto-generated destructor stub
+	connections.clear();
+	baseCycles.clear();
+	specialCycles.clear();
 }
 
 void CycleConnector::connect() {

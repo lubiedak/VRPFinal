@@ -47,8 +47,8 @@ private:
 	uint32_t id;
 	uint16_t distance;
 	uint16_t demand;
-	float distCoef;
 	uint16_t capacity;
+	float distCoef;
     std::vector<Node> nodes;
 
     void checkPermSize(std::vector<std::vector<int>>& perms);
