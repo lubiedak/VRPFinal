@@ -88,7 +88,7 @@ bool Problem5Nodes_TEST(bool silentMode){
 bool Problem6Nodes_TEST(bool silentMode){
 	Problem p = problem6Nodes();
 
-	return ProblemTemplate_TEST(p,silentMode,36,1320,602);
+	return ProblemTemplate_TEST(p,silentMode,56,1320,602);
 }
 
 bool Problem10Nodes_TEST(bool silentMode){
