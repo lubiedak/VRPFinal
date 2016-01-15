@@ -14,6 +14,7 @@
 #include "../solver/CycleCreator.h"
 #include "../solver/CycleConnector.h"
 #include "../solver/Solution.h"
+
 #include "resources/ProblemsForTest.h"
 
 
