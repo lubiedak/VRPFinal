@@ -8,17 +8,6 @@
 #ifndef TEST_PROBLEMTEST_H_
 #define TEST_PROBLEMTEST_H_
 
-#include "../model/Problem.h"
-
-#include <iostream>
-#include <string>
-
-#include "../solver/CycleCreator.h"
-#include "../solver/CycleConnector.h"
-#include "../solver/Solution.h"
-#include "resources/ProblemsForTest.h"
-
-
 bool DistancesCreation_TEST(bool silentMode);
 bool RandomProblem_TEST(bool silentMode);
 bool Problem5Nodes_TEST(bool silentMode);
