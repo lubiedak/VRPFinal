@@ -45,14 +45,14 @@ Cycle::~Cycle() {
 std::string Cycle::toString() {
 	std::stringstream oss;
 	oss << std::string("class=Cycle");
-	oss << delimiter << "id" << mapDelimiter << id;
-	oss << delimiter << "distance" << mapDelimiter << distance;
-	oss << delimiter << "demand" << mapDelimiter << demand;
+	oss << delimiter << "id" << pairDelimiter << id;
+	oss << delimiter << "distance" << pairDelimiter << distance;
+	oss << delimiter << "demand" << pairDelimiter << demand;
 	// TODO
 	//oss << delimiter << "capacity" << mapDelimiter << capacity;
 	int i = 0;
 	for (auto n : nodes) {
-		oss << delimiter << "nodeId" << i++ << mapDelimiter << n.getId();
+		oss << delimiter << "nodeId" << i++ << pairDelimiter << n.getId();
 	}
 
 	return oss.str();

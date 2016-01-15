@@ -9,10 +9,9 @@
 #define MODEL_CRITERIA_H_
 
 #include <string>
+#include <map>
 
-#include "serialization/Serialized.h"
-
-class Criteria : public Serialized {
+class Criteria{
 public:
 
 	Criteria(){}
@@ -27,10 +26,9 @@ public:
 	Criteria& operator=(const Criteria& c);
 
 	virtual ~Criteria(){};
+
 	std::string toString();
 
-	virtual std::string serialize();
-	virtual bool deserialize(std::string);
 
 	uint16_t maxCapacity() const {return properties.at("maxCapacity");}
 	uint16_t minCapacity() const {return properties.at("minCapacity");}

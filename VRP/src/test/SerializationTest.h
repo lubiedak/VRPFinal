@@ -5,8 +5,13 @@
  *      Author: lubiedak
  */
 
+#include <iostream>
+#include <string>
+
 #include "../model/Criteria.h"
 #include "../model/Cycle.h"
+#include "../model/Node.h"
+#include "../model/serialization/CriteriaDao.h"
 
 bool CriteriaSerialization_TEST(bool silentMode) {
 	Criteria cr = Criteria(1, 2, 3);
@@ -14,11 +19,13 @@ bool CriteriaSerialization_TEST(bool silentMode) {
 			",maxCapacity=1,maxDistance=2,maxNodes=3"
 			",minCapacity=0,minDistance=0,minNodes=0";
 
+	CriteriaDao crDao(cr);
 	if (!silentMode) {
 		std::cout << expectedCR << std::endl;
-		std::cout << cr.serialize() << std::endl;
+
+		std::cout << crDao.serialize() << std::endl;
 	}
-	return 0 == expectedCR.compare(cr.serialize());
+	return 0 == expectedCR.compare(crDao.serialize());
 }
 
 bool CycleSerialization_TEST(bool silentMode) {
