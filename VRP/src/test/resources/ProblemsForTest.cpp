@@ -101,7 +101,7 @@ Problem createRandomProblem(Criteria criteria, ProblemGenParams p) {
 	Problem problem(criteria, Node(0, "Depot", 0, 0, 0));
 	problem.setCriteria(criteria);
 	srand(time(NULL));
-	for (uint16_t i = 1; i < p.nodes; ++i) {
+	for (uint16_t i = 1; i <= p.nodes; ++i) {
 		Node n = Node(i, std::string("rand"),
 				rand() % p.maxX,
 				rand() % p.maxY,

@@ -24,7 +24,7 @@ public:
 
 	void connect();
 
-	const std::vector<Solution>& getSolutions() const {return solutions;}
+	Solution getSolution() const {return solution;}
 
 private:
 	const Problem& problem;
@@ -32,19 +32,15 @@ private:
 	std::vector<CyclesSet*> specialCycles;
 	std::vector<CyclesSet*> baseCycles;
 
-	std::map<uint32_t, CyclesSet*> shortestConnected;
+	std::map<uint32_t, CyclesSet*> connections;
 
-	std::vector<Solution> solutions;
+	Solution solution;
 	uint32_t allNodesConnected;
 
 	void prepareData();
 
 	void connectMap(uint16_t it);
 	bool fullyConnected();
-
-	std::vector<CyclesSet*> findSolved();
-	void addCyclesSet(std::vector<CyclesSet*>& connected, CyclesSet& actualCycleSet, CyclesSet& baseCycle,
-			uint16_t distance, uint32_t id, uint16_t it);
 
 	void addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle,
 				uint16_t distance, uint32_t id, uint16_t it);

@@ -31,6 +31,25 @@ void printConnected(const std::vector<CyclesSet*>& connected){
 	}
 }
 
+bool ProblemTemplate_TEST(Problem p, bool silentMode, uint32_t expectedCycles, uint32_t expectedDemand, uint32_t expectedDistance){
+	CycleCreator cc(p);
+
+	cc.create();
+	std::vector<Cycle> cycles = cc.getCycles();
+
+	CycleConnector ccon(p, cycles);
+	ccon.connect();
+
+	Solution solution = ccon.getSolution();
+
+	if(!silentMode)
+		std::cout<<solution.toString()<<std::endl;
+
+	return expectedCycles == cycles.size()
+			&& solution.getDemand() == expectedDemand
+			&& solution.getDistance() == expectedDistance;
+}
+
 bool DistancesCreation_TEST(bool silentMode) {
 	Problem p = Problem(Criteria(0,0,0), Node());
 	p.addNode(Node(0,"",0,0,0));
@@ -43,18 +62,28 @@ bool DistancesCreation_TEST(bool silentMode) {
 
 bool RandomProblem_TEST(bool silentMode){
 	ProblemGenParams params;
-	params.maxDemand = 600;
+	params.maxDemand = 500;
 	params.minDemand = 100;
 	params.maxX = 1000;
 	params.maxY = 1000;
-	params.nodes = 20;
+	params.nodes = 16;
 
-	Criteria c(1000,1000,5,500,0,2);
+	Criteria c(1000,1000,5,300,0,1);
 
 	Problem p = createRandomProblem(c, params);
-
+	p.analyze();
 	CycleCreator cc(p);
+
 	cc.create();
+	std::vector<Cycle> cycles = cc.getCycles();
+
+	CycleConnector ccon(p, cycles);
+	ccon.connect();
+
+	Solution solution = ccon.getSolution();
+
+	if(!silentMode)
+		std::cout<<solution.toString()<<std::endl;
 
 
 	return true;
@@ -62,87 +91,23 @@ bool RandomProblem_TEST(bool silentMode){
 
 bool Problem5Nodes_TEST(bool silentMode){
 	Problem p = problem5Nodes();
-	CycleCreator cc(p);
 
-	cc.create();
-	std::vector<Cycle> cycles = cc.getCycles();
-
-	if(!silentMode)
-		printCycles(cycles);
-
-	CycleConnector ccon(p, cycles);
-	ccon.connect();
-
-	std::vector<Solution> solutions = ccon.getSolutions();
-	if(!silentMode){
-		for(Solution sol : solutions){
-			std::cout<<sol.toString();
-		}
-	}
-
-	return 25 == cycles.size();
+	return ProblemTemplate_TEST(p,silentMode,25,1501,537);
 }
 
 bool Problem6Nodes_TEST(bool silentMode){
 	Problem p = problem6Nodes();
-	CycleCreator cc(p);
 
-	cc.create();
-	std::vector<Cycle> cycles = cc.getCycles();
-
-	if(!silentMode)
-		printCycles(cycles);
-
-	return 56 == cycles.size();
+	return ProblemTemplate_TEST(p,silentMode,56,1320,602);
 }
 
 bool Problem10Nodes_TEST(bool silentMode){
 	Problem p = problem10Nodes();
-	CycleCreator cc(p);
-
-	cc.create();
-	std::vector<Cycle> cycles = cc.getCycles();
-
-	//if(!silentMode)
-		printCycles(cycles);
-
-	CycleConnector ccon(p, cycles);
-	ccon.connect();
-	/*
-	//if(!silentMode)
-		printConnected(connected);
-
-	std::vector<Solution> solutions = ccon.getSolutions();
-	if(!silentMode){
-		for(Solution sol : solutions){
-			std::cout<<sol.toString();
-		}
-	}*/
-
-	return 175 == cycles.size();
+	return ProblemTemplate_TEST(p,silentMode,175,3001,1943);
 }
 
 bool Problem20Nodes_TEST(bool silentMode){
 	Problem p = problem20Nodes();
-	CycleCreator cc(p);
-
-	cc.create();
-	std::vector<Cycle> cycles = cc.getCycles();
-
-	//if(!silentMode)
-		printCycles(cycles);
-
-	CycleConnector ccon(p, cycles);
-	ccon.connect();
-
-
-	std::vector<Solution> solutions = ccon.getSolutions();
-	if(!silentMode){
-		for(Solution sol : solutions){
-			std::cout<<sol.toString();
-		}
-	}
-
-	return 175 == cycles.size();
+	return ProblemTemplate_TEST(p,silentMode,20349,3982,2844);
 }
 

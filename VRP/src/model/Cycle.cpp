@@ -14,9 +14,9 @@
 
 const uint32_t permBorders[] = {0,1,2,6,24,120,720,5040,40320};
 
-Cycle::Cycle() : id(0), distance(0), demand(0), capacity(0) {
+Cycle::Cycle() : id(0), distance(0), demand(0), capacity(0), distCoef(0.0) {
 	nodes = std::vector<Node>();
-	membersCount = 5;
+	membersCount = 6;
 }
 
 Cycle& Cycle::operator =(const Cycle& c) {
@@ -26,6 +26,7 @@ Cycle& Cycle::operator =(const Cycle& c) {
 	this->distance = c.distance;
 	this->nodes = c.nodes;
 	this->membersCount = c.membersCount;
+	this->distCoef = c.distCoef;
 	return *this;
 }
 
@@ -36,6 +37,7 @@ Cycle::Cycle(const Cycle& c) {
 	capacity = c.capacity;
 	nodes = c.nodes;
 	membersCount = c.membersCount;
+	distCoef = c.distCoef;
 }
 
 Cycle::~Cycle() {
@@ -45,14 +47,15 @@ Cycle::~Cycle() {
 std::string Cycle::toString() {
 	std::stringstream oss;
 	oss << std::string("class=Cycle");
-	oss << delimiter << "id" << mapDelimiter << id;
-	oss << delimiter << "distance" << mapDelimiter << distance;
-	oss << delimiter << "demand" << mapDelimiter << demand;
+	oss << delimiter << "id" << pairDelimiter << id;
+	oss << delimiter << "distance" << pairDelimiter << distance;
+	oss << delimiter << "distCoef" << pairDelimiter << distCoef;
+	oss << delimiter << "demand" << pairDelimiter << demand;
 	// TODO
 	//oss << delimiter << "capacity" << mapDelimiter << capacity;
 	int i = 0;
 	for (auto n : nodes) {
-		oss << delimiter << "nodeId" << i++ << mapDelimiter << n.getId();
+		oss << delimiter << "nodeId" << i++ << pairDelimiter << n.getId();
 	}
 
 	return oss.str();
@@ -106,9 +109,12 @@ uint16_t Cycle::countMinimumDistance(const std::vector<std::vector<uint16_t> >& 
 
 		dist =  distances[depotId][first];
 		dist += distances[last][depotId];
+		distCoef = 0.0;
 
 		for(int j = 1; j < size; ++j){
+
 			dist += distances[nodes[1 + perms[i][j-1]].getId()][nodes[1 + perms[i][j]].getId()];
+			distCoef += distances[nodes[1 + perms[i][j-1]].getId()][nodes[1 + perms[i][j]].getId()];
 		}
 		if(dist < minDistance){
 			minDistance = dist;
@@ -121,7 +127,7 @@ uint16_t Cycle::countMinimumDistance(const std::vector<std::vector<uint16_t> >& 
 	for(uint16_t i  = 1; i <= size; i++){
 		nodes[i] = nodesCopy[perms[bestPerm][i-1]+1];
 	}
-
+	distCoef = 100*distCoef/dist;
 
 	return minDistance;
 }

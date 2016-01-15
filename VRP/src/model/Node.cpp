@@ -42,11 +42,11 @@ bool Node::operator ==(const Node& n) {
 std::string Node::toString() {
 	std::stringstream oss;
 	oss << std::string("class=Node");
-	oss << delimiter << "id" << mapDelimiter << id;
-	oss << delimiter << "name" << mapDelimiter << name;
-	oss << delimiter << "x" << mapDelimiter << x;
-	oss << delimiter << "y" << mapDelimiter << y;
-	oss << delimiter << "demand" << mapDelimiter << demand;
+	oss << delimiter << "id" << pairDelimiter << id;
+	oss << delimiter << "name" << pairDelimiter << name;
+	oss << delimiter << "x" << pairDelimiter << x;
+	oss << delimiter << "y" << pairDelimiter << y;
+	oss << delimiter << "demand" << pairDelimiter << demand;
 
 	return oss.str();
 }

@@ -26,6 +26,8 @@ public:
 	virtual bool deserialize(std::string);
 
 	std::string toString();
+	uint32_t getDistance() const {return distance;}
+	uint32_t getDemand() const {return demand;}
 
 private:
 	uint32_t distance;
