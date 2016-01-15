@@ -17,6 +17,18 @@ CycleConnector::CycleConnector(const Problem& problem,
 
 CycleConnector::~CycleConnector() {
 	// TODO Auto-generated destructor stub
+	for (auto it : connections){
+		delete it.second;
+	}
+	for (auto it : baseCycles){
+		delete it;
+	}
+	for (auto it : specialCycles){
+		delete it;
+	}
+	connections.clear();
+	baseCycles.clear();
+	specialCycles.clear();
 }
 
 void CycleConnector::connect() {
@@ -102,6 +114,7 @@ void CycleConnector::addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& bas
 	}
 
 	cycleSet->cycles[it] = baseCycle.cycles[0];
+	delete connections[id];
 	connections[id] = cycleSet;
 }
 

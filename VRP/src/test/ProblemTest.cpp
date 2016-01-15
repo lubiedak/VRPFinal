@@ -66,7 +66,7 @@ bool RandomProblem_TEST(bool silentMode){
 	params.minDemand = 100;
 	params.maxX = 1000;
 	params.maxY = 1000;
-	params.nodes = 16;
+	params.nodes = 20;
 
 	Criteria c(1000,1000,5,300,0,1);
 
