@@ -63,7 +63,7 @@ void CycleConnector::connectMap(uint16_t it) {
 
 			if ( 0 == (id1 & baseCycles[j]->id) ) {
 				if(i > step){
-					std::cout<<i<<" from "<<size<<" analyzed."<<std::endl;
+					//std::cout<<i<<" from "<<size<<" analyzed."<<std::endl;
 					step+=step;
 				}
 				uint32_t id = (id1 | baseCycles[j]->id);

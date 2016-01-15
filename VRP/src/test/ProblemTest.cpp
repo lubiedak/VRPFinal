@@ -62,18 +62,28 @@ bool DistancesCreation_TEST(bool silentMode) {
 
 bool RandomProblem_TEST(bool silentMode){
 	ProblemGenParams params;
-	params.maxDemand = 600;
+	params.maxDemand = 500;
 	params.minDemand = 100;
 	params.maxX = 1000;
 	params.maxY = 1000;
-	params.nodes = 20;
+	params.nodes = 16;
 
-	Criteria c(1000,1000,5,500,0,2);
+	Criteria c(1000,1000,5,300,0,1);
 
 	Problem p = createRandomProblem(c, params);
-
+	p.analyze();
 	CycleCreator cc(p);
+
 	cc.create();
+	std::vector<Cycle> cycles = cc.getCycles();
+
+	CycleConnector ccon(p, cycles);
+	ccon.connect();
+
+	Solution solution = ccon.getSolution();
+
+	if(!silentMode)
+		std::cout<<solution.toString()<<std::endl;
 
 
 	return true;

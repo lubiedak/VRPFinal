@@ -12,18 +12,25 @@
 #include "model/Criteria.h"
 #include "test/Tester.h"
 #include "input/ArgParser.h"
+#include "test/ProblemTest.h"
 
 using namespace std;
 
+void randomProblem(int n);
 
-int main(int argc, char** argv)
-{
-    ArgParser argParser(argc, argv);
-    //if ( argParser.parse() )
-    {
-    	Tester tester(true);
-    	tester.runAll();
-    }
+int main(int argc, char** argv) {
+	ArgParser argParser(argc, argv);
+	//if ( argParser.parse() )
+	randomProblem(10);
+	{
+		//Tester tester(true);
+		//tester.runAll();
+	}
 	return 0;
 }
 
+void randomProblem(int n) {
+	for (int i = 0; i < n; ++i) {
+		RandomProblem_TEST(false);
+	}
+}
