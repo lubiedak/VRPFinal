@@ -5,15 +5,18 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/io/ArgParser.cpp \
-../src/io/FileDirChecker.cpp 
+../src/io/FileDirChecker.cpp \
+../src/io/ProblemLoader.cpp 
 
 OBJS += \
 ./src/io/ArgParser.o \
-./src/io/FileDirChecker.o 
+./src/io/FileDirChecker.o \
+./src/io/ProblemLoader.o 
 
 CPP_DEPS += \
 ./src/io/ArgParser.d \
-./src/io/FileDirChecker.d 
+./src/io/FileDirChecker.d \
+./src/io/ProblemLoader.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

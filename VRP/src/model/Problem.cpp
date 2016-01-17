@@ -78,6 +78,14 @@ std::vector<Node> Problem::getNodesAndDepot(uint32_t set) const {
 	return chosenNodes;
 }
 
+std::string Problem::toString() {
+	std::string problem = criteria.toString()+"\n";
+	problem+=depot.toString()+"\n";
+	for(Node n: nodes){
+		problem+=n.toString()+"\n";
+	}
+	return problem;
+}
 
 uint16_t Problem::sumDemands() {
 	uint16_t demand = 0;
@@ -90,3 +98,5 @@ uint16_t Problem::sumDemands() {
 uint16_t Problem::estimateConnectionsNeeded() const {
 	return demandsSum/criteria.maxCapacity() + 1;
 }
+
+

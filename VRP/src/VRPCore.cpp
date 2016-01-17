@@ -6,13 +6,10 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-#include <iostream>
-#include <fstream>
-
 #include "io/ArgParser.h"
-#include "model/Criteria.h"
-#include "test/Tester.h"
+#include "io/ProblemLoader.h"
 #include "test/ProblemTest.h"
+#include "model/Problem.h"
 
 using namespace std;
 
@@ -21,11 +18,16 @@ void randomProblem(int n);
 int main(int argc, char** argv) {
 	ArgParser argParser(argc, argv);
 	//if ( argParser.parse() )
-	randomProblem(10);
+	//randomProblem(10);
 	{
 		//Tester tester(true);
 		//tester.runAll();
 	}
+
+
+	ProblemLoader p("/home/lubiedak/workspace/VRPFinalRepo/VRP/Release/problemExample.txt");
+	Problem problem = p.load();
+
 	return 0;
 }
 

@@ -73,6 +73,7 @@ bool RandomProblem_TEST(bool silentMode){
 
 	Problem p = createRandomProblem(c, params);
 	p.analyze();
+	std::cout<<p.toString();
 	CycleCreator cc(p);
 
 	cc.create();

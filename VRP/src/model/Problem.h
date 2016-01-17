@@ -16,6 +16,7 @@
 
 class Problem {
 public:
+	Problem(){};
 	Problem(Criteria criteria, Node depot);
 	Problem(Criteria criteria, Node depot, std::vector<Node> nodes);
 	Problem(Criteria criteria, Node depot, std::vector<Node> nodes,
@@ -49,6 +50,8 @@ public:
 	uint16_t getMinDistance() const {return criteria.minDistance();}
 
 	uint16_t estimateConnectionsNeeded() const;
+
+	std::string toString();
 
 private:
 

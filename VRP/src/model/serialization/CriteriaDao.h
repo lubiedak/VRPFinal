@@ -13,6 +13,7 @@
 
 class CriteriaDao : public Serialized {
 public:
+	CriteriaDao() : Serialized() {}
 	CriteriaDao(Criteria c);
 	virtual ~CriteriaDao();
 
@@ -20,8 +21,10 @@ public:
 	virtual std::string serialize();
 	virtual bool deserialize(std::string);
 
+	const Criteria& getCriteria() const {return criteria;}
+
 private:
-	Criteria c;
+	Criteria criteria;
 
 };
 

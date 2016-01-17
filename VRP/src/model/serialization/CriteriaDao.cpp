@@ -7,7 +7,7 @@
 
 #include "CriteriaDao.h"
 
-CriteriaDao::CriteriaDao(Criteria c) : c(c){
+CriteriaDao::CriteriaDao(Criteria c) : criteria(c){
 	membersCount = 6;
 }
 
@@ -16,7 +16,7 @@ CriteriaDao::~CriteriaDao() {
 }
 
 std::string CriteriaDao::serialize() {
-	return c.toString();
+	return criteria.toString();
 }
 
 bool CriteriaDao::deserialize(std::string str) {
