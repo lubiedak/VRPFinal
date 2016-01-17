@@ -1,7 +1,7 @@
-#include "ArgParser.h"
-#include "FileDirChecker.h"
+#include "../io/ArgParser.h"
 
 #include <iostream>
+#include "../io/FileDirChecker.h"
 
 ArgParser::ArgParser(void)
 {
