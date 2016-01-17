@@ -6,10 +6,12 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
+#include <iostream>
+#include <string>
+
 #include "io/ArgParser.h"
 #include "io/ProblemLoader.h"
 #include "test/ProblemTest.h"
-#include "model/Problem.h"
 
 using namespace std;
 
@@ -25,9 +27,9 @@ int main(int argc, char** argv) {
 	}
 
 
-	ProblemLoader p("/home/lubiedak/workspace/VRPFinalRepo/VRP/Release/problemExample.txt");
+	ProblemLoader p("../src/test/resources/problemExample.txt");
 	Problem problem = p.load();
-
+	std::cout<<problem.toString();
 	return 0;
 }
 
