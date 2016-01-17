@@ -9,9 +9,9 @@
 #include <iostream>
 #include <fstream>
 
+#include "io/ArgParser.h"
 #include "model/Criteria.h"
 #include "test/Tester.h"
-#include "input/ArgParser.h"
 #include "test/ProblemTest.h"
 
 using namespace std;

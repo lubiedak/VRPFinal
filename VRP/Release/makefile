@@ -13,7 +13,7 @@ RM := rm -rf
 -include src/solver/subdir.mk
 -include src/model/serialization/subdir.mk
 -include src/model/subdir.mk
--include src/input/subdir.mk
+-include src/io/subdir.mk
 -include src/subdir.mk
 -include subdir.mk
 -include objects.mk
