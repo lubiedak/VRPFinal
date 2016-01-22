@@ -8,14 +8,16 @@
 #include "../model/Problem.h"
 #include "ProblemTest.h"
 
+#include <cstdint>
 #include <iostream>
 #include <string>
 
-#include "../solver/CycleCreator.h"
 #include "../solver/CycleConnector.h"
+#include "../solver/CycleCreator.h"
+#include "../solver/CyclesSet.h"
 #include "../solver/Solution.h"
-
 #include "resources/ProblemsForTest.h"
+#include "RandomProblemGenerator.h"
 
 
 void printCycles(const std::vector<Cycle>& cycles){
@@ -71,7 +73,9 @@ bool RandomProblem_TEST(bool silentMode){
 
 	Criteria c(1000,1000,5,300,0,1);
 
-	Problem p = createRandomProblem(c, params);
+	RandomProblemGenerator rpg(params, c);
+
+	Problem p = rpg.generate();
 	p.analyze();
 	std::cout<<p.toString();
 	CycleCreator cc(p);
@@ -86,7 +90,6 @@ bool RandomProblem_TEST(bool silentMode){
 
 	if(!silentMode)
 		std::cout<<solution.toString()<<std::endl;
-
 
 	return true;
 }
