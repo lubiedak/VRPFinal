@@ -10,6 +10,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <string>
+#include <iostream>
+#include <fstream>
 
 #include "../model/Node.h"
 
@@ -39,5 +41,13 @@ Problem RandomProblemGenerator::generate() {
 	p.generateDistances();
 
 	problem = p;
-	return p;
+	return problem;
+}
+
+void RandomProblemGenerator::save(std::string dir, std::string fileName) {
+
+	std::ofstream myfile;
+	myfile.open((dir + fileName).c_str());
+	myfile << problem.toString();
+	myfile.close();
 }

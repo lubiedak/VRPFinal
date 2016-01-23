@@ -79,7 +79,8 @@ std::vector<Node> Problem::getNodesAndDepot(uint32_t set) const {
 }
 
 std::string Problem::toString() {
-	std::string problem = criteria.toString()+"\n";
+	std::string problem = "class=Problem\n";
+	problem += criteria.toString()+"\n";
 	problem+=depot.toString()+"\n";
 	for(Node n: nodes){
 		problem+=n.toString()+"\n";
