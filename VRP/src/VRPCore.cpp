@@ -36,8 +36,8 @@ int main(int argc, char** argv) {
 	strftime(buffer, 80, "%d-%m-%Y", timeinfo);
 	std::string timed(buffer);
 
-	for (int i = 0; i < 5; ++i) {
-		std::string dir = "sim";
+	for (int i = 0; i < 500; ++i) {
+		std::string dir = "sim2";
 		dir += timed + "/";
 		dir += to_string(i);
 		dir += "/";
@@ -59,7 +59,7 @@ void randomProblem(std::string dir) {
 	params.minDemand = 100;
 	params.maxX = 1000;
 	params.maxY = 1000;
-	params.nodes = 16;
+	params.nodes = 20;
 
 	Criteria c(1000, 1000, 5, 300, 0, 1);
 

@@ -17,13 +17,13 @@ CycleConnector::CycleConnector(const Problem& problem,
 
 CycleConnector::~CycleConnector() {
 	// TODO Auto-generated destructor stub
-	for (auto it : connections){
+	for (auto it : connections) {
 		delete it.second;
 	}
-	for (auto it : baseCycles){
+	for (auto it : baseCycles) {
 		delete it;
 	}
-	for (auto it : specialCycles){
+	for (auto it : specialCycles) {
 		delete it;
 	}
 	connections.clear();
@@ -34,12 +34,14 @@ CycleConnector::~CycleConnector() {
 void CycleConnector::connect() {
 	uint16_t connIteration = 1;
 	connectMap(connIteration);
-	std::cout<<"iteration: "<<connIteration<<" connected: "<<connections.size()<<std::endl;
+	std::cout << "iteration: " << connIteration << " connected: "
+			<< connections.size() << std::endl;
 
 	while (!fullyConnected()) {
 		connIteration++;
 		connectMap(connIteration);
-		std::cout<<"iteration: "<<connIteration<<" connected: "<<connections.size()<<std::endl;
+		std::cout << "iteration: " << connIteration << " connected: "
+				<< connections.size() << std::endl;
 	}
 	solution = Solution(*connections[allNodesConnected], cycles);
 }
@@ -48,10 +50,10 @@ void CycleConnector::prepareData() {
 	uint16_t biggestDemanderId = problem.getBiggestDemander();
 
 	for (uint16_t i = 0; i < cycles.size(); ++i) {
-		if (cycles[i].contains(biggestDemanderId)){
+		if (cycles[i].contains(biggestDemanderId)) {
 			specialCycles.push_back(new CyclesSet(cycles[i], i, 1));
 			connections[cycles[i].getId()] = new CyclesSet(cycles[i], i, 1);
-		}else{
+		} else {
 			baseCycles.push_back(new CyclesSet(cycles[i], i, 1));
 		}
 	}
@@ -62,7 +64,7 @@ void CycleConnector::connectMap(uint16_t it) {
 
 	std::map<uint32_t, CyclesSet*> newConnected = connections;
 	uint32_t size = newConnected.size();
-	uint32_t step = size/4;
+	uint32_t step = size / 4;
 	uint32_t i = 0;
 
 	bool foundFirstFull = false;
@@ -73,31 +75,50 @@ void CycleConnector::connectMap(uint16_t it) {
 		for (uint16_t j = 0; j < baseCycles.size(); ++j) {
 			//IF They don't have common Node
 
-			if ( 0 == (id1 & baseCycles[j]->id) ) {
-				if(i > step){
+			if (0 == (id1 & baseCycles[j]->id)) {
+				if (i > step) {
 					//std::cout<<i<<" from "<<size<<" analyzed."<<std::endl;
-					step+=step;
+					step += step;
 				}
 				uint32_t id = (id1 | baseCycles[j]->id);
+				if (!foundFirstFull) {
 
-				if(!foundFirstFull && id == allNodesConnected)
-					foundFirstFull = true;
-
-				if(foundFirstFull == (id == allNodesConnected)){
 					uint16_t distance = baseCycles[j]->distance
 							+ conn.second->distance;
 
 					if (connections.find(id) == connections.end()) {
 
-						addCyclesSetToMap(*conn.second, *baseCycles[j],	distance, id, it);
-						if(id == allNodesConnected)
-						std::cout<<"NE: "<<connections.at(id)->toString()<<std::endl;
+						addCyclesSetToMap(*conn.second, *baseCycles[j],
+								distance, id, it);
+						if (id == allNodesConnected) {
+							std::cout << "NE: "
+									<< connections.at(id)->toString()
+									<< std::endl;
+							foundFirstFull = true;
+						}
 
 					} else if (connections.at(id)->distance > distance) {
 
-						addCyclesSetToMap(*conn.second, *baseCycles[j],	distance, id, it);
-						if(id == allNodesConnected)
-							std::cout<<"DE: "<<connections.at(id)->toString()<<std::endl;
+						addCyclesSetToMap(*conn.second, *baseCycles[j],
+								distance, id, it);
+						if (id == allNodesConnected)
+							std::cout << "DE: "
+									<< connections.at(id)->toString()
+									<< std::endl;
+					}
+				} else {
+					if (id == allNodesConnected) {
+						uint16_t distance = baseCycles[j]->distance
+								+ conn.second->distance;
+						if (connections.at(id)->distance > distance) {
+
+							addCyclesSetToMap(*conn.second, *baseCycles[j],
+									distance, id, it);
+							if (id == allNodesConnected)
+								std::cout << "DE2: "
+										<< connections.at(id)->toString()
+										<< std::endl;
+						}
 					}
 				}
 			}
@@ -105,8 +126,8 @@ void CycleConnector::connectMap(uint16_t it) {
 	}
 }
 
-void CycleConnector::addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle, uint16_t distance,
-		uint32_t id, uint16_t it) {
+void CycleConnector::addCyclesSetToMap(CyclesSet& actualCycleSet,
+		CyclesSet& baseCycle, uint16_t distance, uint32_t id, uint16_t it) {
 
 	CyclesSet* cycleSet = new CyclesSet(id, distance, it + 1);
 	for (int k = 0; k < it + 1; k++) {
@@ -121,5 +142,4 @@ void CycleConnector::addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& bas
 bool CycleConnector::fullyConnected() {
 	return connections.find(allNodesConnected) != connections.end();
 }
-
 
