@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.vrp.vrpBackend.controller.dto.GenericResponse;
 import com.vrp.vrpBackend.controller.dto.Nodes;
+import com.vrp.vrpBackend.model.Criteria;
 import com.vrp.vrpBackend.model.GeneratorCfg;
 import com.vrp.vrpBackend.model.Node;
+import com.vrp.vrpBackend.model.Problem;
 import com.vrp.vrpBackend.service.NodeService;
 import com.vrp.vrpBackend.service.NodesGenerator;
+import com.vrp.vrpBackend.service.VRPRunner;
 
 @Controller
 public class NodeController extends BaseController {
@@ -30,6 +33,9 @@ public class NodeController extends BaseController {
 
 	@Autowired
 	private NodesGenerator generator;
+	
+	@Autowired
+	private VRPRunner vrpRunner;
 	
 	
 	@RequestMapping(value = URL, method = RequestMethod.GET)
@@ -66,4 +72,26 @@ public class NodeController extends BaseController {
 
 		return new ResponseEntity<Object>(nodes, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = URL + "/generateAndSolve", method = RequestMethod.POST)
+	public ResponseEntity<Object> generateAndSolve( @RequestParam int nodesCount,
+											@RequestParam int minDemand,
+											@RequestParam int maxDemand, 
+											@RequestParam int maxX,
+											@RequestParam int maxY,
+											@RequestParam(required=false) String distribution,
+											@RequestParam(required=false, defaultValue="xx") String name,
+											@RequestParam(required=false, defaultValue="false") boolean dbSave) {
+
+		GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand,
+											maxX, maxY, distribution, name, dbSave);
+
+		List<Node> nodes = generator.generateNodes(cfg);
+		Problem p = new Problem();
+		p.setCriteria(new Criteria());
+		p.setNodes(nodes);
+
+
+		return new ResponseEntity<Object>(vrpRunner.run(p), HttpStatus.OK);
+	}	
 }
