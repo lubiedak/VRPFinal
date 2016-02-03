@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import org.springframework.stereotype.Component;
 
 import com.vrp.vrpBackend.model.Problem;
-import com.vrp.vrpBackend.model.Solution;
 import com.vrp.vrpBackend.service.VRPRunner;
 
 @Component
