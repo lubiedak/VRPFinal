@@ -4,13 +4,14 @@
  *  Created on: 9 Jan 2016
  *      Author: lubiedak
  */
+
 #include "ProblemsForTest.h"
 
 #include <vector>
-#include <stdlib.h>
-#include <time.h>
 
+#include "../../model/Criteria.h"
 #include "../../model/Node.h"
+#include "../../model/Problem.h"
 
 Problem problem5Nodes() {
 	Criteria criteria = Criteria(1000, 20000, 5);
@@ -71,18 +72,18 @@ Problem problem20Nodes() {
 
 	std::vector<Node> nodes = std::vector<Node>();
 	Node depot(0, "Depot", 0, 0, 0);
-	nodes.push_back(Node(1, "X1",   10,  60,  201));
-	nodes.push_back(Node(2, "X2",   20,  70,  199));
-	nodes.push_back(Node(3, "X3",   120, 120, 199));
-	nodes.push_back(Node(4, "X4",   120, 130, 199));
-	nodes.push_back(Node(5, "X5",   140, 130, 199));
-	nodes.push_back(Node(6, "X6",   420, 120, 199));
-	nodes.push_back(Node(7, "X7",   420, 130, 199));
-	nodes.push_back(Node(8, "X8",   440, 130, 199));
-	nodes.push_back(Node(9, "X9",   220, 120, 199));
+	nodes.push_back(Node(1, "X1", 10, 60, 201));
+	nodes.push_back(Node(2, "X2", 20, 70, 199));
+	nodes.push_back(Node(3, "X3", 120, 120, 199));
+	nodes.push_back(Node(4, "X4", 120, 130, 199));
+	nodes.push_back(Node(5, "X5", 140, 130, 199));
+	nodes.push_back(Node(6, "X6", 420, 120, 199));
+	nodes.push_back(Node(7, "X7", 420, 130, 199));
+	nodes.push_back(Node(8, "X8", 440, 130, 199));
+	nodes.push_back(Node(9, "X9", 220, 120, 199));
 	nodes.push_back(Node(10, "X10", 220, 130, 199));
-	nodes.push_back(Node(11, "X11", 110, 80,  199));
-	nodes.push_back(Node(12, "X12", 120, 90,  199));
+	nodes.push_back(Node(11, "X11", 110, 80, 199));
+	nodes.push_back(Node(12, "X12", 120, 90, 199));
 	nodes.push_back(Node(13, "X13", 160, 120, 199));
 	nodes.push_back(Node(14, "X14", 160, 130, 199));
 	nodes.push_back(Node(15, "X15", 180, 130, 199));
@@ -97,17 +98,3 @@ Problem problem20Nodes() {
 	return problem;
 }
 
-Problem createRandomProblem(Criteria criteria, ProblemGenParams p) {
-	Problem problem(criteria, Node(0, "Depot", 0, 0, 0));
-	problem.setCriteria(criteria);
-	srand(time(NULL));
-	for (uint16_t i = 1; i <= p.nodes; ++i) {
-		Node n = Node(i, std::string("rand"),
-				rand() % p.maxX,
-				rand() % p.maxY,
-				p.minDemand + rand() % (p.maxDemand - p.minDemand));
-		problem.addNode(n);
-	}
-	problem.generateDistances();
-	return problem;
-}
