@@ -22,10 +22,20 @@
 using namespace std;
 
 void randomProblem(std::string dir);
+void generateAndSolveRandomProblems(int n);
 
 int main(int argc, char** argv) {
 	ArgParser argParser(argc, argv);
 
+
+
+	ProblemLoader p("../src/test/resources/problemExample.txt");
+	Problem problem = p.load();
+	std::cout << problem.toString();
+	return 0;
+}
+
+void generateAndSolveRandomProblems(int n){
 	time_t rawtime;
 	struct tm * timeinfo;
 	char buffer[80];
@@ -36,8 +46,8 @@ int main(int argc, char** argv) {
 	strftime(buffer, 80, "%d-%m-%Y", timeinfo);
 	std::string timed(buffer);
 
-	for (int i = 0; i < 500; ++i) {
-		std::string dir = "sim2";
+	for (int i = 0; i < n; ++i) {
+		std::string dir = "sim";
 		dir += timed + "/";
 		dir += to_string(i);
 		dir += "/";
@@ -46,11 +56,6 @@ int main(int argc, char** argv) {
 		randomProblem(dir);
 
 	}
-
-	ProblemLoader p("../src/test/resources/problemExample.txt");
-	Problem problem = p.load();
-	std::cout << problem.toString();
-	return 0;
 }
 
 void randomProblem(std::string dir) {
