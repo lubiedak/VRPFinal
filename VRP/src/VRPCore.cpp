@@ -19,7 +19,6 @@
 #include "solver/CycleCreator.h"
 #include "test/RandomProblemGenerator.h"
 
-using namespace std;
 
 void randomProblem(std::string dir);
 void generateAndSolveRandomProblems(int n);
@@ -49,7 +48,7 @@ void generateAndSolveRandomProblems(int n){
 	for (int i = 0; i < n; ++i) {
 		std::string dir = "sim";
 		dir += timed + "/";
-		dir += to_string(i);
+		dir += std::to_string(i);
 		dir += "/";
 		std::string mkdir= "mkdir -p "+dir;
 		system(mkdir.c_str());
