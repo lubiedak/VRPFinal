@@ -17,36 +17,37 @@
 #include "../model/Problem.h"
 #include "PermutationGen.h"
 
-
 class CycleCreator {
 public:
-	CycleCreator(const Problem& p);
-	virtual ~CycleCreator();
+  CycleCreator(const Problem& p);
+  virtual ~CycleCreator();
 
-	/**
-	 * Responsible for solving TSP in all cycles
-	 */
-	bool optimize(std::vector<Cycle>& cycles);
+  /**
+   * Responsible for solving TSP in all cycles
+   */
+  bool optimize(std::vector<Cycle>& cycles);
 
-	/**
-	 * Responsible for creating all optimised cycles
-	 * based on problem criteria
-	 */
-	uint16_t create();
+  /**
+   * Responsible for creating all optimised cycles
+   * based on problem criteria
+   */
+  uint16_t create();
 
-	const std::vector<Cycle>& getCycles() const {return cycles;}
+  const std::vector<Cycle>& getCycles() const {
+    return cycles;
+  }
 
 private:
-	PermutationGen<int> permGen;
-	const Problem& problem;
-	std::vector<Cycle> cycles;
+  PermutationGen<int> permGen;
+  const Problem& problem;
+  std::vector<Cycle> cycles;
 
-	bool silentMode;
+  bool silentMode;
 
-	uint32_t countN();
-	std::vector<uint32_t> countPossibleCycles();
-	uint32_t NumberOfSetBits(int i);
-	uint16_t SumDemand( uint32_t set, const std::vector<Node>& nodes);
+  uint32_t countN();
+  std::vector<uint32_t> countPossibleCycles();
+  uint32_t NumberOfSetBits(int i);
+  uint16_t SumDemand(uint32_t set, const std::vector<Node>& nodes);
 };
 
 #endif /* SOLVER_CYCLECREATOR_H_ */

@@ -14,39 +14,38 @@
 #include "SerializationTest.h"
 #include "ProblemTest.h"
 
-
 Tester::Tester(bool silentMode) {
-	this->silentMode = silentMode;
+  this->silentMode = silentMode;
 
-	tests["PermutationsGeneration_TEST"] = &PermutationsGeneration_TEST;
-	tests["CriteriaSerialization_TEST"]  = &CriteriaSerialization_TEST;
-	tests["NodeSerialization_TEST"]      = &NodeSerialization_TEST;
-	tests["CycleSerialization_TEST"]     = &CycleSerialization_TEST;
-	tests["ProblemSerialization_TEST"]   = &ProblemSerialization_TEST;
-	tests["SolutionSerialization_TEST"]  = &SolutionSerialization_TEST;
-	tests["DistancesCreation_TEST"]      = &DistancesCreation_TEST;
-	tests["RandomProblem_TEST"]          = &RandomProblem_TEST;
-	tests["Problem5Nodes_TEST"]			 = &Problem5Nodes_TEST;
-	tests["Problem6Nodes_TEST"]			 = &Problem6Nodes_TEST;
-	tests["Problem10Nodes_TEST"]		 = &Problem10Nodes_TEST;
-	tests["NodeDeserialization_TEST"]	 = &NodeDeserialization_TEST;
-	//tests["Problem20Nodes_TEST"]		 = &Problem20Nodes_TEST;
+  tests["PermutationsGeneration_TEST"] = &PermutationsGeneration_TEST;
+  tests["CriteriaSerialization_TEST"] = &CriteriaSerialization_TEST;
+  tests["NodeSerialization_TEST"] = &NodeSerialization_TEST;
+  tests["CycleSerialization_TEST"] = &CycleSerialization_TEST;
+  tests["ProblemSerialization_TEST"] = &ProblemSerialization_TEST;
+  tests["SolutionSerialization_TEST"] = &SolutionSerialization_TEST;
+  tests["DistancesCreation_TEST"] = &DistancesCreation_TEST;
+  tests["RandomProblem_TEST"] = &RandomProblem_TEST;
+  tests["Problem5Nodes_TEST"] = &Problem5Nodes_TEST;
+  tests["Problem6Nodes_TEST"] = &Problem6Nodes_TEST;
+  tests["Problem10Nodes_TEST"] = &Problem10Nodes_TEST;
+  tests["NodeDeserialization_TEST"] = &NodeDeserialization_TEST;
+  //tests["Problem20Nodes_TEST"]		 = &Problem20Nodes_TEST;
 }
 
 Tester::~Tester() {
-	// TODO Auto-generated destructor stub
+  // TODO Auto-generated destructor stub
 }
 
 void Tester::runAll() {
-	int failed = 0;
-	int passed = 0;
-	for(auto test : tests){
-		std::cout<<test.first<<": STARTED"<<std::endl;
-		bool status = test.second(this->silentMode);
-		status ? passed++ : failed++;
-		std::cout<<test.first<<": "<< ( status ? "PASSED":"FAILED")<<std::endl;
-	}
-	std::cout<<std::endl<<"Tests summary:"<<std::endl<<passed<<" tests passed, "
-			<<failed<<" tests failed"<<std::endl;
+  int failed = 0;
+  int passed = 0;
+  for (auto test : tests) {
+    std::cout << test.first << ": STARTED" << std::endl;
+    bool status = test.second(this->silentMode);
+    status ? passed++ : failed++;
+    std::cout << test.first << ": " << (status ? "PASSED" : "FAILED") << std::endl;
+  }
+  std::cout << std::endl << "Tests summary:" << std::endl << passed << " tests passed, " << failed << " tests failed"
+      << std::endl;
 }
 

@@ -13,13 +13,13 @@
 
 class Tester {
 public:
-	Tester(bool silentMode);
-	virtual ~Tester();
-	void runAll();
+  Tester(bool silentMode);
+  virtual ~Tester();
+  void runAll();
 
 private:
-	std::map<std::string, bool (*)(bool)> tests;
-	bool silentMode;
+  std::map<std::string, bool (*)(bool)> tests;
+  bool silentMode;
 };
 
 #endif /* TEST_TESTER_H_ */

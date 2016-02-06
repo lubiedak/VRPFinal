@@ -17,15 +17,13 @@
 #include <string>
 #include <vector>
 
-
 struct ProblemGenParams {
-	uint16_t nodes;
-	uint16_t maxX;
-	uint16_t maxY;
-	uint16_t minDemand;
-	uint16_t maxDemand;
+  uint16_t nodes;
+  uint16_t maxX;
+  uint16_t maxY;
+  uint16_t minDemand;
+  uint16_t maxDemand;
 };
-
 
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
 
@@ -35,16 +33,16 @@ ProblemGenParams initFromFile(std::string fileName);
 
 class RandomProblemGenerator {
 public:
-	RandomProblemGenerator(ProblemGenParams& params, Criteria& criteria);
-	virtual ~RandomProblemGenerator();
+  RandomProblemGenerator(ProblemGenParams& params, Criteria& criteria);
+  virtual ~RandomProblemGenerator();
 
-	Problem generate();
-	void save(std::string dir, std::string fileName);
+  Problem generate();
+  void save(std::string dir, std::string fileName);
 
 private:
-	Problem problem;
-	ProblemGenParams params;
-	Criteria criteria;
+  Problem problem;
+  ProblemGenParams params;
+  Criteria criteria;
 };
 
 #endif /* TEST_RANDOMPROBLEMGENERATOR_H_ */

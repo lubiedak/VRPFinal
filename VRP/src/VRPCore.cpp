@@ -19,74 +19,67 @@
 #include "solver/CycleCreator.h"
 #include "test/RandomProblemGenerator.h"
 
-
-void randomProblem(std::string dir);
+void randomProblem(std::string dir, std::string rndFile);
 void generateAndSolveRandomProblems(int n);
 
 int main(int argc, char** argv) {
-	ArgParser argParser(argc, argv);
+  ArgParser argParser(argc, argv);
 
+  generateAndSolveRandomProblems(2);
 
-
-	ProblemLoader p("../src/test/resources/problemExample.txt");
-	Problem problem = p.load();
-	std::cout << problem.toString();
-	return 0;
+  ProblemLoader p("../src/test/resources/problemExample.txt");
+  Problem problem = p.load();
+  std::cout << problem.toString();
+  return 0;
 }
 
-void generateAndSolveRandomProblems(int n){
-	time_t rawtime;
-	struct tm * timeinfo;
-	char buffer[80];
+void generateAndSolveRandomProblems(int n) {
+  time_t rawtime;
+  struct tm * timeinfo;
+  char buffer[80];
 
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
+  time(&rawtime);
+  timeinfo = localtime(&rawtime);
 
-	strftime(buffer, 80, "%d-%m-%Y", timeinfo);
-	std::string timed(buffer);
+  strftime(buffer, 80, "%d-%m-%Y", timeinfo);
+  std::string timed(buffer);
 
-	for (int i = 0; i < n; ++i) {
-		std::string dir = "sim";
-		dir += timed + "/";
-		dir += std::to_string(i);
-		dir += "/";
-		std::string mkdir= "mkdir -p "+dir;
-		system(mkdir.c_str());
-		randomProblem(dir);
+  for (int i = 0; i < n; ++i) {
+    std::string dir = "sim";
+    dir += timed + "/";
+    dir += std::to_string(i);
+    dir += "/";
+    std::string mkdir = "mkdir -p " + dir;
+    system(mkdir.c_str());
+    randomProblem(dir, "ProblemGenParamsCfg");
 
-	}
+  }
 }
 
-void randomProblem(std::string dir) {
-	ProblemGenParams params;
-	params.maxDemand = 500;
-	params.minDemand = 100;
-	params.maxX = 1000;
-	params.maxY = 1000;
-	params.nodes = 20;
+void randomProblem(std::string dir, std::string rndFile) {
+  ProblemGenParams params = initFromFile(rndFile);
+  Criteria c(1000, 1000, 5, 300, 0, 1);
 
-	Criteria c(1000, 1000, 5, 300, 0, 1);
+  RandomProblemGenerator rpg(params, c);
 
-	RandomProblemGenerator rpg(params, c);
+  Problem p = rpg.generate();
+  rpg.save(dir, "input");
+  p.analyze();
+  p.toString();
+  CycleCreator cc(p);
 
-	Problem p = rpg.generate();
-	rpg.save(dir, "input");
-	p.analyze();
+  cc.create();
+  std::vector<Cycle> cycles = cc.getCycles();
 
-	CycleCreator cc(p);
+  CycleConnector ccon(p, cycles);
+  ccon.connect();
 
-	cc.create();
-	std::vector<Cycle> cycles = cc.getCycles();
+  Solution solution = ccon.getSolution();
 
-	CycleConnector ccon(p, cycles);
-	ccon.connect();
+  std::ofstream myfile;
+  myfile.open((dir + "output").c_str());
+  myfile << solution.toString();
+  myfile.close();
 
-	Solution solution = ccon.getSolution();
-
-	std::ofstream myfile;
-	myfile.open((dir + "output").c_str());
-	myfile << solution.toString();
-	myfile.close();
-
-	std::cout << solution.toString() << std::endl;
+  std::cout << solution.toString() << std::endl;
 }

@@ -7,20 +7,21 @@
 
 #include "CriteriaDao.h"
 
-CriteriaDao::CriteriaDao(Criteria c) : criteria(c){
-	membersCount = 6;
+CriteriaDao::CriteriaDao(Criteria c) :
+    criteria(c) {
+  membersCount = 6;
 }
 
 CriteriaDao::~CriteriaDao() {
-	// TODO Auto-generated destructor stub
+  // TODO Auto-generated destructor stub
 }
 
 std::string CriteriaDao::serialize() {
-	return criteria.toString();
+  return criteria.toString();
 }
 
 bool CriteriaDao::deserialize(std::string str) {
-	std::map<std::string, std::string> values = parse(str);
+  std::map<std::string, std::string> values = parse(str);
 
-	return true;
+  return true;
 }
