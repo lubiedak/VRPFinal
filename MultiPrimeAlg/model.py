@@ -36,7 +36,10 @@ class Graph:
       if(self.nodes[i].id == nodeId):
         return self.nodes.pop(i)
 
-  def getNode(self,nodeId):
+  def popRandNode(self, i):
+    return self.nodes.pop(i)
+    
+  def getNode(self, nodeId):
     for i in range(len(self.nodes)):
       if(self.nodes[i].id == nodeId):
         return self.nodes[i]

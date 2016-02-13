@@ -16,6 +16,13 @@ def findClosest(tree, main):
         idT = nodeT.id
   return (idT, idM)
 
+def addClosestNodeToTree(tree, main):
+  (idT,idM) = findClosest(tree,main)
+  node = main.popNode(idM)
+  edge = m.Edge(tree.getNode(idT), node)
+  tree.addNode(node)
+  tree.addEdge(edge)
+
 def createTrees(n, g):
   main = gg.generateGraph(n)
   trees = []
@@ -24,14 +31,12 @@ def createTrees(n, g):
 
   for tree in trees:
     size = len(main.nodes)
-    tree.addNode(main.popNode(r.randint(0,size)))
-    i = 0
+    print("Size: "+str(size))
+    tree.addNode(main.popRandNode(r.randint(0,size)))
+    i = 1
     while(i<n/g):
-      (idT,idM) = findClosest(tree,main)
-      node = main.popNode(idM)
-      edge = m.Edge(tree.getNode(idT), node)
-      tree.addNode(node)
-      tree.addEdge(edge)
+      print(i)
+      addClosestNodeToTree(tree, main)
       i+=1
 
 

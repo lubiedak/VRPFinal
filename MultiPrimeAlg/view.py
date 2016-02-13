@@ -1,7 +1,7 @@
 import algorithm as a
 import matplotlib.pyplot as plt
 
-trees = a.createTrees(100,2)
+trees = a.createTrees(100,1)
 
 styles = ['k-o', 'b-o', 'g-o', 'r-o', 'c-o']
 
