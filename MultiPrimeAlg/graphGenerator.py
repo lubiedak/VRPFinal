@@ -1,8 +1,8 @@
 import model as m
 import random as r
 
-maxX = 1000
-maxY = 1000
+maxX = 100
+maxY = 100
 maxD = 400
 
 def generateGraph(n):
@@ -12,12 +12,3 @@ def generateGraph(n):
     graph.addNode(node)
   graph.countDistances()
   return graph
-
-
-
-graph = generateGraph(10)
-graph.printNodes()
-
-node = graph.popNode(6)
-graph.printNodes()
-print(node.toString())
