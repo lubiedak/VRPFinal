@@ -1,8 +1,8 @@
 import model as m
 import random as r
 
-maxX = 100
-maxY = 100
+maxX = 1000
+maxY = 1000
 maxD = 400
 
 def generateGraph(n):
