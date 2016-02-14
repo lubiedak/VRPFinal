@@ -23,26 +23,31 @@ def addClosestNodeToTree(tree, main):
   tree.addNode(node)
   tree.addEdge(edge)
 
-def createTrees(n, g):
+def initTrees(n,t):
   main = gg.generateGraph(n)
   trees = []
-  for i in range(g):
+  for i in range(t):
     trees.append(m.Graph())
+  return (main, trees)
 
+def createTreesIteratively(n, t):
+  (main, trees) = initTrees(n,t)
+  size = len(main.nodes)
   for tree in trees:
-    size = len(main.nodes)
-    print("Size: "+str(size))
-    tree.addNode(main.popRandNode(r.randint(0,size)))
+    tree.addNode(main.popRandNode())
     i = 1
-    while(i<n/g):
-      print(i)
+    while(i<n/t):
       addClosestNodeToTree(tree, main)
       i+=1
+  return trees
 
-
-
+def createTreesSimultaneously(n, t):
+  (main, trees) = initTrees(n,t)
+  size = len(main.nodes)
   for tree in trees:
-    print("Tree")
-    tree.printNodes()
-  
+    tree.addNode(main.popRandNode())
+
+  while(len(main.nodes)>0):
+    for tree in trees:
+      addClosestNodeToTree(tree, main)
   return trees

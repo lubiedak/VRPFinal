@@ -1,5 +1,6 @@
 import numpy as np
 import math as m
+import random as r
 
 class Node:
   def __init__(self, i, x, y, d):
@@ -36,7 +37,8 @@ class Graph:
       if(self.nodes[i].id == nodeId):
         return self.nodes.pop(i)
 
-  def popRandNode(self, i):
+  def popRandNode(self):
+    i = r.randint(0,len(self.nodes))
     return self.nodes.pop(i)
     
   def getNode(self, nodeId):
