@@ -11,20 +11,23 @@
 #include "Serialized.h"
 #include "../Criteria.h"
 
-class CriteriaDao : public Serialized {
+class CriteriaDao: public Serialized {
 public:
-	CriteriaDao() : Serialized() {}
-	CriteriaDao(Criteria c);
-	virtual ~CriteriaDao();
+  CriteriaDao() :
+      Serialized() {
+  }
+  CriteriaDao(Criteria c);
+  virtual ~CriteriaDao();
 
+  virtual std::string serialize();
+  virtual bool deserialize(std::string);
 
-	virtual std::string serialize();
-	virtual bool deserialize(std::string);
-
-	const Criteria& getCriteria() const {return criteria;}
+  const Criteria& getCriteria() const {
+    return criteria;
+  }
 
 private:
-	Criteria criteria;
+  Criteria criteria;
 
 };
 

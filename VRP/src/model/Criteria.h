@@ -11,39 +11,50 @@
 #include <string>
 #include <map>
 
-class Criteria{
+class Criteria {
 public:
 
-	Criteria(){}
+  Criteria() {
+  }
 
-	Criteria(uint16_t maxC, uint16_t maxD, uint16_t maxN,
-			 uint16_t minC,	uint16_t minD, uint16_t minN);
+  Criteria(uint16_t maxC, uint16_t maxD, uint16_t maxN, uint16_t minC, uint16_t minD, uint16_t minN);
 
-	Criteria(uint16_t maxC, uint16_t maxD, uint16_t maxN);
+  Criteria(uint16_t maxC, uint16_t maxD, uint16_t maxN);
 
-	Criteria(const Criteria& c);
+  Criteria(const Criteria& c);
 
-	Criteria& operator=(const Criteria& c);
+  Criteria& operator=(const Criteria& c);
 
-	virtual ~Criteria(){};
+  virtual ~Criteria() {
+  }
+  ;
 
-	std::string toString();
+  std::string toString();
 
+  uint16_t maxCapacity() const {
+    return properties.at("maxCapacity");
+  }
+  uint16_t minCapacity() const {
+    return properties.at("minCapacity");
+  }
 
-	uint16_t maxCapacity() const {return properties.at("maxCapacity");}
-	uint16_t minCapacity() const {return properties.at("minCapacity");}
+  uint16_t maxDistance() const {
+    return properties.at("maxDistance");
+  }
+  uint16_t minDistance() const {
+    return properties.at("minDistance");
+  }
 
-	uint16_t maxDistance() const {return properties.at("maxDistance");}
-	uint16_t minDistance() const {return properties.at("minDistance");}
-
-	uint16_t maxNodes() const {return properties.at("maxNodes");}
-	uint16_t minNodes() const {return properties.at("minNodes");}
-
+  uint16_t maxNodes() const {
+    return properties.at("maxNodes");
+  }
+  uint16_t minNodes() const {
+    return properties.at("minNodes");
+  }
 
 private:
-	std::map<std::string, uint16_t> properties;
+  std::map<std::string, uint16_t> properties;
 };
-
 
 #endif /* MODEL_CRITERIA_H_ */
 

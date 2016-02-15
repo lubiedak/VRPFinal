@@ -10,33 +10,33 @@
 
 #include <vector>
 
-template <typename T>
+template<typename T>
 class PermutationGen {
 public:
-	PermutationGen();
-	PermutationGen(int size);
-	PermutationGen(std::vector<T> base);
-	virtual ~PermutationGen();
+  PermutationGen();
+  PermutationGen(int size);
+  PermutationGen(std::vector<T> base);
+  virtual ~PermutationGen();
 
-	void Permute(int k, int size);
+  void Permute(int k, int size);
 
-	void setSilentMode(bool silentMode) {
-		this->silentMode = silentMode;
-	}
+  void setSilentMode(bool silentMode) {
+    this->silentMode = silentMode;
+  }
 
-	const std::vector<std::vector<T> >& getFullPermTable() const {
-		return fullPermTable;
-	}
+  const std::vector<std::vector<T> >& getFullPermTable() const {
+    return fullPermTable;
+  }
 
 private:
-	void Swap(int a, int b);
-	void Print(int size);
+  void Swap(int a, int b);
+  void Print(int size);
 
-	std::vector<T> base;
-	std::vector<T> perm;
-	std::vector< std::vector<T> > fullPermTable;
+  std::vector<T> base;
+  std::vector<T> perm;
+  std::vector<std::vector<T> > fullPermTable;
 
-	bool silentMode;
+  bool silentMode;
 };
 
 #endif /* SOLVER_PERMUTATIONGEN_H_ */

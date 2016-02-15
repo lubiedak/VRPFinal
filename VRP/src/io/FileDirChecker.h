@@ -1,12 +1,11 @@
 #pragma once
-class FileDirChecker
-{
+class FileDirChecker {
 public:
 
-    FileDirChecker(void);
-    ~FileDirChecker(void);
+  FileDirChecker(void);
+  ~FileDirChecker(void);
 
-    bool isFileEnabled(const char * name);
-    bool isDirEnabled(const char * pathname);
+  bool isFileEnabled(const char * name);
+  bool isDirEnabled(const char * pathname);
 };
 

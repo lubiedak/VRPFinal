@@ -13,47 +13,59 @@
 #include "Node.h"
 #include "serialization/Serialized.h"
 
-class Cycle : public Serialized  {
+class Cycle: public Serialized {
 public:
-	Cycle();
-	Cycle(const Cycle& c);
-	Cycle& operator=(const Cycle&);
-	bool operator<(const Cycle&) const;
-	virtual ~Cycle();
+  Cycle();
+  Cycle(const Cycle& c);
+  Cycle& operator=(const Cycle&);
+  bool operator<(const Cycle&) const;
+  virtual ~Cycle();
 
-	std::string toString();
+  std::string toString();
 
-	uint16_t selfOptimize(const std::vector<std::vector<uint16_t>>& distances,
-						  std::vector<std::vector<int>>& perms);
+  uint16_t selfOptimize(const std::vector<std::vector<uint16_t>>& distances, std::vector<std::vector<int>>& perms);
 
-	virtual std::string serialize();
-	virtual bool deserialize(std::string);
+  virtual std::string serialize();
+  virtual bool deserialize(std::string);
 
-	void setDemand(uint16_t demand) {this->demand = demand;}
-	uint16_t getDemand() const {return demand;}
+  void setDemand(uint16_t demand) {
+    this->demand = demand;
+  }
+  uint16_t getDemand() const {
+    return demand;
+  }
 
-	void setDistance(uint16_t distance) {this->distance = distance;}
-	uint16_t getDistance() const {return distance;}
+  void setDistance(uint16_t distance) {
+    this->distance = distance;
+  }
+  uint16_t getDistance() const {
+    return distance;
+  }
 
-	void setId(uint32_t id) {this->id = id;}
-	uint32_t getId() const {return id;}
+  void setId(uint32_t id) {
+    this->id = id;
+  }
+  uint32_t getId() const {
+    return id;
+  }
 
-	void setNodes(const std::vector<Node>& nodes) {this->nodes = nodes;}
+  void setNodes(const std::vector<Node>& nodes) {
+    this->nodes = nodes;
+  }
 
-	bool contains(uint16_t nodeId) const;
-
+  bool contains(uint16_t nodeId) const;
 
 private:
-	uint32_t id;
-	uint16_t distance;
-	uint16_t demand;
-	uint16_t capacity;
-	float distCoef;
-    std::vector<Node> nodes;
+  uint32_t id;
+  uint16_t distance;
+  uint16_t demand;
+  uint16_t capacity;
+  float distCoef;
+  std::vector<Node> nodes;
 
-    void checkPermSize(std::vector<std::vector<int>>& perms);
-    uint16_t countMinimumDistance(const std::vector<std::vector<uint16_t> >& distances,
-    							  const std::vector<std::vector<int>>& perms);
+  void checkPermSize(std::vector<std::vector<int>>& perms);
+  uint16_t countMinimumDistance(const std::vector<std::vector<uint16_t> >& distances,
+      const std::vector<std::vector<int>>& perms);
 };
 
 #endif /* CYCLE_H_ */
