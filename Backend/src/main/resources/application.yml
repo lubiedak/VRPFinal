@@ -3,6 +3,9 @@ jenkins:
     job: /job/vrp-simple
     buildTrigger: /build
 
+vrpRunner:
+    vrpPath: /home/lubiedak/workspace/VRPFinalRepo/VRP/Release/VRPCore2.0
+
 spring:
     data:
         mongodb.host: 127.0.0.1
