@@ -6,31 +6,64 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
+#include <cstdlib>
 #include <ctime>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 
 #include "io/ArgParser.h"
+#include "io/optionparser.h"
 #include "io/ProblemLoader.h"
 #include "model/Criteria.h"
 #include "model/Cycle.h"
 #include "solver/CycleConnector.h"
 #include "solver/CycleCreator.h"
 #include "test/RandomProblemGenerator.h"
+#include "test/Tester.h"
 
 void randomProblem(std::string dir, std::string rndFile);
 void generateAndSolveRandomProblems(int n);
+std::string header(const std::string& title);
+void simpleSolve(std::string outputDir, const Problem& p);
 
 int main(int argc, char** argv) {
   ArgParser argParser(argc, argv);
+  if (argParser.parse()) {
+    option::Option* options = argParser.getOptions();
+    if (options[TEST].arg) {
+      std::cout << header("TEST");
+      Tester tester(true);
+      tester.runAll();
+    }
+    if (options[RANDOM].arg) {
+      std::cout << options[RANDOM].arg;
+      int n = std::stoi(options[RANDOM].arg);
+      std::cout << header("RANDOM");
+      generateAndSolveRandomProblems(n);
+    }
+    if (options[INPUT].arg) {
+      if (options[OUTPUT].arg) {
 
-  generateAndSolveRandomProblems(2);
+      }
+      std::cout << header("IO");
+      ProblemLoader p(options[INPUT].arg);
+      Problem problem = p.load();
+      problem.analyze();
+      std::cout << problem.toString();
 
-  ProblemLoader p("../src/test/resources/problemExample.txt");
-  Problem problem = p.load();
-  std::cout << problem.toString();
+      simpleSolve("", problem);
+    }
+  }
   return 0;
+}
+
+std::string header(const std::string& title) {
+  std::string h = "*****************************************\n";
+  h += "    " + title + " MODE\n";
+  h += "*****************************************\n";
+  return h;
 }
 
 void generateAndSolveRandomProblems(int n) {
@@ -80,6 +113,19 @@ void randomProblem(std::string dir, std::string rndFile) {
   myfile.open((dir + "output").c_str());
   myfile << solution.toString();
   myfile.close();
+
+  std::cout << solution.toString() << std::endl;
+}
+
+void simpleSolve(std::string outputDir, const Problem& p) {
+  CycleCreator cc(p);
+  cc.create();
+  std::vector<Cycle> cycles = cc.getCycles();
+
+  CycleConnector ccon(p, cycles);
+  ccon.connect();
+
+  Solution solution = ccon.getSolution();
 
   std::cout << solution.toString() << std::endl;
 }

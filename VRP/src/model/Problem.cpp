@@ -31,6 +31,7 @@ Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes, std::ve
 void Problem::analyze() {
   biggestDemander = findBiggestDemander();
   demandsSum = sumDemands();
+  generateDistances();
 }
 
 uint16_t Problem::findBiggestDemander() {

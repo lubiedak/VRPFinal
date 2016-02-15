@@ -57,6 +57,9 @@ public:
   void setY(int32_t y) {
     this->y = y;
   }
+  bool isDepot(){
+    return 0 == name.compare("Depot");
+  }
 
 private:
   uint32_t id;

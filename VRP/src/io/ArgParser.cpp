@@ -45,14 +45,10 @@ bool ArgParser::checkArgumentsCorrectness() {
   for (int i = 0; i < parser_.nonOptionsCount(); ++i)
     std::cout << "Non-option #" << i << ": " << parser_.nonOption(i) << "\n";
 
-  for (int type = INPUT; type <= WORKSPACE; type++) {
+  for (int type = INPUT; type <= DEBUG; type++) {
     option::Option* opt = options_[type];
     if (!opt) {
       std::cout << "Missing argument type: " << usage[type].help << std::endl;
-      if (type == INPUT) {
-        success = false;
-        std::cout << "ERROR: missing required arguments to run application" << std::endl;
-      }
     }
   }
   return success;
@@ -63,7 +59,7 @@ bool ArgParser::checkIfFilesExists() {
   std::cout << "Start checking arguments ..." << std::endl;
 
   FileDirChecker fileDirChecker;
-  for (int type = INPUT; type < WORKSPACE; type++) {
+  for (int type = INPUT; type < OUTPUT; type++) {
     for (option::Option* opt = options_[type]; opt; opt = opt->next()) {
       std::cout << "Checking: " << opt->name << std::endl;
       if (!fileDirChecker.isFileEnabled(opt->arg)) {
@@ -71,12 +67,6 @@ bool ArgParser::checkIfFilesExists() {
         success = false;
       }
     }
-  }
-
-  option::Option* opt = options_[WORKSPACE];
-  if (!fileDirChecker.isDirEnabled(opt->arg)) {
-    std::cout << "ERROR: dir path: " << opt->arg << " for argument: " << opt->name << " not exist" << std::endl;
-    success = false;
   }
 
   return success;

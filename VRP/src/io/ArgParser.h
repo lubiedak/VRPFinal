@@ -28,19 +28,20 @@ struct Arg: public option::Arg
   }
 };
 
-enum  optionIndex { UNKNOWN, HELP, INPUT, RANDOM, TEST, DEBUG, WORKSPACE };
+enum  optionIndex { UNKNOWN, HELP, INPUT, OUTPUT, RANDOM, TEST, DEBUG };
 const option::Descriptor usage[] =
 {
     {UNKNOWN,  0,"" , ""    ,  option::Arg::None, "USAGE: VRPCore [options]\n\nOptions:" },
     {HELP,     0,"h", "help",  option::Arg::Optional, "  --help       -h  \tPrint usage and exit." },
-    {INPUT,    0,"i", "input", option::Arg::Optional, "  --input,     -i  \tPoints file path. (MANDATORY)" },
-    {RANDOM,   0,"r", "random",option::Arg::Optional, "  --random,    -r  \tCost file path." },
-    {TEST,     0,"t", "test",  option::Arg::Optional, "  --test,      -t  \tCities file path." },
+    {INPUT,    0,"i", "input", option::Arg::Optional, "  --input,     -i  \tProblem file path. (MANDATORY)" },
+    {OUTPUT,   0,"o", "output",option::Arg::Optional, "  --output,    -o  \tDirectory, where output would be produced" },
+    {RANDOM,   0,"r", "random",option::Arg::Optional, "  --random,    -r  \tRunning VRP in Random mode. Solving n problems" },
+    {TEST,     0,"t", "test",  option::Arg::Optional, "  --test,      -t  \tRunning VRP in test mode - running all tests." },
     {DEBUG,    0,"d", "debug", option::Arg::Optional, "  --debug,     -d  \tSetup file path." },
-    {WORKSPACE,0,"w", "workspace",option::Arg::Optional,     "  --workspace, -w  \tWorkspace dir path." },
     {UNKNOWN,  0,"" ,  ""   ,  option::Arg::None, "\nExamples:\n"
-                                            "  VRPCore2.0 --input=input_file --workspace=workspace_dir\n"
-                                            "  VRPCore -ppoints_file -wworkspace_dir\n" },
+                                            "  VRPCore2.0 --input=input_file --output=some_dir\n"
+                                            "  VRPCore2.0 --random=20"
+                                            "  VRPCore2.0 --test=true"},
     {0,0,0,0,0,0}
 };
 

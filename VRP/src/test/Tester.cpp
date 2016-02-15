@@ -18,18 +18,18 @@ Tester::Tester(bool silentMode) {
   this->silentMode = silentMode;
 
   tests["PermutationsGeneration_TEST"] = &PermutationsGeneration_TEST;
-  tests["CriteriaSerialization_TEST"] = &CriteriaSerialization_TEST;
-  tests["NodeSerialization_TEST"] = &NodeSerialization_TEST;
-  tests["CycleSerialization_TEST"] = &CycleSerialization_TEST;
-  tests["ProblemSerialization_TEST"] = &ProblemSerialization_TEST;
-  tests["SolutionSerialization_TEST"] = &SolutionSerialization_TEST;
-  tests["DistancesCreation_TEST"] = &DistancesCreation_TEST;
-  tests["RandomProblem_TEST"] = &RandomProblem_TEST;
-  tests["Problem5Nodes_TEST"] = &Problem5Nodes_TEST;
-  tests["Problem6Nodes_TEST"] = &Problem6Nodes_TEST;
-  tests["Problem10Nodes_TEST"] = &Problem10Nodes_TEST;
-  tests["NodeDeserialization_TEST"] = &NodeDeserialization_TEST;
-  //tests["Problem20Nodes_TEST"]		 = &Problem20Nodes_TEST;
+  tests["CriteriaSerialization_TEST"]  = &CriteriaSerialization_TEST;
+  tests["NodeSerialization_TEST"]      = &NodeSerialization_TEST;
+  tests["CycleSerialization_TEST"]     = &CycleSerialization_TEST;
+  tests["ProblemSerialization_TEST"]   = &ProblemSerialization_TEST;
+  tests["SolutionSerialization_TEST"]  = &SolutionSerialization_TEST;
+  tests["DistancesCreation_TEST"]      = &DistancesCreation_TEST;
+  //tests["RandomProblem_TEST"]        = &RandomProblem_TEST; (too long)
+  tests["Problem5Nodes_TEST"]          = &Problem5Nodes_TEST;
+  tests["Problem6Nodes_TEST"]          = &Problem6Nodes_TEST;
+  tests["Problem10Nodes_TEST"]         = &Problem10Nodes_TEST;
+  tests["NodeDeserialization_TEST"]    = &NodeDeserialization_TEST;
+  //tests["Problem20Nodes_TEST"]	   = &Problem20Nodes_TEST; (too long)
 }
 
 Tester::~Tester() {

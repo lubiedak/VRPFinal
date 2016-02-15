@@ -96,7 +96,11 @@ LoadResult ProblemLoader::loadNodes() {
       if (!node.deserialize(n)) {
         result.addMessage("ERROR: When parsing node: " + n);
       } else {
-        p.addNode(node);
+        if (node.isDepot()) {
+          p.setDepot(node);
+        } else {
+          p.addNode(node);
+        }
       }
     }
   }
