@@ -33,8 +33,10 @@ public class CycleController extends BaseController {
 	}
 
 
-	@RequestMapping(value = URL + "/solve", method = RequestMethod.POST)
+	@RequestMapping(value = URL + "/solveRandom", method = RequestMethod.POST)
 	public ResponseEntity<Object> solve( ) {
+		
+		cycleService.generateRandom(5, 10);
 		
 		
 		return new ResponseEntity<Object>(cycleService.generateRandom(5, 10), HttpStatus.OK);

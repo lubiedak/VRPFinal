@@ -122,5 +122,24 @@ $(document).ready(function() {
 	});
 });
 
+$(document).ready(function() {
+	$("#solve").click(function() {
+		if (d3.select("svg").empty()) {
+			alert("Please generate graph first);
+		} else {
+			$.ajax({
+				url:"http://127.0.0.1:8080/rest/cycle/solve",
+				type:"POST",
+				contentType:"application/json",
+				async: false,
+				dataType:'json',
+				success: function(data, status){
+					draw(data);
+				}
+			});
+		}
+	});
+});
+
 
 </script>

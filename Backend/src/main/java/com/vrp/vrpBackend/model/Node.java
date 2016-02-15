@@ -12,4 +12,13 @@ public class Node {
 	private int x;
 	private int y;
 	private int demand;
+
+	@Override
+	public String toString() {
+		return "class=Node,id=" + id
+				+ ",name=" + name
+				+ ",x=" + x
+				+ ",y=" + y
+				+ ",demand=" + demand;
+	}
 }
