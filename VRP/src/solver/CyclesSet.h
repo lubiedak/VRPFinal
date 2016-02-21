@@ -15,16 +15,16 @@
 
 class CyclesSet {
 public:
-	CyclesSet(const Cycle& cycle, uint16_t firstElem, uint16_t size);
-	CyclesSet(uint32_t id, uint16_t distance, uint16_t size);
-	virtual ~CyclesSet();
+  CyclesSet(const Cycle& cycle, uint16_t firstElem, uint16_t size);
+  CyclesSet(uint32_t id, uint16_t distance, uint16_t size);
+  virtual ~CyclesSet();
 
-	std::string toString();
+  std::string toString();
 
-	uint32_t id;
-	uint16_t distance;
-	uint16_t size;
-	uint16_t *cycles;
+  uint32_t id;
+  uint16_t distance;
+  uint16_t size;
+  uint16_t *cycles;
 };
 
 #endif /* SOLVER_CYCLESSET_H_ */

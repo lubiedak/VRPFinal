@@ -14,25 +14,30 @@
 #include "../model/serialization/Serialized.h"
 #include "CyclesSet.h"
 
-class Solution : public Serialized {
+class Solution: public Serialized {
 public:
 
-	Solution() {}
+  Solution() {
+  }
 
-	Solution(CyclesSet& cs, const std::vector<Cycle>& cycles);
-	virtual ~Solution();
+  Solution(CyclesSet& cs, const std::vector<Cycle>& cycles);
+  virtual ~Solution();
 
-	virtual std::string serialize();
-	virtual bool deserialize(std::string);
+  virtual std::string serialize();
+  virtual bool deserialize(std::string);
 
-	std::string toString();
-	uint32_t getDistance() const {return distance;}
-	uint32_t getDemand() const {return demand;}
+  std::string toString();
+  uint32_t getDistance() const {
+    return distance;
+  }
+  uint32_t getDemand() const {
+    return demand;
+  }
 
 private:
-	uint32_t distance;
-	uint32_t demand;
-	std::vector<Cycle> optimizedCycles;
+  uint32_t distance;
+  uint32_t demand;
+  std::vector<Cycle> optimizedCycles;
 };
 
 #endif /* SOLVER_SOLUTION_H_ */

@@ -6,83 +6,126 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
+#include <cstdlib>
 #include <ctime>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 
 #include "io/ArgParser.h"
+#include "io/optionparser.h"
 #include "io/ProblemLoader.h"
 #include "model/Criteria.h"
 #include "model/Cycle.h"
 #include "solver/CycleConnector.h"
 #include "solver/CycleCreator.h"
 #include "test/RandomProblemGenerator.h"
+#include "test/Tester.h"
 
-using namespace std;
-
-void randomProblem(std::string dir);
+void randomProblem(std::string dir, std::string rndFile);
+void generateAndSolveRandomProblems(int n);
+std::string header(const std::string& title);
+void simpleSolve(std::string outputDir, const Problem& p);
 
 int main(int argc, char** argv) {
-	ArgParser argParser(argc, argv);
+  ArgParser argParser(argc, argv);
+  if (argParser.parse()) {
+    option::Option* options = argParser.getOptions();
+    if (options[TEST].arg) {
+      std::cout << header("TEST");
+      Tester tester(true);
+      tester.runAll();
+    }
+    if (options[RANDOM].arg) {
+      std::cout << options[RANDOM].arg;
+      int n = std::stoi(options[RANDOM].arg);
+      std::cout << header("RANDOM");
+      generateAndSolveRandomProblems(n);
+    }
+    if (options[INPUT].arg) {
+      if (options[OUTPUT].arg) {
 
-	time_t rawtime;
-	struct tm * timeinfo;
-	char buffer[80];
+      }
+      std::cout << header("IO");
+      ProblemLoader p(options[INPUT].arg);
+      Problem problem = p.load();
+      problem.analyze();
+      std::cout << problem.toString();
 
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-
-	strftime(buffer, 80, "%d-%m-%Y", timeinfo);
-	std::string timed(buffer);
-
-	for (int i = 0; i < 500; ++i) {
-		std::string dir = "sim2";
-		dir += timed + "/";
-		dir += to_string(i);
-		dir += "/";
-		std::string mkdir= "mkdir -p "+dir;
-		system(mkdir.c_str());
-		randomProblem(dir);
-
-	}
-
-	ProblemLoader p("../src/test/resources/problemExample.txt");
-	Problem problem = p.load();
-	std::cout << problem.toString();
-	return 0;
+      simpleSolve("", problem);
+    }
+  }
+  return 0;
 }
 
-void randomProblem(std::string dir) {
-	ProblemGenParams params;
-	params.maxDemand = 500;
-	params.minDemand = 100;
-	params.maxX = 1000;
-	params.maxY = 1000;
-	params.nodes = 20;
+std::string header(const std::string& title) {
+  std::string h = "*****************************************\n";
+  h += "    " + title + " MODE\n";
+  h += "*****************************************\n";
+  return h;
+}
 
-	Criteria c(1000, 1000, 5, 300, 0, 1);
+void generateAndSolveRandomProblems(int n) {
+  time_t rawtime;
+  struct tm * timeinfo;
+  char buffer[80];
 
-	RandomProblemGenerator rpg(params, c);
+  time(&rawtime);
+  timeinfo = localtime(&rawtime);
 
-	Problem p = rpg.generate();
-	rpg.save(dir, "input");
-	p.analyze();
+  strftime(buffer, 80, "%d-%m-%Y", timeinfo);
+  std::string timed(buffer);
 
-	CycleCreator cc(p);
+  for (int i = 0; i < n; ++i) {
+    std::string dir = "sim";
+    dir += timed + "/";
+    dir += std::to_string(i);
+    dir += "/";
+    std::string mkdir = "mkdir -p " + dir;
+    system(mkdir.c_str());
+    randomProblem(dir, "ProblemGenParamsCfg");
 
-	cc.create();
-	std::vector<Cycle> cycles = cc.getCycles();
+  }
+}
 
-	CycleConnector ccon(p, cycles);
-	ccon.connect();
+void randomProblem(std::string dir, std::string rndFile) {
+  ProblemGenParams params = initFromFile(rndFile);
+  Criteria c(1000, 1000, 5, 300, 0, 1);
 
-	Solution solution = ccon.getSolution();
+  RandomProblemGenerator rpg(params, c);
 
-	std::ofstream myfile;
-	myfile.open((dir + "output").c_str());
-	myfile << solution.toString();
-	myfile.close();
+  Problem p = rpg.generate();
+  rpg.save(dir, "input");
+  p.analyze();
+  p.toString();
+  CycleCreator cc(p);
 
-	std::cout << solution.toString() << std::endl;
+  cc.create();
+  std::vector<Cycle> cycles = cc.getCycles();
+
+  CycleConnector ccon(p, cycles);
+  ccon.connect();
+
+  Solution solution = ccon.getSolution();
+
+  std::ofstream myfile;
+  myfile.open((dir + "output").c_str());
+  myfile << solution.toString();
+  myfile.close();
+
+  std::cout << solution.toString() << std::endl;
+}
+
+void simpleSolve(std::string outputDir, const Problem& p) {
+  CycleCreator cc(p);
+  cc.create();
+  std::vector<Cycle> cycles = cc.getCycles();
+
+  CycleConnector ccon(p, cycles);
+  ccon.connect();
+
+  Solution solution = ccon.getSolution();
+
+  std::cout << solution.toString() << std::endl;
 }

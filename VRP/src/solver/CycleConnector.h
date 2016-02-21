@@ -15,37 +15,36 @@
 #include "../model/Problem.h"
 #include "Solution.h"
 
-
-
 class CycleConnector {
 public:
-	CycleConnector(const Problem& problem, const std::vector<Cycle>& cycles);
-	virtual ~CycleConnector();
+  CycleConnector(const Problem& problem, const std::vector<Cycle>& cycles);
+  virtual ~CycleConnector();
 
-	void connect();
+  void connect();
 
-	Solution getSolution() const {return solution;}
+  Solution getSolution() const {
+    return solution;
+  }
 
 private:
-	const Problem& problem;
-	const std::vector<Cycle>& cycles;
-	std::vector<CyclesSet*> specialCycles;
-	std::vector<CyclesSet*> baseCycles;
+  const Problem& problem;
+  const std::vector<Cycle>& cycles;
+  std::vector<CyclesSet*> specialCycles;
+  std::vector<CyclesSet*> baseCycles;
 
-	std::map<uint32_t, CyclesSet*> connections;
+  std::map<uint32_t, CyclesSet*> connections;
 
-	Solution solution;
-	uint32_t allNodesConnected;
+  Solution solution;
+  uint32_t allNodesConnected;
 
-	void prepareData();
+  void prepareData();
 
-	void connectMap(uint16_t it);
-	bool fullyConnected();
+  void connectMap(uint16_t it);
+  bool fullyConnected();
 
-	void addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle,
-				uint16_t distance, uint32_t id, uint16_t it);
+  void addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle, uint16_t distance, uint32_t id, uint16_t it);
 
-	void transformCycleSetsToSolutions(const std::vector<CyclesSet*>& connected);
+  void transformCycleSetsToSolutions(const std::vector<CyclesSet*>& connected);
 };
 
 #endif /* SOLVER_CYCLECONNECTOR_H_ */
