@@ -5,6 +5,8 @@ jenkins:
 
 vrpRunner:
     vrpPath: /home/lubiedak/workspace/VRPFinalRepo/VRP/Release/VRPCore2.0
+    workspaceDir: /home/lubiedak/workspace/workspaceVRP/
+    fileName: input
 
 spring:
     data:

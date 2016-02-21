@@ -21,7 +21,7 @@ import lombok.Data;
 	
 	@Override
 	public String toString() {
-		return "class=Criteria,minNodes=" + minNodes + ", maxNodes=" + maxNodes + ", minCapacity=" + minCapacity
-				+ ", maxCapacity=" + maxCapacity + ", minDistance=" + minDistance + ", maxDistance=" + maxDistance;
+		return "class=Criteria,minNodes=" + minNodes + ",maxNodes=" + maxNodes + ",minCapacity=" + minCapacity
+				+ ",maxCapacity=" + maxCapacity + ",minDistance=" + minDistance + ",maxDistance=" + maxDistance;
 	}
 }
