@@ -45,6 +45,8 @@ uint16_t CycleCreator::create() {
 
   std::sort(cycles.begin(), cycles.end());
 
+  std::cout<<"CycleCreator: "<<cycleIds.size()<<" cycles created"<<std::endl;
+
   return cycleIds.size();
 }
 

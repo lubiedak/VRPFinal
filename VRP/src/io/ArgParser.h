@@ -31,15 +31,15 @@ struct Arg: public option::Arg
 enum  optionIndex { UNKNOWN, HELP, INPUT, OUTPUT, RANDOM, TEST, DEBUG };
 const option::Descriptor usage[] =
 {
-    {UNKNOWN,  0,"" , ""    ,  option::Arg::None, "USAGE: VRPCore [options]\n\nOptions:" },
-    {HELP,     0,"h", "help",  option::Arg::Optional, "  --help       -h  \tPrint usage and exit." },
-    {INPUT,    0,"i", "input", option::Arg::Optional, "  --input,     -i  \tProblem file path. (MANDATORY)" },
-    {OUTPUT,   0,"o", "output",option::Arg::Optional, "  --output,    -o  \tDirectory, where output would be produced" },
-    {RANDOM,   0,"r", "random",option::Arg::Optional, "  --random,    -r  \tRunning VRP in Random mode. Solving n problems" },
-    {TEST,     0,"t", "test",  option::Arg::Optional, "  --test,      -t  \tRunning VRP in test mode - running all tests." },
-    {DEBUG,    0,"d", "debug", option::Arg::Optional, "  --debug,     -d  \tSetup file path." },
-    {UNKNOWN,  0,"" ,  ""   ,  option::Arg::None, "\nExamples:\n"
-                                            "  VRPCore2.0 --input=input_file --output=some_dir\n"
+    {UNKNOWN,  0,"" , ""    ,       option::Arg::None,     "USAGE: VRPCore [options]\n\nOptions:" },
+    {HELP,     0,"h", "help",       option::Arg::Optional, "  --help       -h  \tPrint usage and exit." },
+    {INPUT,    0,"i", "inputFile",  option::Arg::Optional, "  --inputFile, -i  \tProblem file path. (MANDATORY)" },
+    {OUTPUT,   0,"o", "outputDir",  option::Arg::Optional, "  --outputDir, -o  \tDirectory, where output would be produced" },
+    {RANDOM,   0,"r", "random",     option::Arg::Optional, "  --random,    -r  \tRunning VRP in Random mode. Solving n problems" },
+    {TEST,     0,"t", "test",       option::Arg::Optional, "  --test,      -t  \tRunning VRP in test mode - running all tests." },
+    {DEBUG,    0,"d", "debug",      option::Arg::Optional, "  --debug,     -d  \tSetup file path." },
+    {UNKNOWN,  0,"" ,  ""   ,       option::Arg::None, "\nExamples:\n"
+                                            "  VRPCore2.0 --inputFile=input_file --outputDir=some_dir\n"
                                             "  VRPCore2.0 --random=20"
                                             "  VRPCore2.0 --test=true"},
     {0,0,0,0,0,0}

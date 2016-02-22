@@ -7,10 +7,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import com.vrp.vrpBackend.model.Problem;
+import com.vrp.vrpBackend.service.JenkinsService;
 import com.vrp.vrpBackend.service.VRPRunner;
 
 import lombok.Data;
@@ -19,6 +22,7 @@ import lombok.Data;
 @Data
 @ConfigurationProperties(prefix = "vrpRunner")
 public class VRPRunnerImpl implements VRPRunner {
+	private static final Logger LOG = LoggerFactory.getLogger(VRPRunner.class);
 
 	String vrpPath;
 	String workspaceDir;
@@ -27,18 +31,21 @@ public class VRPRunnerImpl implements VRPRunner {
 
 	@Override
 	public String run(Problem p) {
-		String ioDir = createWorkspaceDirs();
-		String inputFile = createInputFile(ioDir, p);
 
-		String s = execute(inputFile);
+		String s = execute(p);
 		System.out.println(s);
 		return s;
 	}
 
-	private String execute(String inputFile) {
+	private String execute(Problem problem) {
+
+		String ioDir = createWorkspaceDirs();
+		String inputFile = createInputFile(ioDir, problem);
+
 		StringBuffer output = new StringBuffer();
 		String command = vrpPath;
-		command += " --input=" + inputFile;
+		command += " --inputFile=" + inputFile;
+		command += " --outputDir=" + ioDir;
 
 		Process p;
 		try {
@@ -52,7 +59,7 @@ public class VRPRunnerImpl implements VRPRunner {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 		return output.toString();
 	}
@@ -76,7 +83,7 @@ public class VRPRunnerImpl implements VRPRunner {
 			bw.write(p.toString());
 			bw.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 		return f.getAbsolutePath();
 	}

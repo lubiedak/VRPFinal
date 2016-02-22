@@ -13,8 +13,8 @@ import lombok.Data;
 	public Criteria(){
 		minNodes = 1;
 		maxNodes = 5;
-		minCapacity = 1000;
-		maxCapacity = 400;
+		minCapacity = 400;
+		maxCapacity = 1000;
 		minDistance = 5000;
 		maxDistance = 0;
 	}
