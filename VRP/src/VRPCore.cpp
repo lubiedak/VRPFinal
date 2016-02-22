@@ -27,6 +27,7 @@ void randomProblem(std::string dir, std::string rndFile);
 void generateAndSolveRandomProblems(int n);
 std::string header(const std::string& title);
 void simpleSolve(std::string outputDir, const Problem& p);
+void saveSolution(const std::string& dir,Solution& solution);
 
 int main(int argc, char** argv) {
   ArgParser argParser(argc, argv);
@@ -44,16 +45,19 @@ int main(int argc, char** argv) {
       generateAndSolveRandomProblems(n);
     }
     if (options[INPUT].arg) {
+      std::string outDir = "";
       if (options[OUTPUT].arg) {
-
+        std::cout << header("INPUT/OUTPUT");
+        outDir = options[OUTPUT].arg;
+      }else{
+        std::cout << header("INPUT");
       }
-      std::cout << header("IO");
       ProblemLoader p(options[INPUT].arg);
       Problem problem = p.load();
       problem.analyze();
       std::cout << problem.toString();
 
-      simpleSolve("", problem);
+      simpleSolve(outDir, problem);
     }
   }
   return 0;
@@ -108,11 +112,7 @@ void randomProblem(std::string dir, std::string rndFile) {
   ccon.connect();
 
   Solution solution = ccon.getSolution();
-
-  std::ofstream myfile;
-  myfile.open((dir + "output").c_str());
-  myfile << solution.toString();
-  myfile.close();
+  saveSolution(dir, solution);
 
   std::cout << solution.toString() << std::endl;
 }
@@ -128,4 +128,12 @@ void simpleSolve(std::string outputDir, const Problem& p) {
   Solution solution = ccon.getSolution();
 
   std::cout << solution.toString() << std::endl;
+  saveSolution(outputDir, solution);
+}
+
+void saveSolution(const std::string& dir,Solution& solution){
+  std::ofstream myfile;
+  myfile.open((dir + "output").c_str());
+  myfile << solution.toString();
+  myfile.close();
 }

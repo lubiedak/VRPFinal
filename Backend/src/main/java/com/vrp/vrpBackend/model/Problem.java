@@ -11,7 +11,7 @@ public class Problem {
 
 	@Override
 	public String toString() {
-		String str = "class=Problem\n";
+		String str = "";
 		str += criteria.toString() + "\n";
 		for (Node n : nodes) {
 			str += n.toString() + "\n";

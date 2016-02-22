@@ -26,7 +26,8 @@ public class NodesGeneratorImpl implements NodesGenerator {
 		this.rnd = new Random();
 
 		List<Node> nodes = new ArrayList<Node>();
-		for (int i = 0; i < cfg.getNodesCount(); ++i) {
+		nodes.add(createNode(0, "Depot"));
+		for (int i = 1; i < cfg.getNodesCount(); ++i) {
 			nodes.add(createNode(i, "" + i));
 		}
 
