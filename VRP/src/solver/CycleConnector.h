@@ -29,10 +29,10 @@ public:
 private:
   const Problem& problem;
   const std::vector<Cycle>& cycles;
-  std::vector<CyclesSet*> specialCycles;
-  std::vector<CyclesSet*> baseCycles;
+  std::vector<CyclesSet> specialCycles;
+  std::vector<CyclesSet> baseCycles;
 
-  std::map<uint32_t, CyclesSet*> connections;
+  std::map<uint32_t, CyclesSet> connections;
 
   Solution solution;
   uint32_t allNodesConnected;
@@ -44,7 +44,7 @@ private:
 
   void addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle, uint16_t distance, uint32_t id, uint16_t it);
 
-  void transformCycleSetsToSolutions(const std::vector<CyclesSet*>& connected);
+  void transformCycleSetsToSolutions(const std::vector<CyclesSet>& connected);
 };
 
 #endif /* SOLVER_CYCLECONNECTOR_H_ */
