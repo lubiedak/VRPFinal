@@ -7,19 +7,25 @@
 
 #include "CyclesSet.h"
 
+CyclesSet::CyclesSet(){
+  id = 0;
+  size = 0;
+  distance = 0;
+  cycles = std::vector<uint16_t>(size);
+}
+
 CyclesSet::CyclesSet(const Cycle& cycle, uint16_t firstElem, uint16_t size) :
     id(cycle.getId()), distance(cycle.getDistance()), size(size) {
-  cycles = new uint16_t[size];
+  cycles = std::vector<uint16_t>(size);
   cycles[0] = firstElem;
 }
 
 CyclesSet::CyclesSet(uint32_t id, uint16_t distance, uint16_t size) :
     id(id), distance(distance), size(size) {
-  cycles = new uint16_t[size];
+  cycles = std::vector<uint16_t>(size);
 }
 
 CyclesSet::~CyclesSet() {
-  delete[] cycles;
 }
 
 std::string CyclesSet::toString() {
