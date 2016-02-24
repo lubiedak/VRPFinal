@@ -6,6 +6,7 @@
  */
 
 #include "CycleConnector.h"
+#include "ProgressLogger.h"
 #include <cmath>
 #include <iostream>
 
@@ -23,12 +24,12 @@ CycleConnector::~CycleConnector() {
 void CycleConnector::connect() {
   uint16_t connIteration = 1;
   connectMap(connIteration);
-  std::cout << "iteration: " << connIteration << " connected: " << connections.size() << std::endl;
+  std::cout << "\niteration: " << connIteration << " connected: " << connections.size() << std::endl;
 
   while (!fullyConnected()) {
     connIteration++;
     connectMap(connIteration);
-    std::cout << "iteration: " << connIteration << " connected: " << connections.size() << std::endl;
+    std::cout << "\niteration: " << connIteration << " connected: " << connections.size() << std::endl;
   }
   solution = Solution(connections[allNodesConnected], cycles);
 }
@@ -50,49 +51,35 @@ void CycleConnector::prepareData() {
 void CycleConnector::connectMap(uint16_t it) {
 
   std::map<uint32_t, CyclesSet> newConnected = connections;
-  uint32_t size = newConnected.size();
-  uint32_t step = size / 4;
+  ProgressLogger progressLogger(newConnected.size(), 20);
+  progressLogger.startLog();
   uint32_t i = 0;
 
   bool foundFirstFull = false;
 
   for (auto conn : newConnected) {
     ++i;
+    progressLogger.logProgress(i);
     uint32_t id1 = conn.second.id;
     for (uint16_t j = 0; j < baseCycles.size(); ++j) {
-      //IF They don't have common Node
-
       if (0 == (id1 & baseCycles[j].id)) {
-        if (i > step) {
-          //std::cout<<i<<" from "<<size<<" analyzed."<<std::endl;
-          step += step;
-        }
         uint32_t id = (id1 | baseCycles[j].id);
-        if (!foundFirstFull) {
 
+        if (!foundFirstFull) {
           uint16_t distance = baseCycles[j].distance + conn.second.distance;
 
           if (connections.find(id) == connections.end()) {
-
             addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
-            if (id == allNodesConnected) {
-              std::cout << "NE: " << connections.at(id).toString() << std::endl;
-              foundFirstFull = true;
-            }
-
+            foundFirstFull = (id == allNodesConnected);
           } else if (connections.at(id).distance > distance) {
-
             addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
-            if (id == allNodesConnected)
-              std::cout << "DE: " << connections.at(id).toString() << std::endl;
           }
+          //foundFirstFull
         } else {
           if (id == allNodesConnected) {
             uint16_t distance = baseCycles[j].distance + conn.second.distance;
             if (connections.at(id).distance > distance) {
-
               addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
-              std::cout << "DE2: " << connections.at(id).toString() << std::endl;
             }
           }
         }

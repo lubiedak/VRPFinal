@@ -8,6 +8,7 @@ CPP_SRCS += \
 ../src/solver/CycleCreator.cpp \
 ../src/solver/CyclesSet.cpp \
 ../src/solver/PermutationGen.cpp \
+../src/solver/ProgressLogger.cpp \
 ../src/solver/Solution.cpp 
 
 OBJS += \
@@ -15,6 +16,7 @@ OBJS += \
 ./src/solver/CycleCreator.o \
 ./src/solver/CyclesSet.o \
 ./src/solver/PermutationGen.o \
+./src/solver/ProgressLogger.o \
 ./src/solver/Solution.o 
 
 CPP_DEPS += \
@@ -22,6 +24,7 @@ CPP_DEPS += \
 ./src/solver/CycleCreator.d \
 ./src/solver/CyclesSet.d \
 ./src/solver/PermutationGen.d \
+./src/solver/ProgressLogger.d \
 ./src/solver/Solution.d 
 
 
