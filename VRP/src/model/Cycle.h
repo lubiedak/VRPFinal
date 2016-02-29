@@ -67,6 +67,9 @@ public:
     demandRank = position*100.0/size;
   }
 
+  float getDemandToDistRatio() const {
+    return demandToDistRatio;
+  }
 
 private:
   uint32_t id;
@@ -76,6 +79,7 @@ private:
 //useful metrics
   float distCoef;
   float demandToDistRatio;
+
   float demandToDistRatioRank;
   float distanceRank;
   float demandRank;

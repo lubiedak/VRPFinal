@@ -18,6 +18,11 @@ Cycle::Cycle() :
     id(0), distance(0), demand(0), capacity(0), distCoef(0.0) {
   nodes = std::vector<Node>();
   membersCount = 6;
+
+  this->demandRank = 0.0;
+  this->demandToDistRatio = 0.0;
+  this->demandToDistRatioRank = 0.0;
+  this->distanceRank = 0.0;
 }
 
 Cycle& Cycle::operator =(const Cycle& c) {
@@ -28,6 +33,12 @@ Cycle& Cycle::operator =(const Cycle& c) {
   this->nodes = c.nodes;
   this->membersCount = c.membersCount;
   this->distCoef = c.distCoef;
+
+  this->demandRank = c.demandRank;
+  this->demandToDistRatio = c.demandToDistRatio;
+  this->demandToDistRatioRank = c.demandToDistRatioRank;
+  this->distanceRank = c.distanceRank;
+
   return *this;
 }
 
@@ -39,6 +50,11 @@ Cycle::Cycle(const Cycle& c) {
   nodes = c.nodes;
   membersCount = c.membersCount;
   distCoef = c.distCoef;
+
+  demandRank = c.demandRank;
+  demandToDistRatio = c.demandToDistRatio;
+  demandToDistRatioRank = c.demandToDistRatioRank;
+  distanceRank = c.distanceRank;
 }
 
 Cycle::~Cycle() {
@@ -51,7 +67,11 @@ std::string Cycle::toString() {
   oss << delimiter << "id" << pairDelimiter << id;
   oss << delimiter << "distance" << pairDelimiter << distance;
   oss << delimiter << "distCoef" << pairDelimiter << distCoef;
+  oss << delimiter << "distanceRank" << pairDelimiter << distanceRank;
   oss << delimiter << "demand" << pairDelimiter << demand;
+  oss << delimiter << "demandToDistRatio" << pairDelimiter << demandToDistRatio;
+  oss << delimiter << "demandToDistRatioRank" << pairDelimiter << demandToDistRatioRank;
+  oss << delimiter << "demandRank" << pairDelimiter << demandRank;
   // TODO
   //oss << delimiter << "capacity" << mapDelimiter << capacity;
   int i = 0;
@@ -77,6 +97,7 @@ uint16_t Cycle::selfOptimize(const std::vector<std::vector<uint16_t> >& distance
     return 0;
   checkPermSize(perms);
   distance = countMinimumDistance(distances, perms);
+  demandToDistRatio = 100.0*demand/distance;
 
   return distance;
 }
