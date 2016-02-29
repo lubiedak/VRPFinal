@@ -55,12 +55,31 @@ public:
 
   bool contains(uint16_t nodeId) const;
 
+  void setDemandToDistRatioRank(int position, int size) {
+    demandToDistRatioRank = position*100.0/size;
+  }
+
+  void setDistanceRank(int position, int size) {
+    distanceRank = position*100.0/size;
+  }
+
+  void setDemandRank(int position, int size) {
+    demandRank = position*100.0/size;
+  }
+
+
 private:
   uint32_t id;
   uint16_t distance;
   uint16_t demand;
   uint16_t capacity;
+//useful metrics
   float distCoef;
+  float demandToDistRatio;
+  float demandToDistRatioRank;
+  float distanceRank;
+  float demandRank;
+  
   std::vector<Node> nodes;
 
   void checkPermSize(std::vector<std::vector<int>>& perms);

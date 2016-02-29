@@ -43,7 +43,7 @@ uint16_t CycleCreator::create() {
     cycles[i].setDistance(distance);
   }
 
-  std::sort(cycles.begin(), cycles.end());
+  analyzeCycles();
 
   std::cout<<"CycleCreator: "<<cycleIds.size()<<" cycles created"<<std::endl;
 
@@ -88,4 +88,18 @@ uint16_t CycleCreator::SumDemand(uint32_t set, const std::vector<Node>& nodes) {
       break;
   }
   return cargo;
+}
+
+bool compareDemandDistanceRatio(const Cycle& c1, const Cycle& c2){
+  
+}
+
+void CycleCreator::analyzeCycles(){
+  //Sort by distance
+  std::sort(cycles.begin(), cycles.end());
+  int size = cycles.size();
+  for(int i = 0; i < size; ++i){
+    cycles[i].setDistanceRank(i, size);
+  }
+
 }
