@@ -88,8 +88,8 @@ void generateAndSolveRandomProblems(int n) {
     dir += "/";
     std::string mkdir = "mkdir -p " + dir;
     system(mkdir.c_str());
+    std::cout<<"Case: "<<i<<std::endl;
     randomProblem(dir, "ProblemGenParamsCfg");
-
   }
 }
 
