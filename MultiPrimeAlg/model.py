@@ -26,6 +26,8 @@ class Graph:
   def __init__(self):
     self.nodes = []
     self.edges = []
+    self.middle = Node(-1,0,0,0)
+
   def addNode(self, node):
     self.nodes.append(node)
 
@@ -58,3 +60,17 @@ class Graph:
         dx = self.nodes[i].x - self.nodes[j].x
         dy = self.nodes[i].y - self.nodes[j].y
         self.distances[i][j] = m.sqrt(dx*dx + dy*dy)
+
+  def findMiddlePoint(self):
+    x = 0
+    y = 0
+    size = len(self.nodes)
+    for n in self.nodes:
+      x+=n.x
+      y+=n.y
+    self.middle.x = x/size
+    self.middle.y = y/size
+    return sel.middle
+
+
+  def getSmartNodeIter(self, tree):

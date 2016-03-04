@@ -48,6 +48,7 @@ private:
   std::vector<uint32_t> countPossibleCycles();
   uint32_t NumberOfSetBits(int i);
   uint16_t SumDemand(uint32_t set, const std::vector<Node>& nodes);
+  void analyzeCycles();
 };
 
 #endif /* SOLVER_CYCLECREATOR_H_ */
