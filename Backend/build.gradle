@@ -5,6 +5,8 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.7.RELEASE")
+        classpath "org.flywaydb:flyway-gradle-plugin:4.0"
+        classpath 'mysql:mysql-connector-java:5.1.34' 
     }
 }
 
@@ -13,6 +15,7 @@ apply plugin: 'eclipse-wtp'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
+apply plugin: 'org.flywaydb.flyway'
 
 war {
     baseName = 'vrpBackend'
@@ -32,8 +35,6 @@ repositories {
 //New dependecies should be discussed with Tech Lead
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
-    compile("org.mongodb:mongo-java-driver:2.12.3")
     compile("log4j:log4j:1.2.17")
 
     compile("org.springframework.hateoas:spring-hateoas")
@@ -55,4 +56,12 @@ ext['spring.version'] = '4.2.1.RELEASE'
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.8'
+}
+
+flyway {
+    driver = 'com.mysql.jdbc.Driver'
+    user = 'vrpuser'
+    password = 'password'
+    url= 'jdbc:mysql://localhost:3306'
+    schemas= ['vrpdb']
 }
