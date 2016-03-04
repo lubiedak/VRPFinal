@@ -9,10 +9,8 @@ import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.vrp.vrpBackend.dao.NodesDao;
 import com.vrp.vrpBackend.model.Cycle;
 import com.vrp.vrpBackend.model.Node;
 import com.vrp.vrpBackend.service.CycleService;
@@ -26,9 +24,6 @@ import com.vrp.vrpBackend.service.JenkinsService;
 public class CycleServiceImpl implements CycleService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JenkinsService.class);
-	
-	@Autowired
-	NodesDao repo;
 
 	@Override
 	public Cycle generateRandom(int n, int maxN) {

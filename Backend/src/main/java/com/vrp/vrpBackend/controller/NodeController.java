@@ -19,7 +19,6 @@ import com.vrp.vrpBackend.model.Criteria;
 import com.vrp.vrpBackend.model.GeneratorCfg;
 import com.vrp.vrpBackend.model.Node;
 import com.vrp.vrpBackend.model.Problem;
-import com.vrp.vrpBackend.service.NodeService;
 import com.vrp.vrpBackend.service.NodesGenerator;
 import com.vrp.vrpBackend.service.VRPRunner;
 
@@ -28,8 +27,6 @@ public class NodeController extends BaseController {
 
 	private static final String URL = BASE_URL + "/node";
 
-	@Autowired
-	private NodeService nodeService;
 
 	@Autowired
 	private NodesGenerator generator;
@@ -66,9 +63,7 @@ public class NodeController extends BaseController {
 		List<Node> n = generator.generateNodes(cfg);
 		Nodes nodes = new Nodes(name);
 		nodes.setNodes(n);
-		
-		if(cfg.isDbSave())
-			nodeService.save(nodes);
+
 
 		return new ResponseEntity<Object>(nodes, HttpStatus.OK);
 	}
