@@ -16,11 +16,16 @@ class Edge:
   def __init__(self, a, b):
     self.nodeA = a
     self.nodeB = b
+    self.countDistance()
   def getLine(self):
     line = []
     line.append((self.nodeA.x, self.nodeB.x))
     line.append((self.nodeA.y, self.nodeB.y))
     return line
+  def countDistance(self):
+    dx = self.nodeA.x - self.nodeB.x
+    dy = self.nodeA.y - self.nodeB.y
+    self.distance = m.sqrt(dx*dx + dy*dy)
 
 class Graph:
   def __init__(self):
@@ -70,7 +75,19 @@ class Graph:
       y+=n.y
     self.middle.x = x/size
     self.middle.y = y/size
-    return sel.middle
+    return self.middle
 
 
   def getSmartNodeIter(self, tree):
+    middleTreeNode = tree.findMiddlePoint()
+    self.findMiddlePoint()
+    maxDistRatio = 0.0
+    smartestNode = self.nodes[0]
+    for n in self.nodes:
+      edgeTree = Edge(middleTreeNode, n)
+      edgeSelf = Edge(self.middle, n)
+      distanceRatio = edgeSelf.distance/edgeTree.distance
+      if(maxDistRatio<distanceRatio):
+        smartestNode = n
+        maxDistRatio = distanceRatio
+    return smartestNode
