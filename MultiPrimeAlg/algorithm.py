@@ -32,12 +32,19 @@ def initTrees(n,t):
 
 def createTreesIteratively(n, t):
   (main, trees) = initTrees(n,t)
-  size = len(main.nodes)
-  for tree in trees:
-    tree.addNode(main.popRandNode())
+
+  trees[0].addNode(main.popRandNode())
+  i = 1
+  while(i<n/t):
+    addClosestNodeToTree(trees[0], main)
+    i+=1
+
+  treesWithoutFirst = range(len(trees))[1:]
+  for treeIt in treesWithoutFirst:
+    trees[treeIt].addNode(main.getSmartNodeIter(trees[treeIt-1]))
     i = 1
     while(i<n/t):
-      addClosestNodeToTree(tree, main)
+      addClosestNodeToTree(trees[treeIt], main)
       i+=1
   return trees
 
