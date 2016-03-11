@@ -10,7 +10,7 @@
 Solution::Solution(CyclesSet& cs, const std::vector<Cycle>& cycles) :
     Serialized() {
   demand = 0;
-  for (uint16_t i = 0; i < cs.size; ++i) {
+  for (uint16_t i = 0; i < cs.cycles.size(); ++i) {
     optimizedCycles.push_back(cycles[cs.cycles[i]]);
     demand += cycles[cs.cycles[i]].getDemand();
   }

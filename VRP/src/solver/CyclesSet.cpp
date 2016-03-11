@@ -9,19 +9,18 @@
 
 CyclesSet::CyclesSet(){
   id = 0;
-  size = 0;
   distance = 0;
-  cycles = std::vector<uint16_t>(size);
+  cycles = std::vector<uint16_t>(0);
 }
 
 CyclesSet::CyclesSet(const Cycle& cycle, uint16_t firstElem, uint16_t size) :
-    id(cycle.getId()), distance(cycle.getDistance()), size(size) {
+    id(cycle.getId()), distance(cycle.getDistance()){
   cycles = std::vector<uint16_t>(size);
   cycles[0] = firstElem;
 }
 
 CyclesSet::CyclesSet(uint32_t id, uint16_t distance, uint16_t size) :
-    id(id), distance(distance), size(size) {
+    id(id), distance(distance){
   cycles = std::vector<uint16_t>(size);
 }
 
@@ -39,7 +38,7 @@ std::string CyclesSet::toString() {
   oss << delimiter << "id" << mapDelimiter << id;
   oss << delimiter << "distance" << mapDelimiter << distance;
 
-  for (uint16_t i = 0; i < size; ++i) {
+  for (uint16_t i = 0; i < cycles.size(); ++i) {
     oss << delimiter << "cycleId" << i << mapDelimiter << cycles[i];
   }
 

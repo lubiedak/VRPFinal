@@ -15,12 +15,9 @@
 
 #include "ProgressLogger.h"
 
-const static uint32_t n_threads = 2;
-
 CycleConnector::CycleConnector(const Problem& problem, const std::vector<Cycle>& cycles) :
     problem(problem), cycles(cycles) {
   prepareData();
-  divideBaseCycles();
 }
 
 CycleConnector::~CycleConnector() {
@@ -34,18 +31,11 @@ void CycleConnector::connect() {
 
   while (!fullyConnected()) {
     connIteration++;
-    connectMap(connIteration,0);
+    connectMap(connIteration);
     std::cout << "\niteration: " << connIteration << " connected: " << connections.size() << std::endl;
   }
-  solution = Solution(connections[allNodesConnected], cycles);
-}
 
-void CycleConnector::divideBaseCycles() {
-  uint32_t groupSize = (baseCycles.size() + 1) / n_threads;
-  baseCyclesDivided = std::vector<std::vector<CyclesSet>>(n_threads, std::vector<CyclesSet>(0));
-  for (uint32_t i = 0; i < baseCycles.size(); ++i) {
-    baseCyclesDivided[i / groupSize].push_back(baseCycles[i]);
-  }
+  solution = Solution(connections[allNodesConnected], cycles);
 }
 
 void CycleConnector::prepareData() {
@@ -63,36 +53,36 @@ void CycleConnector::prepareData() {
 }
 
 
-void CycleConnector::connectMap(uint16_t it, uint32_t th) {
+void CycleConnector::connectMap(uint16_t it) {
   std::map<uint32_t, CyclesSet> newConnected = connections;
   ProgressLogger progressLogger(newConnected.size(), 20);
   progressLogger.startLog();
   uint32_t i = 0;
-
   bool foundFirstFull = false;
-
+  auto entIt = connections.end();
   for (auto conn : newConnected) {
     ++i;
     progressLogger.logProgress(i);
     uint32_t id1 = conn.second.id;
-    for (uint16_t j = 0; j < baseCyclesDivided[th].size(); ++j) {
-      if (0 == (id1 & baseCyclesDivided[th][j].id)) {
-        uint32_t id = (id1 | baseCyclesDivided[th][j].id);
+    for (uint16_t j = 0; j < baseCycles.size(); ++j) {
+      if (0 == (id1 & baseCycles[j].id)) {
+        uint32_t id = (id1 | baseCycles[j].id);
 
         if (!foundFirstFull) {
-          uint16_t distance = baseCyclesDivided[th][j].distance + conn.second.distance;
-          if (connections.find(id) == connections.end()) {
-            addCyclesSetToMap(conn.second, baseCyclesDivided[th][j], distance, id, it);
+          uint16_t distance = baseCycles[j].distance + conn.second.distance;
+          if (connections.find(id) == entIt) {
+            addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
             foundFirstFull = (id == allNodesConnected);
           } else if (connections.at(id).distance > distance) {
-            addCyclesSetToMap(conn.second, baseCyclesDivided[th][j], distance, id, it);
+            addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
           }
           //foundFirstFull
         } else {
           if (id == allNodesConnected) {
-            uint16_t distance = baseCyclesDivided[th][j].distance + conn.second.distance;
+            uint16_t distance = baseCycles[j].distance + conn.second.distance;
             if (connections.at(id).distance > distance) {
-              addCyclesSetToMap(conn.second, baseCyclesDivided[th][j], distance, id, it);
+              addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
+              std::cout<<"B";
             }
           }
         }

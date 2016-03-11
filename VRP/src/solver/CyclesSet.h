@@ -25,7 +25,6 @@ public:
 
   uint32_t id;
   uint16_t distance;
-  uint16_t size;
   std::vector<uint16_t> cycles;
 };
 
