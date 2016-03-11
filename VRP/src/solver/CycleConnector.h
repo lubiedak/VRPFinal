@@ -31,6 +31,7 @@ private:
   const std::vector<Cycle>& cycles;
   std::vector<CyclesSet> specialCycles;
   std::vector<CyclesSet> baseCycles;
+  std::vector<std::vector<CyclesSet>> baseCyclesDivided;
 
   std::map<uint32_t, CyclesSet> connections;
 
@@ -39,8 +40,9 @@ private:
 
   void prepareData();
 
-  void connectMap(uint16_t it);
+  void connectMap(uint16_t it, uint32_t th);
   bool fullyConnected();
+  void divideBaseCycles();
 
   void addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle, uint16_t distance, uint32_t id, uint16_t it);
 

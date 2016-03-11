@@ -50,7 +50,7 @@ all: VRPCore2.0
 VRPCore2.0: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o "VRPCore2.0" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -pthread -std=c++11 -Wl,--no-as-needed -o "VRPCore2.0" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
