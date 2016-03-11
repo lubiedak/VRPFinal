@@ -34,17 +34,17 @@ CycleConnector::~CycleConnector() {
 void CycleConnector::connect() {
   uint16_t connIteration = 0;
 
-  std::thread threads[n_threads];
+  //std::thread threads[n_threads];
 
   while (!fullyConnected()) {
     connIteration++;
-    for (uint32_t i = 0; i < n_threads; ++i) {
+    /*for (uint32_t i = 0; i < n_threads; ++i) {
       threads[i] = std::thread(&CycleConnector::connectMap, this, connIteration, i);
     }
     for (uint32_t i = 0; i < n_threads; ++i) {
       threads[i].join();
-    }
-
+    }*/
+    connectMap(connIteration,0);
     std::cout << "\niteration: " << connIteration << " connected: " << connections.size() << std::endl;
   }
   solution = Solution(connections[allNodesConnected], cycles);
@@ -74,7 +74,7 @@ void CycleConnector::prepareData() {
 
 
 void CycleConnector::connectMap(uint16_t it, uint32_t th) {
-  std::mutex connectionsMutex;
+  //std::mutex connectionsMutex;
   std::map<uint32_t, CyclesSet> newConnected = connections;
   ProgressLogger progressLogger(newConnected.size(), 20);
   progressLogger.startLog();
@@ -92,7 +92,7 @@ void CycleConnector::connectMap(uint16_t it, uint32_t th) {
 
         if (!foundFirstFull) {
           uint16_t distance = baseCyclesDivided[th][j].distance + conn.second.distance;
-          std::lock_guard < std::mutex > lock(connectionsMutex);
+          //std::lock_guard < std::mutex > lock(connectionsMutex);
           if (connections.find(id) == connections.end()) {
             addCyclesSetToMap(conn.second, baseCyclesDivided[th][j], distance, id, it);
             foundFirstFull = (id == allNodesConnected);
@@ -122,8 +122,8 @@ void CycleConnector::addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& bas
     cycleSet.cycles[k] = actualCycleSet.cycles[k];
   }
   cycleSet.cycles[it] = baseCycle.cycles[0];
-
-  {
+  connections[id] = cycleSet;
+  /*{
 
 
     if (connections.find(id) == connections.end()) {
@@ -131,7 +131,7 @@ void CycleConnector::addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& bas
     } else if (connections.at(id).distance > distance) {
       connections[id] = cycleSet;
     }
-  }
+  }*/
 }
 
 bool CycleConnector::fullyConnected() {
