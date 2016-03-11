@@ -6,13 +6,23 @@
  */
 
 #include "CycleConnector.h"
-#include "ProgressLogger.h"
+
 #include <cmath>
+#include <cstdint>
 #include <iostream>
+#include <map>
+#include <utility>
+#include <thread>
+#include <mutex>
+
+#include "ProgressLogger.h"
+
+const static uint32_t n_threads = 2;
 
 CycleConnector::CycleConnector(const Problem& problem, const std::vector<Cycle>& cycles) :
     problem(problem), cycles(cycles) {
   prepareData();
+  divideBaseCycles();
 }
 
 CycleConnector::~CycleConnector() {
@@ -22,16 +32,30 @@ CycleConnector::~CycleConnector() {
 }
 
 void CycleConnector::connect() {
-  uint16_t connIteration = 1;
-  connectMap(connIteration);
-  std::cout << "\niteration: " << connIteration << " connected: " << connections.size() << std::endl;
+  uint16_t connIteration = 0;
+
+  std::thread threads[n_threads];
 
   while (!fullyConnected()) {
     connIteration++;
-    connectMap(connIteration);
+    for (uint32_t i = 0; i < n_threads; ++i) {
+      threads[i] = std::thread(&CycleConnector::connectMap, this, connIteration, i);
+    }
+    for (uint32_t i = 0; i < n_threads; ++i) {
+      threads[i].join();
+    }
+
     std::cout << "\niteration: " << connIteration << " connected: " << connections.size() << std::endl;
   }
   solution = Solution(connections[allNodesConnected], cycles);
+}
+
+void CycleConnector::divideBaseCycles() {
+  uint32_t groupSize = (baseCycles.size() + 1) / n_threads;
+  baseCyclesDivided = std::vector<std::vector<CyclesSet>>(n_threads, std::vector<CyclesSet>(0));
+  for (uint32_t i = 0; i < baseCycles.size(); ++i) {
+    baseCyclesDivided[i / groupSize].push_back(baseCycles[i]);
+  }
 }
 
 void CycleConnector::prepareData() {
@@ -48,7 +72,8 @@ void CycleConnector::prepareData() {
   allNodesConnected = uint32_t(pow(2.0, problem.size()) - 1);
 }
 
-void CycleConnector::connectMap(uint16_t it) {
+std::mutex connectionsMutex;
+void CycleConnector::connectMap(uint16_t it, uint32_t th) {
 
   std::map<uint32_t, CyclesSet> newConnected = connections;
   ProgressLogger progressLogger(newConnected.size(), 20);
@@ -61,25 +86,25 @@ void CycleConnector::connectMap(uint16_t it) {
     ++i;
     progressLogger.logProgress(i);
     uint32_t id1 = conn.second.id;
-    for (uint16_t j = 0; j < baseCycles.size(); ++j) {
-      if (0 == (id1 & baseCycles[j].id)) {
-        uint32_t id = (id1 | baseCycles[j].id);
+    for (uint16_t j = 0; j < baseCyclesDivided.size(); ++j) {
+      if (0 == (id1 & baseCyclesDivided[th][j].id)) {
+        uint32_t id = (id1 | baseCyclesDivided[th][j].id);
 
         if (!foundFirstFull) {
-          uint16_t distance = baseCycles[j].distance + conn.second.distance;
-
+          uint16_t distance = baseCyclesDivided[th][j].distance + conn.second.distance;
+          std::lock_guard < std::mutex > lock(connectionsMutex);
           if (connections.find(id) == connections.end()) {
-            addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
+            addCyclesSetToMap(conn.second, baseCyclesDivided[th][j], distance, id, it);
             foundFirstFull = (id == allNodesConnected);
           } else if (connections.at(id).distance > distance) {
-            addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
+            addCyclesSetToMap(conn.second, baseCyclesDivided[th][j], distance, id, it);
           }
           //foundFirstFull
         } else {
           if (id == allNodesConnected) {
-            uint16_t distance = baseCycles[j].distance + conn.second.distance;
+            uint16_t distance = baseCyclesDivided[th][j].distance + conn.second.distance;
             if (connections.at(id).distance > distance) {
-              addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
+              addCyclesSetToMap(conn.second, baseCyclesDivided[th][j], distance, id, it);
             }
           }
         }
@@ -87,6 +112,7 @@ void CycleConnector::connectMap(uint16_t it) {
     }
   }
 }
+
 
 void CycleConnector::addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle, uint16_t distance, uint32_t id,
     uint16_t it) {
@@ -96,7 +122,16 @@ void CycleConnector::addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& bas
     cycleSet.cycles[k] = actualCycleSet.cycles[k];
   }
   cycleSet.cycles[it] = baseCycle.cycles[0];
-  connections[id] = cycleSet;
+
+  {
+    std::lock_guard < std::mutex > lock(connectionsMutex);
+
+    if (connections.find(id) == connections.end()) {
+      connections[id] = cycleSet;
+    } else if (connections.at(id).distance > distance) {
+      connections[id] = cycleSet;
+    }
+  }
 }
 
 bool CycleConnector::fullyConnected() {
