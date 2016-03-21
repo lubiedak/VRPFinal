@@ -32,6 +32,7 @@ void Problem::analyze() {
   biggestDemander = findBiggestDemander();
   demandsSum = sumDemands();
   generateDistances();
+  changeMinDemandIfNeeded();
 }
 
 uint16_t Problem::findBiggestDemander() {
@@ -100,3 +101,11 @@ uint16_t Problem::estimateConnectionsNeeded() const {
   return demandsSum / criteria.maxCapacity() + 1;
 }
 
+//Optimization
+void Problem::changeMinDemandIfNeeded() {
+  uint16_t minDemand = demandsSum % criteria.maxCapacity();
+  if(minDemand < 0.88 * criteria.maxCapacity() && minDemand > criteria.minCapacity()){
+    criteria.setMinCapacity(minDemand);
+    std::cout<<"MinCapacity changed to "<<minDemand<<std::endl;
+  }
+}

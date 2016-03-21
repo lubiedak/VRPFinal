@@ -89,6 +89,7 @@ private:
   uint16_t findBiggestDemander();
   uint16_t sumDemands();
   bool checkProblemCorrectness();
+  void changeMinDemandIfNeeded();
 
   uint16_t biggestDemander;
   uint16_t demandsSum;
