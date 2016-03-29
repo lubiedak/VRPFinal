@@ -55,33 +55,34 @@ void CycleConnector::prepareData() {
 
 void CycleConnector::connectMap(uint16_t it) {
   std::map<uint32_t, CyclesSet> newConnected = connections;
+  connections.clear();
   ProgressLogger progressLogger(newConnected.size(), 20);
   progressLogger.startLog();
   uint32_t i = 0;
   bool foundFirstFull = false;
-  auto entIt = connections.end();
+  auto entIt = connections.end(); //does it change during time?
   for (auto conn : newConnected) {
     ++i;
     progressLogger.logProgress(i);
     uint32_t id1 = conn.second.id;
-    for (uint16_t j = 0; j < baseCycles.size(); ++j) {
+    for (uint16_t j = conn.second.lastIt; j < baseCycles.size(); ++j) {
       if (0 == (id1 & baseCycles[j].id)) {
         uint32_t id = (id1 | baseCycles[j].id);
 
         if (!foundFirstFull) {
           uint16_t distance = baseCycles[j].distance + conn.second.distance;
           if (connections.find(id) == entIt) {
-            addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
+            addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it, j);
             foundFirstFull = (id == allNodesConnected);
           } else if (connections.at(id).distance > distance) {
-            addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
+            addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it, j);
           }
           //foundFirstFull
         } else {
           if (id == allNodesConnected) {
             uint16_t distance = baseCycles[j].distance + conn.second.distance;
             if (connections.at(id).distance > distance) {
-              addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it);
+              addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it, j);
               std::cout<<"B";
             }
           }
@@ -93,9 +94,9 @@ void CycleConnector::connectMap(uint16_t it) {
 
 
 void CycleConnector::addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle, uint16_t distance, uint32_t id,
-    uint16_t it) {
+    uint16_t it, uint16_t lastIt) {
 
-  CyclesSet cycleSet = CyclesSet(id, distance, it + 1);
+  CyclesSet cycleSet = CyclesSet(id, distance, it + 1, lastIt);
   for (int k = 0; k < it + 1; k++) {
     cycleSet.cycles[k] = actualCycleSet.cycles[k];
   }

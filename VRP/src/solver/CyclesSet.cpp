@@ -11,16 +11,17 @@ CyclesSet::CyclesSet(){
   id = 0;
   distance = 0;
   cycles = std::vector<uint16_t>(0);
+  lastIt = 0;
 }
 
 CyclesSet::CyclesSet(const Cycle& cycle, uint16_t firstElem, uint16_t size) :
-    id(cycle.getId()), distance(cycle.getDistance()){
+    id(cycle.getId()), distance(cycle.getDistance()), lastIt(0){
   cycles = std::vector<uint16_t>(size);
   cycles[0] = firstElem;
 }
 
-CyclesSet::CyclesSet(uint32_t id, uint16_t distance, uint16_t size) :
-    id(id), distance(distance){
+CyclesSet::CyclesSet(uint32_t id, uint16_t distance, uint16_t size, uint16_t lastIt) :
+    id(id), distance(distance), lastIt(lastIt){
   cycles = std::vector<uint16_t>(size);
 }
 

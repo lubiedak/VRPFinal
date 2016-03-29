@@ -42,7 +42,7 @@ private:
   void connectMap(uint16_t it);
   bool fullyConnected();
 
-  void addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle, uint16_t distance, uint32_t id, uint16_t it);
+  void addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle, uint16_t distance, uint32_t id, uint16_t it, uint16_t lastIt);
 
   void transformCycleSetsToSolutions(const std::vector<CyclesSet>& connected);
 };
