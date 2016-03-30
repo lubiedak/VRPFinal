@@ -54,7 +54,7 @@ void CycleConnector::prepareData() {
 
 
 void CycleConnector::connectMap(uint16_t it) {
-  std::map<uint32_t, CyclesSet> newConnected = connections;
+  std::unordered_map<uint32_t, CyclesSet> newConnected = connections;
   connections.clear();
   ProgressLogger progressLogger(newConnected.size(), 20);
   progressLogger.startLog();

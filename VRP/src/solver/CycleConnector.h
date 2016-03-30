@@ -15,6 +15,8 @@
 #include "../model/Problem.h"
 #include "Solution.h"
 
+#include <unordered_map>
+
 class CycleConnector {
 public:
   CycleConnector(const Problem& problem, const std::vector<Cycle>& cycles);
@@ -32,7 +34,7 @@ private:
   std::vector<CyclesSet> specialCycles;
   std::vector<CyclesSet> baseCycles;
 
-  std::map<uint32_t, CyclesSet> connections;
+  std::unordered_map<uint32_t, CyclesSet> connections;
 
   Solution solution;
   uint32_t allNodesConnected;
