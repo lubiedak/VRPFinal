@@ -26,9 +26,8 @@ std::string Solution::serialize() {
   oss << std::string("class=Solution");
   oss << delimiter << "distance" << pairDelimiter << distance;
   oss << delimiter << "demand" << pairDelimiter << demand << std::endl;
-  int i = 0;
   for (auto c : optimizedCycles) {
-    oss << "Cycle " << i++ << ": " << c.toString() << std::endl;
+    oss << c.toString() << std::endl;
   }
   return oss.str();
 }

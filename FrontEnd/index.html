@@ -14,7 +14,7 @@
 			<form class="form" method="post" action="#">
 				<h3>Generate Nodes</h3>
 				<div class="form-group">
-					<label>Nodes Count:</label>    <input type="number" class="form-control" value=50 name="nodes_Count" id="nodes_Count">
+					<label>Nodes Count:</label>    <input type="number" class="form-control" value=16 name="nodes_Count" id="nodes_Count">
 				</div>
 				<div class="form-group">
 					<label>Minimum Demand:</label> <input type="number" class="form-control" value=150 name="min_Demand" id="min_Demand">
@@ -29,6 +29,7 @@
 					<label>Max Y:</label>          <input type="number" class="form-control" value=600 name="max_Y" id="max_Y">
 				</div>
 				<input type="button" name="generate" id="generate" value="Generate">
+				<input type="button" name="solve" id="solve" value="Solve">
 			</form>
 		</div>
 	</div>
@@ -122,24 +123,33 @@ $(document).ready(function() {
 	});
 });
 
+
 $(document).ready(function() {
 	$("#solve").click(function() {
+
+		var nodes_Count = $("#nodes_Count").val();
+		var min_Demand = $("#min_Demand").val();
+		var max_Demand = $("#max_Demand").val();
+		var max_X = $("#max_X").val();
+		var max_Y = $("#max_Y").val();
 		if (d3.select("svg").empty()) {
-			alert("Please generate graph first);
+			alert("Please generate graph first");
 		} else {
 			$.ajax({
-				url:"http://127.0.0.1:8080/rest/cycle/solve",
+				url:"http://127.0.0.1:8080/rest/node/generateAndSolve?" + 'nodesCount=' + nodes_Count +'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y,
 				type:"POST",
 				contentType:"application/json",
 				async: false,
 				dataType:'json',
 				success: function(data, status){
-					draw(data);
+					    if(data) {   // DO SOMETHING     
+        					alert(data[0].value);
+    					} else { // DO SOMETHING
+    					}
 				}
 			});
 		}
 	});
 });
-
 
 </script>
