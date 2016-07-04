@@ -11,7 +11,7 @@ public class NodeClassifier {
 
 	public double classify(Node n){
 		double x = n.getX() - baseNode.getX();
-		double y = n.getY() - baseNode.getY();
+		double y = n.getY() - baseNode.getY()+0.000000001;
 		
 		double atan = Math.atan(x/y);
 		if(x < 0)
