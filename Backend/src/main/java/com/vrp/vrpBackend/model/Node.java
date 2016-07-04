@@ -12,6 +12,8 @@ public class Node {
 	private int x;
 	private int y;
 	private int demand;
+	
+	private double angle;
 
 	@Override
 	public String toString() {
@@ -19,6 +21,7 @@ public class Node {
 				+ ",name=" + name
 				+ ",x=" + x
 				+ ",y=" + y
-				+ ",demand=" + demand;
+				+ ",demand=" + demand
+				+ ",angle=" + angle;
 	}
 }

@@ -1,10 +1,11 @@
 Backend/.classpath
 Backend/.gradle/
-Backend/.project
+*.project
 Backend/.settings/
 Backend/bin/
 Backend/build/
 Backend/*.log
 Backend/node_modules/
+*.pyc
 
 

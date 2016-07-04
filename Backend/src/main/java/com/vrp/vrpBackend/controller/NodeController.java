@@ -63,8 +63,15 @@ public class NodeController extends BaseController {
 		List<Node> n = generator.generateNodes(cfg);
 		Nodes nodes = new Nodes(name);
 		nodes.setNodes(n);
-
-
+		
+		Problem p = new Problem();
+		p.setCriteria(new Criteria());
+		p.setNodes(n);
+		
+		p.sortNodes();
+		n = p.getNodes();
+		n.forEach(node -> System.out.println(node));
+		
 		return new ResponseEntity<Object>(nodes, HttpStatus.OK);
 	}
 	
