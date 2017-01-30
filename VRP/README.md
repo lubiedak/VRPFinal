@@ -1,6 +1,6 @@
 ### To build:
 
-Enter Release directory and run `make` command.
+Enter Release directory and run `make` command. It is able to build in linux environment with gcc 4.8+
 
 ### To Run:
 
