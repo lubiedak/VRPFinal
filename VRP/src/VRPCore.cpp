@@ -6,6 +6,10 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
+#if defined(_WIN32)
+#include <direct.h>
+#endif 
+
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
@@ -89,7 +93,11 @@ void generateAndSolveRandomProblems(int n) {
     dir += std::to_string(i);
     dir += "/";
     std::string mkdir = "mkdir -p " + dir;
-    system(mkdir.c_str());
+#if defined(_WIN32)
+	_mkdir(mkdir.c_str());
+#else 
+	mkdir(mkdir.c_str()); // notice that 777 is different than 0777
+#endif
     std::cout<<"Case: "<<i<<std::endl;
     randomProblem(dir, "ProblemGenParamsCfg");
   }
