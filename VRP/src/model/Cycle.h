@@ -56,15 +56,15 @@ public:
   bool contains(uint16_t nodeId) const;
 
   void setDemandToDistRatioRank(int position, int size) {
-    demandToDistRatioRank = position*100.0/size;
+    demandToDistRatioRank = position*100.0f/size;
   }
 
   void setDistanceRank(int position, int size) {
-    distanceRank = position*100.0/size;
+    distanceRank = position*100.0f/size;
   }
 
   void setDemandRank(int position, int size) {
-    demandRank = position*100.0/size;
+    demandRank = position*100.0f/size;
   }
 
   float getDemandToDistRatio() const {

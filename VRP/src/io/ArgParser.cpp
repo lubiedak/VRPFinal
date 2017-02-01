@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "../io/FileDirChecker.h"
+#include <string>
 
 ArgParser::ArgParser(void) {
 }

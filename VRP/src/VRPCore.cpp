@@ -23,6 +23,8 @@
 #include "test/RandomProblemGenerator.h"
 #include "test/Tester.h"
 
+#pragma warning(disable : 4996)
+
 void randomProblem(std::string dir, std::string rndFile);
 void generateAndSolveRandomProblems(int n);
 std::string header(const std::string& title);
