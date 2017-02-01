@@ -7,5 +7,12 @@ Backend/build/
 Backend/*.log
 Backend/node_modules/
 *.pyc
-
-
+VRP/VS/Debug
+VRP/VS/Release
+*.db
+*.obj
+*.log
+*.idb
+*.pdb
+VRP/VS/VS/Release
+VRP/VS/VS/Debug
