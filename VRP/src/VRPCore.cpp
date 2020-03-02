@@ -113,7 +113,6 @@ void randomProblem(std::string dir, std::string rndFile) {
   Criteria c(1000, 1000, 5, 300, 0, 1);
 
   RandomProblemGenerator rpg(params, c);
-
   Problem p = rpg.generate();
   rpg.save(dir, "input");
   p.analyze();
