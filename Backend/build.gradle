@@ -52,11 +52,6 @@ test {
         events "passed", "skipped", "failed"
     }
 }
-ext['spring.version'] = '4.2.1.RELEASE'
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.8'
-}
 
 flyway {
     driver = 'com.mysql.jdbc.Driver'

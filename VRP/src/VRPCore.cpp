@@ -16,6 +16,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sys/stat.h>
+
 
 #include "io/ArgParser.h"
 #include "io/optionparser.h"
@@ -92,11 +94,14 @@ void generateAndSolveRandomProblems(int n) {
     dir += timed + "/";
     dir += std::to_string(i);
     dir += "/";
-    std::string mkdir = "mkdir -p " + dir;
+    std::string mkdir_command = "mkdir -p " + dir;
 #if defined(_WIN32)
-	_mkdir(mkdir.c_str());
-#else 
-	mkdir(mkdir.c_str()); // notice that 777 is different than 0777
+	_mkdir(mkdir_command.c_str());
+#endif
+#if defined(__APPLE__)
+    mkdir(mkdir_command.c_str(),777);
+#else
+	mkdir(mkdir_command.c_str()); // notice that 777 is different than 0777
 #endif
     std::cout<<"Case: "<<i<<std::endl;
     randomProblem(dir, "ProblemGenParamsCfg");
