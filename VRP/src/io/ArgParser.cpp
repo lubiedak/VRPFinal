@@ -41,10 +41,10 @@ bool ArgParser::isParsingSuccessful() {
 bool ArgParser::checkArgumentsCorrectness() {
   bool success = true;
   for (option::Option* opt = options_[UNKNOWN]; opt; opt = opt->next())
-    std::cout << "Unknown option: " << std::string(opt->name, opt->namelen) << "\n";
+    std::cout << "Unknown option: " << std::string(opt->name, opt->namelen) << std::endl;
 
   for (int i = 0; i < parser_.nonOptionsCount(); ++i)
-    std::cout << "Non-option #" << i << ": " << parser_.nonOption(i) << "\n";
+    std::cout << "Non-option #" << i << ": " << parser_.nonOption(i) << std::endl;
 
   for (int type = INPUT; type <= DEBUG; type++) {
     option::Option* opt = options_[type];
