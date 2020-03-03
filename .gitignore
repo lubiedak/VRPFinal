@@ -18,3 +18,12 @@ VRP/VS/VS/Release
 VRP/VS/VS/Debug
 VRP/VS/.vs
 *.opendb
+.idea/
+.vscode/
+FrontEnd/package-lock.json
+VRP/.vscode/
+VRP/build/CMakeCache.txt
+VRP/build/CMakeFiles/
+VRP/build/Makefile
+VRP/build/VRP
+VRP/build/cmake_install.cmake
