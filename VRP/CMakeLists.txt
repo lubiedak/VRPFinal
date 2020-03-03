@@ -2,6 +2,14 @@ cmake_minimum_required(VERSION 3.13)  # CMake version check
 project(VRP)
 set(CMAKE_CXX_STANDARD 14)            # Enable c++14 standard
 
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
 # Add main.cpp file of project root directory as source file
 include_directories(src)
 
