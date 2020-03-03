@@ -17,8 +17,6 @@
 #include <string>
 #include <vector>
 #include <sys/stat.h>
-
-
 #include "io/ArgParser.h"
 #include "io/optionparser.h"
 #include "io/ProblemLoader.h"
@@ -26,10 +24,8 @@
 #include "model/Cycle.h"
 #include "solver/CycleConnector.h"
 #include "solver/CycleCreator.h"
-#include "test/RandomProblemGenerator.h"
+#include "random/RandomProblemGenerator.h"
 #include "test/Tester.h"
-
-#pragma warning(disable : 4996)
 
 void randomProblem(std::string dir, std::string rndFile);
 void generateAndSolveRandomProblems(int n);
@@ -95,11 +91,12 @@ void generateAndSolveRandomProblems(int n) {
     dir += std::to_string(i);
     dir += "/";
     std::string mkdir_command = "mkdir -p " + dir;
+    std::cout<<mkdir_command<<std::endl;
 #if defined(_WIN32)
 	_mkdir(mkdir_command.c_str());
 #endif
 #if defined(__APPLE__)
-    mkdir(mkdir_command.c_str(),777);
+    system(mkdir_command.c_str());
 #else
 	mkdir(mkdir_command.c_str()); // notice that 777 is different than 0777
 #endif

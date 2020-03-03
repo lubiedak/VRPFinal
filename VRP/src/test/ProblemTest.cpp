@@ -17,7 +17,7 @@
 #include "../solver/CyclesSet.h"
 #include "../solver/Solution.h"
 #include "resources/ProblemsForTest.h"
-#include "RandomProblemGenerator.h"
+#include "../random/RandomProblemGenerator.h"
 
 void printCycles(const std::vector<Cycle>& cycles) {
   int i = 0;
