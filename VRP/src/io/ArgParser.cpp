@@ -1,7 +1,7 @@
 #include "../io/ArgParser.h"
 
 #include <iostream>
-#include "../io/FileDirChecker.h"
+#include "FileUtils.h"
 #include <string>
 
 ArgParser::ArgParser(void) {
@@ -59,7 +59,7 @@ bool ArgParser::checkIfFilesExists() {
   bool success = true;
   std::cout << "Start checking arguments ..." << std::endl;
 
-  FileDirChecker fileDirChecker;
+  FileUtils fileDirChecker;
   for (int type = INPUT; type < OUTPUT; type++) {
     for (option::Option* opt = options_[type]; opt; opt = opt->next()) {
       std::cout << "Checking: " << opt->name << std::endl;

@@ -25,7 +25,7 @@ public:
 
   virtual std::string serialize();
   virtual bool deserialize(std::string);
-
+  
   std::string toString();
   uint32_t getDistance() const {
     return distance;

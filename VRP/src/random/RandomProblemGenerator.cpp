@@ -41,14 +41,6 @@ Problem RandomProblemGenerator::generate() {
   return problem;
 }
 
-void RandomProblemGenerator::save(std::string dir, std::string fileName) {
-
-  std::ofstream myfile;
-  myfile.open((dir + fileName).c_str());
-  myfile << problem.toString();
-  myfile.close();
-}
-
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
   std::stringstream ss(s);
   std::string item;

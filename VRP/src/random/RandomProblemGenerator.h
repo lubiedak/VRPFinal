@@ -37,7 +37,6 @@ public:
   virtual ~RandomProblemGenerator();
 
   Problem generate();
-  void save(std::string dir, std::string fileName);
 
 private:
   Problem problem;
