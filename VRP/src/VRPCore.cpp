@@ -18,6 +18,7 @@
 #include <sys/stat.h>
 #include "io/ArgParser.h"
 #include "io/optionparser.h"
+#include "io/ApiController.h"
 #include "io/ProblemLoader.h"
 #include "io/FileUtils.h"
 #include "model/Criteria.h"
@@ -45,6 +46,12 @@ int main(int argc, char** argv) {
       
       RandomModeExecutor randomModeExecutor;
       randomModeExecutor.generateAndSolveRandomProblems(n);
+    }
+    if (options[MICRO].arg) {
+      std::cout << header("MICRO");
+      
+      ApiController api;
+      api.run();
     }
     if (options[INPUT].arg) {
       std::string outDir = "";

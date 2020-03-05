@@ -9,11 +9,16 @@ void ApiController::run(void){
 	CROW_ROUTE(app,"/random/<int>")
 	([](int n){
         RandomModeExecutor executor;
-        executor.generateAndSolveRandomProblems(n);
-        if (n > 100)
-            return crow::response(400);
+        auto s = executor.generateAndSolveRandomProblems(n);
         std::ostringstream os;
-        os << n << " bottles of beer!";
+        for (auto const& x : s)
+        {
+            os << x.first  // string (key)
+                    << ':'
+                    << std::endl 
+                    << x.second // string's value 
+                    << std::endl ;
+        }
         return crow::response(os.str());
     });
 

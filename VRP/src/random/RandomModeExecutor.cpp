@@ -15,9 +15,9 @@
 #include <iostream>
 
 
-void RandomModeExecutor::generateAndSolveRandomProblems(int n) {
+std::map<std::string, std::string> RandomModeExecutor::generateAndSolveRandomProblems(int n) {
   std::string dir = prepareExecutionDirectoryName();
-
+  std::map<std::string, std::string> solutions;
   for (int i = 0; i < n; ++i) {
     dir += std::to_string(i) + "/";
     std::string mkdir_command = "mkdir -p " + dir;
@@ -30,7 +30,9 @@ void RandomModeExecutor::generateAndSolveRandomProblems(int n) {
     std::cout<<"Case: "<<i<<std::endl;
     Problem p = createProblem(dir, "ProblemGenParamsCfg");
     Solution s = solveProblem(dir, p);
+    solutions[p.toString()] = s.toString();
   }
+  return solutions;
 }
 
 Problem RandomModeExecutor::createProblem(std::string dir, std::string rndFile){
