@@ -12,7 +12,6 @@
 Problem::Problem(Criteria criteria, Node depot) :
     criteria(criteria), depot(depot) {
   std::cout << "WARNING: Problem creation. Nodes not specified." << std::endl;
-  analyze();
 }
 
 Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes) :
@@ -25,6 +24,11 @@ Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes) :
 
 Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes, std::vector<std::vector<uint16_t> > distances) :
     criteria(criteria), depot(depot), nodes(nodes), distances(distances) {
+  analyze();
+}
+
+Problem::Problem(Problem& p) :
+    criteria(p.criteria), depot(p.depot), nodes(p.nodes), distances(p.distances), cycles(p.cycles) {
   analyze();
 }
 

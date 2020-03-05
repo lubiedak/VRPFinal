@@ -9,13 +9,17 @@
 #define RANDOM_RANDOM_MODE_EXECUTOR_H_
 
 #include <string>
+#include "../solver/Solution.h"
+#include "../model/Problem.h"
 
 class RandomModeExecutor {
 public:
     RandomModeExecutor(void){};
     void generateAndSolveRandomProblems(int n);
 private:
-    void randomProblem(std::string dir, std::string rndFile);
+    Problem createProblem(std::string dir, std::string rndFile);
+    Solution solveProblem(std::string dir, Problem p);
+    std::string prepareExecutionDirectoryName();
 
 };
 #endif /* RANDOM_RANDOM_MODE_EXECUTOR_H_ */

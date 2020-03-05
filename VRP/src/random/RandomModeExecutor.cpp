@@ -16,37 +16,24 @@
 
 
 void RandomModeExecutor::generateAndSolveRandomProblems(int n) {
-  time_t rawtime;
-  struct tm * timeinfo;
-  char buffer[80];
-
-  time(&rawtime);
-  timeinfo = localtime(&rawtime);
-
-  strftime(buffer, 80, "%d-%m-%Y", timeinfo);
-  std::string timed(buffer);
+  std::string dir = prepareExecutionDirectoryName();
 
   for (int i = 0; i < n; ++i) {
-    std::string dir = "sim";
-    dir += timed + "/";
-    dir += std::to_string(i);
-    dir += "/";
+    dir += std::to_string(i) + "/";
     std::string mkdir_command = "mkdir -p " + dir;
     std::cout<<mkdir_command<<std::endl;
 #if defined(_WIN32)
-	_mkdir(mkdir_command.c_str());
-#endif
-#if defined(__APPLE__)
-    system(mkdir_command.c_str());
+	_mkdir(dir.c_str());
 #else
-	mkdir(mkdir_command.c_str()); // notice that 777 is different than 0777
+	system(mkdir_command.c_str());
 #endif
     std::cout<<"Case: "<<i<<std::endl;
-    randomProblem(dir, "ProblemGenParamsCfg");
+    Problem p = createProblem(dir, "ProblemGenParamsCfg");
+    Solution s = solveProblem(dir, p);
   }
 }
 
-void RandomModeExecutor::randomProblem(std::string dir, std::string rndFile) {
+Problem RandomModeExecutor::createProblem(std::string dir, std::string rndFile){
   ProblemGenParams params = initFromFile(rndFile);
   Criteria c(1000, 1000, 5, 300, 0, 1);
 
@@ -55,9 +42,12 @@ void RandomModeExecutor::randomProblem(std::string dir, std::string rndFile) {
   FileUtils fileUtils;
   fileUtils.saveToFile(dir + "input", p.toString());
   p.analyze();
-  p.toString();
-  CycleCreator cc(p);
+  std::cout<<p.toString();
+  return p;
+}
 
+Solution RandomModeExecutor::solveProblem(std::string dir, Problem p) {
+  CycleCreator cc(p);
   cc.create();
   std::vector<Cycle> cycles = cc.getCycles();
 
@@ -66,7 +56,21 @@ void RandomModeExecutor::randomProblem(std::string dir, std::string rndFile) {
 
   Solution solution = ccon.getSolution();
 
+  FileUtils fileUtils;
   fileUtils.saveToFile(dir + "output", solution.toString());
 
   std::cout << solution.toString() << std::endl;
+  return solution;
+}
+
+std::string RandomModeExecutor::prepareExecutionDirectoryName(){
+  time_t rawtime;
+  struct tm * timeinfo;
+  char buffer[80];
+
+  time(&rawtime);
+  timeinfo = localtime(&rawtime);
+
+  strftime(buffer, 80, "%d-%m-%Y", timeinfo);
+  return "sim" + std::string(buffer) + "/";
 }

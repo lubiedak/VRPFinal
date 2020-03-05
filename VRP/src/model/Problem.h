@@ -17,6 +17,7 @@
 class Problem {
 public:
   Problem() { }
+  Problem(Problem& p);
   Problem(Criteria criteria, Node depot);
   Problem(Criteria criteria, Node depot, std::vector<Node> nodes);
   Problem(Criteria criteria, Node depot, std::vector<Node> nodes, std::vector<std::vector<uint16_t> > distances);
