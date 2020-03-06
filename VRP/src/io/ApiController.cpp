@@ -22,5 +22,14 @@ void ApiController::run(void){
         return crow::response(os.str());
     });
 
+    CROW_ROUTE(app,"/random/json")
+	([](){
+        RandomModeExecutor executor;
+        auto problem = executor.createProblem("rest", "ProblemGenParamsCfg");
+        crow::json::wvalue response = problem.toJson();
+        
+        return response;
+    });
+
     app.port(18080).multithreaded().run();
 }

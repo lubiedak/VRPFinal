@@ -16,8 +16,8 @@ class RandomModeExecutor {
 public:
     RandomModeExecutor(void){};
     std::map<std::string, std::string> generateAndSolveRandomProblems(int n);
-private:
     Problem createProblem(std::string dir, std::string rndFile);
+private:
     Solution solveProblem(std::string dir, Problem p);
     std::string prepareExecutionDirectoryName();
 

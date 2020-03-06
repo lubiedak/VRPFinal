@@ -13,6 +13,7 @@
 #include "Criteria.h"
 #include "Node.h"
 #include "Cycle.h"
+#include "../io/crow_all.h"
 
 class Problem {
 public:
@@ -84,6 +85,7 @@ public:
   uint16_t estimateConnectionsNeeded() const;
 
   std::string toString();
+  crow::json::wvalue toJson();
 
 private:
 

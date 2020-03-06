@@ -93,6 +93,16 @@ std::string Problem::toString() {
   return problem;
 }
 
+crow::json::wvalue Problem::toJson() {
+  crow::json::wvalue json;
+  json["Criteria"] = criteria.toString();
+  json["Depot"] = depot.toString();
+  for (Node n : nodes) {
+    json[n.getName()] = n.toString();
+  }
+  return json;
+}
+
 uint16_t Problem::sumDemands() {
   uint16_t demand = 0;
   for (uint16_t i = 0; i < nodes.size(); ++i) {
