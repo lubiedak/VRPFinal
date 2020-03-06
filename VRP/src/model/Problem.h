@@ -13,7 +13,6 @@
 #include "Criteria.h"
 #include "Node.h"
 #include "Cycle.h"
-#include "../io/crow_all.h"
 
 class Problem {
 public:

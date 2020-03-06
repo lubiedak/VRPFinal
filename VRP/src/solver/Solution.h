@@ -27,6 +27,7 @@ public:
   virtual bool deserialize(std::string);
   
   std::string toString();
+  crow::json::wvalue toJson();
   uint32_t getDistance() const {
     return distance;
   }

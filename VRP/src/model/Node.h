@@ -11,6 +11,7 @@
 #include <string>
 #include "serialization/Serialized.h"
 #include <stdint.h>
+#include "../io/crow_all.h"
 
 class Node: public Serialized {
 public:
@@ -23,6 +24,7 @@ public:
   Node(uint32_t id, const std::string& name, int32_t x, int32_t y, uint16_t demand);
 
   std::string toString();
+  crow::json::wvalue toJson();
 
   virtual std::string serialize();
   virtual bool deserialize(std::string);

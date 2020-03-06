@@ -51,6 +51,18 @@ std::string Node::toString() {
   return oss.str();
 }
 
+crow::json::wvalue Node::toJson() {
+  crow::json::wvalue json;
+
+  json["id"] = id;
+  json["name"] = name;
+  json["x"] =  x;
+  json["y"] = y;
+  json["demand"] =  demand;
+
+  return json;
+}
+
 std::string Node::serialize() {
   return toString();
 }

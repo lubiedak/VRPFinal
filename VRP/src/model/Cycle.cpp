@@ -82,6 +82,23 @@ std::string Cycle::toString() {
   return oss.str();
 }
 
+crow::json::wvalue Cycle::toJson(){
+  crow::json::wvalue json;
+  json["id"] = id;
+  json["distance"] = distance;
+  json["distCoef"] = distCoef;
+  json["distanceRank"] = distanceRank;
+  json["demand"] = demand;
+  json["demandToDistRatio"] = demandToDistRatio;
+  json["demandToDistRatioRank"] = demandToDistRatioRank;
+  json["demandRank"] = demandRank;
+  int i = 0;
+  for (auto n : nodes) {
+    json["nodes"][i++] = n.getId();
+  }
+  return json;
+}
+
 std::string Cycle::serialize() {
   return toString();
 }

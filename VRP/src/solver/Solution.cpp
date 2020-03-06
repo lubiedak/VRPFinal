@@ -39,3 +39,14 @@ bool Solution::deserialize(std::string allocator) {
 std::string Solution::toString() {
   return serialize();
 }
+
+crow::json::wvalue Solution::toJson(){
+  crow::json::wvalue json;
+  json["distance"] = distance;
+  json["demand"] = demand;
+  int i = 0;
+  for (auto c : optimizedCycles) {
+    json["cycle"][i++] =c.toJson();
+  }
+  return json;
+}
