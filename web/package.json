@@ -11,7 +11,9 @@
 	},
 	"author": "Michelle Barker",
 	"license": "ISC",
-	"dependencies": {},
+	"dependencies": {
+		"sigma": "^2.0.0-alpha29"
+	},
 	"devDependencies": {
 		"browser-sync": "^2.26.7",
 		"node-sass": "^4.12.0",
