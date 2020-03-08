@@ -22,11 +22,20 @@ void ApiController::run(void){
         return crow::response(os.str());
     });
 
-    CROW_ROUTE(app,"/random/json")
+    CROW_ROUTE(app,"/random/problem")
 	([](){
         RandomModeExecutor executor;
         auto problem = executor.createProblem("rest", "ProblemGenParamsCfg");
         crow::json::wvalue response = problem.toJson();
+        
+        return response;
+    });
+
+    CROW_ROUTE(app,"/random/problem/solution")
+	([](){
+        RandomModeExecutor executor;
+        auto problem = executor.createProblem("rest", "ProblemGenParamsCfg");
+        crow::json::wvalue response = executor.solveProblem("rest", problem).toJson();
         
         return response;
     });
