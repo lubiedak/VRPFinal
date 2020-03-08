@@ -7,6 +7,13 @@
 	<link rel="stylesheet" href="css/style.css"/>
 	<!-- Include JS File Here -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style type="text/css">
+		#container2 {
+		  max-width: 400px;
+		  height: 400px;
+		  margin: auto;
+		}
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -33,68 +40,19 @@
 			</form>
 		</div>
 	</div>
-
-	<script src="//d3js.org/d3.v3.min.js"></script>
+	<div id="container2"></div>
+	<script src="sigma.min.js"></script>
+	<script src="sigma.parsers.json.min.js"></script>
 	<script>
+	sigma.parsers.json('data.json', {
+		container: 'container2',
+		settings: {
+		defaultNodeColor: '#ec5148'
+		}
+	});
+	</script>
 
-		function draw(graph, width, height){
-			var force = d3.layout.force()
-			.size([width, height])
-			.charge(0)
-			.linkDistance(0)
-			.linkStrength(0)
-			.gravity(0)
-			.on("tick", tick);
-
-			var svg;
-			var drag = force.drag();
-
-			if(!d3.select("svg").empty()){
-				d3.select("svg").remove();
-			}
-
-			svg = d3.select("body").append("svg")
-				.attr("width", width)
-				.attr("height", height);
-
-			var	node = svg.selectAll(".node");
-
-			force
-			.nodes(graph.nodes)
-			.start();
-
-			node = node.data(graph.nodes)
-			.enter().append("circle")
-			.attr("class", "node")
-			.attr("r", 10)
-			.attr("fixed", true)
-			.call(force.drag);
-
-			var nodes = svg.append("g")
-			.attr("class", "node")
-			.selectAll("circle")
-			.data(graph.nodes)
-			.enter()
-			.append("g")
-			.attr("transform", function(d, i) {
-				return "translate(" + (d.x) + "," + (d.y+5) + ")"; 
-			});
-
-// Add a text element to the previously added g element.
-nodes.append("text")
-.attr("text-anchor", "middle")
-.attr("font-family","arial")
-.attr("font-size","9pt")
-.text(function(d) {
-	return d.id;
-});
-
-function tick() {
-	node.attr("cx", function(d) { d.fixed = true; return d.x; })
-	.attr("cy", function(d) { d.fixed = true; return d.y; });
-}
-};
-
+<script>
 $(document).ready(function() {
 	$("#generate").click(function() {
 
