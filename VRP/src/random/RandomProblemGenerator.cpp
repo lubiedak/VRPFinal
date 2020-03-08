@@ -30,7 +30,7 @@ Problem RandomProblemGenerator::generate() {
   p.setCriteria(criteria);
   srand(time(NULL));
   for (uint16_t i = 1; i <= params.nodes; ++i) {
-    Node n = Node(i, std::string("rand"+std::to_string(i)), rand() % params.maxX, rand() % params.maxY,
+    Node n = Node(i, std::string("rand_"+std::to_string(i)), rand() % params.maxX, rand() % params.maxY,
         params.minDemand + rand() % (params.maxDemand - params.minDemand));
     p.addNode(n);
   }

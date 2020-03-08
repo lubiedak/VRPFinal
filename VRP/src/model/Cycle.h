@@ -23,7 +23,6 @@ public:
 
   std::string toString();
   crow::json::wvalue toJson();
-  
 
   uint16_t selfOptimize(const std::vector<std::vector<uint16_t>>& distances, std::vector<std::vector<int>>& perms);
 

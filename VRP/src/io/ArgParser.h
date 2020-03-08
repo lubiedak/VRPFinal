@@ -37,7 +37,7 @@ const option::Descriptor usage[] =
     {OUTPUT,   0,"o", "outputDir",  option::Arg::Optional, "  --outputDir, -o  \tDirectory, where output would be produced" },
     {RANDOM,   0,"r", "random",     option::Arg::Optional, "  --random,    -r  \tRunning VRP in Random mode. Solving n problems" },
     {TEST,     0,"t", "test",       option::Arg::Optional, "  --test,      -t  \tRunning VRP in test mode - running all tests" },
-	{MICRO,    0,"m", "micro",      option::Arg::Optional, "  --micro,     -m  \tRunning VRP in microservice mode - REST API available" },
+	  {MICRO,    0,"m", "micro",      option::Arg::Optional, "  --micro,     -m  \tRunning VRP in microservice mode - REST API available" },
     {DEBUG,    0,"d", "debug",      option::Arg::Optional, "  --debug,     -d  \tSetup file path" },
     {UNKNOWN,  0,"" ,  ""   ,       option::Arg::None, "\nExamples:\n"
                                             "  VRPCore2.0 --inputFile=input_file --outputDir=some_dir\n"
