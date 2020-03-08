@@ -45,3 +45,12 @@ std::string Criteria::toString() {
   return oss.str();
 }
 
+
+crow::json::wvalue Criteria::toJson() {
+  crow::json::wvalue json;
+  for (auto pair : properties) {
+    json[pair.first] = pair.second;
+  }
+
+  return json;
+}

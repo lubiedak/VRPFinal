@@ -95,12 +95,13 @@ std::string Problem::toString() {
 
 crow::json::wvalue Problem::toJson() {
   crow::json::wvalue json;
-  json["Criteria"] = criteria.toString();
-  json["Depot"] = depot.toJson();
   int i = 0;
   for (Node n : nodes) {
     json["nodes"][i++] = n.toJson();
   }
+  json["depot"] = depot.toJson();
+  json["criteria"] = criteria.toJson();
+
   return json;
 }
 

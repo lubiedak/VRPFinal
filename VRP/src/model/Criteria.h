@@ -10,6 +10,7 @@
 
 #include <string>
 #include <map>
+#include "../io/crow_all.h"
 
 class Criteria {
 public:
@@ -30,6 +31,7 @@ public:
   ;
 
   std::string toString();
+  crow::json::wvalue toJson();
 
   uint16_t maxCapacity() const {
     return properties.at("maxCapacity");
