@@ -1,42 +1,144 @@
 {
-    "nodes": [
-      {
-        "id": "n0",
-        "label": "A node",
-        "x": 0,
-        "y": 0,
-        "size": 3
-      },
-      {
-        "id": "n1",
-        "label": "Another node",
-        "x": 3,
-        "y": 1,
-        "size": 2
-      },
-      {
-        "id": "n2",
-        "label": "And a last one",
-        "x": 1,
-        "y": 3,
-        "size": 1
-      }
-    ],
-    "edges": [
-      {
-        "id": "e0",
-        "source": "n0",
-        "target": "n1"
-      },
-      {
-        "id": "e1",
-        "source": "n1",
-        "target": "n2"
-      },
-      {
-        "id": "e2",
-        "source": "n2",
-        "target": "n0"
-      }
-    ]
-  }
+  "nodes": [
+    {
+      "y": 0,
+      "x": 0,
+      "size": 999,
+      "label": "Depot",
+      "id": 0
+    },
+    {
+      "y": 777,
+      "x": 272,
+      "size": 280,
+      "label": "rand_1",
+      "id": 1
+    },
+    {
+      "y": 312,
+      "x": 204,
+      "size": 463,
+      "label": "rand_2",
+      "id": 2
+    },
+    {
+      "y": 382,
+      "x": 761,
+      "size": 390,
+      "label": "rand_3",
+      "id": 3
+    },
+    {
+      "y": 937,
+      "x": 14,
+      "size": 227,
+      "label": "rand_4",
+      "id": 4
+    },
+    {
+      "y": 286,
+      "x": 935,
+      "size": 279,
+      "label": "rand_5",
+      "id": 5
+    },
+    {
+      "y": 351,
+      "x": 756,
+      "size": 470,
+      "label": "rand_6",
+      "id": 6
+    },
+    {
+      "y": 52,
+      "x": 3,
+      "size": 200,
+      "label": "rand_7",
+      "id": 7
+    },
+    {
+      "y": 653,
+      "x": 397,
+      "size": 235,
+      "label": "rand_8",
+      "id": 8
+    },
+    {
+      "y": 490,
+      "x": 754,
+      "size": 285,
+      "label": "rand_9",
+      "id": 9
+    },
+    {
+      "y": 532,
+      "x": 925,
+      "size": 457,
+      "label": "rand_10",
+      "id": 10
+    },
+    {
+      "y": 184,
+      "x": 257,
+      "size": 245,
+      "label": "rand_11",
+      "id": 11
+    },
+    {
+      "y": 853,
+      "x": 907,
+      "size": 288,
+      "label": "rand_12",
+      "id": 12
+    },
+    {
+      "y": 328,
+      "x": 403,
+      "size": 392,
+      "label": "rand_13",
+      "id": 13
+    },
+    {
+      "y": 45,
+      "x": 575,
+      "size": 295,
+      "label": "rand_14",
+      "id": 14
+    },
+    {
+      "y": 483,
+      "x": 302,
+      "size": 444,
+      "label": "rand_15",
+      "id": 15
+    },
+    {
+      "y": 801,
+      "x": 183,
+      "size": 253,
+      "label": "rand_16",
+      "id": 16
+    },
+    {
+      "y": 474,
+      "x": 194,
+      "size": 325,
+      "label": "rand_17",
+      "id": 17
+    },
+    {
+      "y": 218,
+      "x": 500,
+      "size": 470,
+      "label": "rand_18",
+      "id": 18
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "source": 18,
+      "target": 17
+    }
+  ]
+}
