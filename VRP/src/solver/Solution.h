@@ -28,6 +28,7 @@ public:
   
   std::string toString();
   crow::json::wvalue toJson();
+  crow::json::wvalue toJsonForDrawing();
   uint32_t getDistance() const {
     return distance;
   }

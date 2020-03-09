@@ -85,6 +85,7 @@ public:
 
   std::string toString();
   crow::json::wvalue toJson();
+  crow::json::wvalue toJsonForDrawing();
 
 private:
 

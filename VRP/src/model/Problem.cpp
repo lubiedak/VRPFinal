@@ -105,6 +105,19 @@ crow::json::wvalue Problem::toJson() {
   return json;
 }
 
+crow::json::wvalue Problem::toJsonForDrawing() {
+  crow::json::wvalue json;
+  int i = 0;
+  json["nodes"][i++] = depot.toJsonForDrawing();
+  for (Node n : nodes) {
+    json["nodes"][i++] = n.toJsonForDrawing();
+  }
+
+  json["criteria"] = criteria.toJson();
+
+  return json;
+}
+
 uint16_t Problem::sumDemands() {
   uint16_t demand = 0;
   for (uint16_t i = 0; i < nodes.size(); ++i) {

@@ -50,3 +50,14 @@ crow::json::wvalue Solution::toJson(){
   }
   return json;
 }
+
+crow::json::wvalue Solution::toJsonForDrawing(){
+  crow::json::wvalue json;
+  int i = 0;
+  for (auto c : optimizedCycles) {
+    for (auto e : c.toEdges()){
+      json["edges"][i++] = e.toJsonForDrawing();
+    }
+  }
+  return json;
+}

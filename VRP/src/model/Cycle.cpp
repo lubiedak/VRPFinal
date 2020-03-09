@@ -99,6 +99,19 @@ crow::json::wvalue Cycle::toJson(){
   return json;
 }
 
+std::vector<Edge> Cycle::toEdges(){
+  std::vector<Edge> edges;
+  std::string id_str = std::to_string(id) + "_";
+  for (int i=1; i<nodes.size(); ++i) {
+    std::string name = id_str + std::to_string(nodes[i-1].getId()) + "_" + std::to_string(nodes[i].getId());
+    edges.push_back(Edge(name, nodes[i-1].getId(), nodes[i].getId()));
+  }
+  std::string name = id_str + "_" + std::to_string(nodes[nodes.size()-1].getId()) + "_" + std::to_string(nodes[0].getId());
+  edges.push_back(Edge(name, nodes[nodes.size()-1].getId(), nodes[0].getId()));
+  return edges;
+}
+
+
 std::string Cycle::serialize() {
   return toString();
 }

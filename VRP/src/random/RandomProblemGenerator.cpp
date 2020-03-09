@@ -26,7 +26,7 @@ RandomProblemGenerator::~RandomProblemGenerator() {
 }
 
 Problem RandomProblemGenerator::generate() {
-  Problem p(criteria, Node(0, "Depot", 0, 0, 0));
+  Problem p(criteria, Node(0, "Depot", 500, 500, 0));
   p.setCriteria(criteria);
   srand(time(NULL));
   for (uint16_t i = 1; i <= params.nodes; ++i) {

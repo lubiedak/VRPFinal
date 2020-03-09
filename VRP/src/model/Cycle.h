@@ -24,6 +24,7 @@ public:
 
   std::string toString();
   crow::json::wvalue toJson();
+  std::vector<Edge> toEdges();
 
   uint16_t selfOptimize(const std::vector<std::vector<uint16_t>>& distances, std::vector<std::vector<int>>& perms);
 
@@ -86,9 +87,7 @@ private:
   float distanceRank;
   float demandRank;
   
-  std::vector<Node> nodes;
-  std::vector<Edge> edges;
-  
+  std::vector<Node> nodes;  
 
   void checkPermSize(std::vector<std::vector<int>>& perms);
   uint16_t countMinimumDistance(const std::vector<std::vector<uint16_t> >& distances,

@@ -40,5 +40,16 @@ void ApiController::run(void){
         return response;
     });
 
+    CROW_ROUTE(app,"/random/problem/solution/drawing")
+	([](){
+        RandomModeExecutor executor;
+        crow::json::wvalue response;
+        auto problem = executor.createProblem("rest", "ProblemGenParamsCfg");
+        response["problem"] = problem.toJsonForDrawing();
+        response["solution"] = executor.solveProblem("rest", problem).toJsonForDrawing();
+        
+        return response;
+    });
+
     app.port(18080).multithreaded().run();
 }
