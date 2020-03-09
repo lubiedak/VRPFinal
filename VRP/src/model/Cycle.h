@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include "Node.h"
+#include "Edge.h"
 #include "serialization/Serialized.h"
 
 class Cycle: public Serialized {
@@ -86,6 +87,8 @@ private:
   float demandRank;
   
   std::vector<Node> nodes;
+  std::vector<Edge> edges;
+  
 
   void checkPermSize(std::vector<std::vector<int>>& perms);
   uint16_t countMinimumDistance(const std::vector<std::vector<uint16_t> >& distances,

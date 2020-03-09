@@ -63,6 +63,18 @@ crow::json::wvalue Node::toJson() {
   return json;
 }
 
+crow::json::wvalue Node::toJsonForDrawing() {
+  crow::json::wvalue json;
+
+  json["id"] = id;
+  json["label"] = name + " " + std::to_string(demand);
+  json["x"] =  x;
+  json["y"] = y;
+  json["size"] =  demand;
+
+  return json;
+}
+
 std::string Node::serialize() {
   return toString();
 }

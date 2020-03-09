@@ -25,6 +25,7 @@ public:
 
   std::string toString();
   crow::json::wvalue toJson();
+  crow::json::wvalue toJsonForDrawing();
 
   virtual std::string serialize();
   virtual bool deserialize(std::string);
