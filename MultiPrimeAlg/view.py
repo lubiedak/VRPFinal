@@ -2,12 +2,12 @@ import algorithm as a
 import matplotlib.pyplot as plt
 
 #number of nodes
-n = 100
+n = 200
 #number of trees
 t = 5
 
-trees = a.createTreesIteratively(n,t)
-#trees = a.createTreesSimultaneously(n,t)
+#trees = a.createTreesIteratively(n,t)
+trees = a.createTreesSimultaneously(n,t)
 
 styles = ['k-o', 'b-o', 'g-o', 'r-o', 'c-o']
 
