@@ -53,15 +53,11 @@ bool NodeDeserialization_TEST(bool silentMode) {
   std::string expectedN = n.serialize();
   Node n2;
   n2.deserialize(expectedN);
+  if (!silentMode) {
+    std::cout << expectedN << std::endl;
+    std::cout << n2.toString() << std::endl;
+  }
 
   return n2 == n;
-}
-
-bool SolutionSerialization_TEST(bool silentMode) {
-  return true;
-}
-
-bool ProblemSerialization_TEST(bool silentMode) {
-  return true;
 }
 

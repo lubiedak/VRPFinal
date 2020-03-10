@@ -20,7 +20,7 @@ public:
     membersCount = 0;
   }
   Serialized(const Serialized& s) :
-      Serialized() {
+      membersCount(s.membersCount) {
   }
   virtual ~Serialized() {
   }

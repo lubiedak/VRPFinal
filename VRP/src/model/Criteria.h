@@ -24,6 +24,8 @@ public:
 
   Criteria(const Criteria& c);
 
+  Criteria(crow::json::rvalue json);
+
   Criteria& operator=(const Criteria& c);
 
   virtual ~Criteria() {
