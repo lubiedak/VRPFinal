@@ -21,8 +21,6 @@ Tester::Tester(bool silentMode) {
   tests["CriteriaSerialization_TEST"]  = &CriteriaSerialization_TEST;
   tests["NodeSerialization_TEST"]      = &NodeSerialization_TEST;
   tests["CycleSerialization_TEST"]     = &CycleSerialization_TEST;
-  tests["ProblemSerialization_TEST"]   = &ProblemSerialization_TEST;
-  tests["SolutionSerialization_TEST"]  = &SolutionSerialization_TEST;
   tests["DistancesCreation_TEST"]      = &DistancesCreation_TEST;
   //tests["RandomProblem_TEST"]        = &RandomProblem_TEST; (too long)
   tests["Problem5Nodes_TEST"]          = &Problem5Nodes_TEST;

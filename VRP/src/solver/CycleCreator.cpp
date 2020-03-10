@@ -22,10 +22,6 @@ CycleCreator::~CycleCreator() {
   // TODO Auto-generated destructor stub
 }
 
-bool CycleCreator::optimize(std::vector<Cycle>& cycles) {
-  return true;
-}
-
 uint16_t CycleCreator::create() {
   /**
    * cycleId is binary representation of cycle from vector of cycles

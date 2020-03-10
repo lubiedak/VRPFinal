@@ -30,6 +30,17 @@ Criteria::Criteria(const Criteria& c) {
   properties = c.properties;
 }
 
+Criteria::Criteria(const crow::json::rvalue& json){
+  crow::logger logger("criteria", crow::LogLevel::INFO);
+        logger<<json;
+  properties["maxCapacity"] = uint16_t(json["maxCapacity"].i());
+  properties["maxDistance"] = uint16_t(json["maxDistance"].i());
+  properties["maxNodes"] = uint16_t(json["maxNodes"].i());
+  properties["minCapacity"] = uint16_t(json["minCapacity"].i());
+  properties["minDistance"] = uint16_t(json["minDistance"].i());
+  properties["minNodes"] = uint16_t(json["minNodes"].i());
+}
+
 Criteria& Criteria::operator =(const Criteria& c) {
   this->properties = c.properties;
   return *this;
@@ -45,12 +56,10 @@ std::string Criteria::toString() {
   return oss.str();
 }
 
-
 crow::json::wvalue Criteria::toJson() {
   crow::json::wvalue json;
   for (auto pair : properties) {
     json[pair.first] = pair.second;
   }
-
   return json;
 }

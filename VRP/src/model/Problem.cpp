@@ -32,6 +32,13 @@ Problem::Problem(Problem& p) :
   analyze();
 }
 
+Problem::Problem(const crow::json::rvalue& json){
+  crow::logger logger("problem", crow::LogLevel::INFO);
+        logger<<json;
+  criteria = Criteria(json["criteria"]);
+  analyze();
+}
+
 void Problem::analyze() {
   biggestDemander = findBiggestDemander();
   demandsSum = sumDemands();

@@ -11,7 +11,6 @@
 #include <stdint.h>
 #include <vector>
 
-#include "../model/Criteria.h"
 #include "../model/Cycle.h"
 #include "../model/Node.h"
 #include "../model/Problem.h"
@@ -21,11 +20,6 @@ class CycleCreator {
 public:
   CycleCreator(const Problem& p);
   virtual ~CycleCreator();
-
-  /**
-   * Responsible for solving TSP in all cycles
-   */
-  bool optimize(std::vector<Cycle>& cycles);
 
   /**
    * Responsible for creating all optimised cycles

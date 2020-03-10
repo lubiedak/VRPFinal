@@ -33,5 +33,8 @@ bool FileUtils::isDirEnabled(const char * pathname) {
 }
 
 void FileUtils::saveToFile(const std::string& fullName, std::string what){
-
+  std::ofstream file;
+  file.open((fullName).c_str());
+  file << what;
+  file.close();
 }

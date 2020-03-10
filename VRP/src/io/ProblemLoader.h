@@ -29,6 +29,9 @@ public:
   const std::vector<std::string>& getWarnings() const {
     return messages;
   }
+  loadStatus getStatus() const {
+    return status;
+  }
 
 private:
   loadStatus status;

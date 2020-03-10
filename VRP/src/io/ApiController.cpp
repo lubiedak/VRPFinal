@@ -1,7 +1,7 @@
 #include "ApiController.h"
 #include "crow_all.h"
 #include "../random/RandomModeExecutor.h"
-
+#include <iostream>
 
 void ApiController::run(void){
     crow::SimpleApp app;
@@ -49,6 +49,21 @@ void ApiController::run(void){
         response[""][1] = executor.solveProblem("rest", problem).toJsonForDrawing();
         
         return response;
+    });
+
+    CROW_ROUTE(app, "/problem/solve")
+    .methods("POST"_method)
+    ([](const crow::request& req){
+        auto json = crow::json::load(req.body);
+        if (!json)
+            return crow::response(400);
+        crow::logger logger("api", crow::LogLevel::INFO);
+        logger<<"dobry json";
+        logger<<json;
+        Problem p = Problem(json);
+        logger<<"Po problemie";
+
+        return crow::response(p.toJson());
     });
 
     app.port(18080).multithreaded().run();
