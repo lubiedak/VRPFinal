@@ -30,7 +30,7 @@ Criteria::Criteria(const Criteria& c) {
   properties = c.properties;
 }
 
-Criteria::Criteria(crow::json::rvalue json){
+Criteria::Criteria(const crow::json::rvalue& json){
   crow::logger logger("criteria", crow::LogLevel::INFO);
         logger<<json;
   properties["maxCapacity"] = uint16_t(json["maxCapacity"].i());

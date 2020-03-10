@@ -24,7 +24,7 @@ public:
 
   Criteria(const Criteria& c);
 
-  Criteria(crow::json::rvalue json);
+  Criteria(const crow::json::rvalue& json);
 
   Criteria& operator=(const Criteria& c);
 

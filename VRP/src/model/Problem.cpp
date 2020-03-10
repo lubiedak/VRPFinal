@@ -32,7 +32,7 @@ Problem::Problem(Problem& p) :
   analyze();
 }
 
-Problem::Problem(crow::json::rvalue json){
+Problem::Problem(const crow::json::rvalue& json){
   crow::logger logger("problem", crow::LogLevel::INFO);
         logger<<json;
   criteria = Criteria(json["criteria"]);
