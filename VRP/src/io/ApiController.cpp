@@ -44,15 +44,13 @@ void ApiController::run(void){
     .methods("POST"_method)
     ([](const crow::request& req){
         auto json = crow::json::load(req.body);
+
+        RandomModeExecutor executor;
         if (!json)
             return crow::response(400);
-        crow::logger logger("api", crow::LogLevel::INFO);
-        logger<<"dobry json";
-        logger<<json;
         Problem p = Problem(json);
-        logger<<"Po problemie";
-
-        return crow::response(p.toJson());
+        Solution s = executor.solveProblem("rest", p);
+        return crow::response(s.toJson());
     });
 
     app.port(18080).multithreaded().run();

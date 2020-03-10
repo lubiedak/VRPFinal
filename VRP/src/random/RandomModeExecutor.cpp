@@ -42,7 +42,7 @@ Problem RandomModeExecutor::createProblem(std::string dir, std::string rndFile){
   RandomProblemGenerator rpg(params, c);
   Problem p = rpg.generate();
   FileUtils fileUtils;
-  fileUtils.saveToFile(dir + "input", p.toString());
+  fileUtils.saveToFile(dir + "/input", p.toString());
   p.analyze();
   std::cout<<p.toString();
   return p;
@@ -59,7 +59,7 @@ Solution RandomModeExecutor::solveProblem(std::string dir, Problem p) {
   Solution solution = ccon.getSolution();
 
   FileUtils fileUtils;
-  fileUtils.saveToFile(dir + "output", solution.toString());
+  fileUtils.saveToFile(dir + "/output", solution.toString());
 
   std::cout << solution.toString() << std::endl;
   return solution;

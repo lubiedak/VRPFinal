@@ -42,11 +42,12 @@ std::string Solution::toString() {
 
 crow::json::wvalue Solution::toJson(){
   crow::json::wvalue json;
-  json["distance"] = distance;
-  json["demand"] = demand;
+
   int i = 0;
   for (auto c : optimizedCycles) {
     json["cycles"][i++] =c.toJson();
   }
+  json["distance"] = distance;
+  json["demand"] = demand;
   return json;
 }

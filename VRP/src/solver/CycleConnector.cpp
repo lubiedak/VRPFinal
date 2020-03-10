@@ -29,7 +29,7 @@ CycleConnector::~CycleConnector() {
 void CycleConnector::connect() {
   uint16_t connIteration = 0;
 
-  while (!fullyConnected()) {
+  while (!fullyConnected() && connIteration < 20) {
     connIteration++;
     connectMap(connIteration);
     std::cout << "\niteration: " << connIteration << " connected: " << connections.size() << std::endl;

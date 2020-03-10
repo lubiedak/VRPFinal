@@ -17,6 +17,7 @@ class Node: public Serialized {
 public:
   Node();
   Node(const Node& n);
+  Node(const crow::json::rvalue& json);
   Node& operator=(const Node&);
   bool operator==(const Node&);
   virtual ~Node();

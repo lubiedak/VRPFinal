@@ -13,6 +13,15 @@ Node::Node() :
     Node(0, std::string("node"), 0, 0, 0) {
 }
 
+Node::Node(const crow::json::rvalue& json) {
+  id = json["id"].i();
+  x = json["x"].i();
+  y = json["y"].i();
+  demand = json["demand"].i();
+  name = json["name"].s();
+  membersCount = 5;
+}
+
 Node::~Node() {
 }
 
@@ -20,6 +29,7 @@ Node::Node(uint32_t id, const std::string& name, int32_t x, int32_t y, uint16_t 
     id(id), name(name), x(x), y(y), demand(demand) {
   membersCount = 5;
 }
+
 Node::Node(const Node& n) :
     Node(n.id, n.name, n.x, n.y, n.demand) {
   membersCount = n.membersCount;

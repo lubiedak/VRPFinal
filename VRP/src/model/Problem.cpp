@@ -36,6 +36,13 @@ Problem::Problem(const crow::json::rvalue& json){
   crow::logger logger("problem", crow::LogLevel::INFO);
         logger<<json;
   criteria = Criteria(json["criteria"]);
+  
+  logger<<"\n"<<json["nodes"];
+  for(int i=0; i < json["nodes"].size(); ++i){
+    nodes.push_back(Node(json["nodes"][i]));
+  }
+          logger<<"\n"<<json["depot"];
+  depot = Node(json["depot"]);
   analyze();
 }
 
