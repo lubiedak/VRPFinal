@@ -53,6 +53,8 @@ crow::json::wvalue Solution::toJson(){
 
 crow::json::wvalue Solution::toJsonForDrawing(){
   crow::json::wvalue json;
+  json["distance"] = distance;
+  json["demand"] = demand;
   int i = 0;
   for (auto c : optimizedCycles) {
     for (auto e : c.toEdges()){

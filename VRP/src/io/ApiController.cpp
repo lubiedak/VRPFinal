@@ -45,8 +45,8 @@ void ApiController::run(void){
         RandomModeExecutor executor;
         crow::json::wvalue response;
         auto problem = executor.createProblem("rest", "ProblemGenParamsCfg");
-        response["problem"] = problem.toJsonForDrawing();
-        response["solution"] = executor.solveProblem("rest", problem).toJsonForDrawing();
+        response[""][0] = problem.toJsonForDrawing();
+        response[""][1] = executor.solveProblem("rest", problem).toJsonForDrawing();
         
         return response;
     });
