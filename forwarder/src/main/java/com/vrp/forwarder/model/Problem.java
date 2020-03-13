@@ -9,23 +9,15 @@ import java.util.List;
 public class Problem {
 	List<Node> nodes;
 	Criteria criteria;
+	Node depot;
 
-	@Override
-	public String toString() {
-		String str = "";
-		str += criteria.toString() + "\n";
-		for (Node n : nodes) {
-			str += n.toString() + "\n";
-		}
-		return str;
-	}
-	
 	public void sortNodes(){
-		Node base = nodes.stream()
+		depot = nodes.stream()
 				.filter(x -> x.getName().equals("Depot"))
 				.findFirst()
 				.get();
-		NodeClassifier classifier = new NodeClassifier(base);
+		nodes.remove(depot);
+		NodeClassifier classifier = new NodeClassifier(depot);
 		
 		nodes.forEach((node) -> node.setAngle(classifier.classify(node)));
 	}

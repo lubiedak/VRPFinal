@@ -1,5 +1,6 @@
 package com.vrp.forwarder.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vrp.forwarder.model.Criteria;
 import com.vrp.forwarder.model.GeneratorCfg;
 import com.vrp.forwarder.model.Node;
@@ -8,6 +9,7 @@ import com.vrp.forwarder.service.NodesGenerator;
 import com.vrp.forwarder.service.VRPRunner;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,7 +63,7 @@ public class NodeController {
         return new ResponseEntity<Object>(nodes, HttpStatus.OK);
     }
 
-    @RequestMapping(value = URL + "/generateAndSolve", method = RequestMethod.POST)
+    @RequestMapping(value = URL + "/generateAndSolve", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> generateAndSolve( @RequestParam int nodesCount,
                                                     @RequestParam int minDemand,
                                                     @RequestParam int maxDemand,
@@ -69,7 +71,7 @@ public class NodeController {
                                                     @RequestParam int maxY,
                                                     @RequestParam(required=false) String distribution,
                                                     @RequestParam(required=false, defaultValue="xx") String name,
-                                                    @RequestParam(required=false, defaultValue="false") boolean dbSave) {
+                                                    @RequestParam(required=false, defaultValue="false") boolean dbSave) throws JsonProcessingException {
 
         GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand,
                                             maxX, maxY, distribution, name, dbSave);
@@ -78,6 +80,7 @@ public class NodeController {
         Problem p = new Problem();
         p.setCriteria(new Criteria());
         p.setNodes(nodes);
+        p.sortNodes();
 
 
         return new ResponseEntity<Object>(vrpRunner.run(p), HttpStatus.OK);
