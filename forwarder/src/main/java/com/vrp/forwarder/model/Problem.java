@@ -1,11 +1,13 @@
 package com.vrp.forwarder.model;
 
 import com.vrp.forwarder.divider.NodeClassifier;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@Builder
 public class Problem {
 	List<Node> nodes;
 	Criteria criteria;

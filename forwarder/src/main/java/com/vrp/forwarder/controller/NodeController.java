@@ -52,13 +52,10 @@ public class NodeController {
         Nodes nodes = new Nodes(name);
         nodes.setNodes(n);
 
-        Problem p = new Problem();
-        p.setCriteria(new Criteria());
-        p.setNodes(n);
-
+        Problem p = Problem.builder().criteria(new Criteria()).nodes(n).build();
         p.sortNodes();
         n = p.getNodes();
-        n.forEach(node -> System.out.println(node));
+        n.forEach(System.out::println);
 
         return new ResponseEntity<Object>(nodes, HttpStatus.OK);
     }
@@ -77,9 +74,7 @@ public class NodeController {
                                             maxX, maxY, distribution, name, dbSave);
 
         List<Node> nodes = generator.generateNodes(cfg);
-        Problem p = new Problem();
-        p.setCriteria(new Criteria());
-        p.setNodes(nodes);
+        Problem p = Problem.builder().criteria(new Criteria()).nodes(nodes).build();
         p.sortNodes();
 
 
