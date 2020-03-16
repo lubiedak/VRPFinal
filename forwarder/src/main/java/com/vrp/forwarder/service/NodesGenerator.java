@@ -20,7 +20,7 @@ public class NodesGenerator {
 
         List<Node> nodes = new ArrayList<Node>();
         nodes.add(createNode(0, "Depot"));
-        for (int i = 1; i < cfg.getNodesCount(); ++i) {
+        for (int i = 1; i < cfg.getNodesCount()+1; ++i) {
             nodes.add(createNode(i, "" + i));
         }
 

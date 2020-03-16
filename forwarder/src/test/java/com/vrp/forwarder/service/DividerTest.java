@@ -16,11 +16,13 @@ class DividerTest {
     private final Divider divider = new Divider();
 
     private final NodesGenerator nodesGenerator = new NodesGenerator();
+    private final int MAX_GROUP_SIZE = 20;
+    private final int MIN_GROUP_SIZE = 10;
 
 
     @Test
-    void divide80ShouldReturnEqualGroups() {
-        GeneratorCfg cfg = new GeneratorCfg(81, 0, 500,
+    void divide80ShouldReturn4EqualGroups() {
+        GeneratorCfg cfg = new GeneratorCfg(80, 0, 500,
                                                            1000, 1000, "", "", false);
 
         List<Node> nodes = nodesGenerator.generateNodes(cfg);
@@ -28,28 +30,12 @@ class DividerTest {
 
         List<Problem> problems = divider.divide(problem);
 
-        assertThat(problems.size()).isEqualTo(5);
-        int expectedSize = problems.get(0).getNodes().size();
-        problems.forEach(p->assertThat(p.getNodes().size()).isEqualTo(expectedSize));
+        assertThat(problems.size()).isEqualTo(4);
+        problems.forEach(p->assertThat(p.getNodes().size()).isEqualTo(MAX_GROUP_SIZE));
     }
 
     @Test
     void divide85ShouldReturnEqualGroups() {
-        GeneratorCfg cfg = new GeneratorCfg(86, 0, 500,
-                                            1000, 1000, "", "", false);
-
-        List<Node> nodes = nodesGenerator.generateNodes(cfg);
-        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
-
-        List<Problem> problems = divider.divide(problem);
-
-        assertThat(problems.size()).isEqualTo(5);
-        int expectedSize = problems.get(0).getNodes().size();
-        problems.forEach(p->assertThat(p.getNodes().size()).isEqualTo(expectedSize));
-    }
-
-    @Test
-    void divide84ShouldReturn5GroupsSimilarSize() {
         GeneratorCfg cfg = new GeneratorCfg(85, 0, 500,
                                             1000, 1000, "", "", false);
 
@@ -59,7 +45,82 @@ class DividerTest {
         List<Problem> problems = divider.divide(problem);
 
         assertThat(problems.size()).isEqualTo(5);
-        int expectedSize = problems.get(0).getNodes().size();
+        problems.forEach(p->assertThat(p.getNodes().size()).isEqualTo(17));
+    }
+
+    @Test
+    void divide84ShouldReturn5GroupsSimilarSize() {
+        GeneratorCfg cfg = new GeneratorCfg(84, 0, 500,
+                                            1000, 1000, "", "", false);
+
+        List<Node> nodes = nodesGenerator.generateNodes(cfg);
+        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+
+        List<Problem> problems = divider.divide(problem);
+
+        assertThat(problems.size()).isEqualTo(5);
+        int expectedSize = 16;
+        problems.forEach(p->assertThat(p.getNodes().size())
+                .isGreaterThanOrEqualTo(expectedSize).isLessThanOrEqualTo(expectedSize+1));
+    }
+
+    @Test
+    void divide20ShouldReturn1Group() {
+        GeneratorCfg cfg = new GeneratorCfg(20, 0, 500,
+                                            1000, 1000, "", "", false);
+
+        List<Node> nodes = nodesGenerator.generateNodes(cfg);
+        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+
+        List<Problem> problems = divider.divide(problem);
+
+        assertThat(problems.size()).isEqualTo(1);
+        assertThat(problems.get(0).getNodes().size()).isEqualTo(MAX_GROUP_SIZE);
+    }
+
+    @Test
+    void divide40ShouldReturn2GroupsSameSize() {
+        GeneratorCfg cfg = new GeneratorCfg(40, 0, 500,
+                                            1000, 1000, "", "", false);
+
+        List<Node> nodes = nodesGenerator.generateNodes(cfg);
+        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+
+        List<Problem> problems = divider.divide(problem);
+
+        assertThat(problems.size()).isEqualTo(2);
+        problems.forEach(p->assertThat(p.getNodes().size())
+                .isEqualTo(MAX_GROUP_SIZE));
+    }
+
+    @Test
+    void divide41ShouldReturn3GroupsSimilarSize() {
+        GeneratorCfg cfg = new GeneratorCfg(41, 0, 500,
+                                            1000, 1000, "", "", false);
+
+        List<Node> nodes = nodesGenerator.generateNodes(cfg);
+        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+
+        List<Problem> problems = divider.divide(problem);
+
+        assertThat(problems.size()).isEqualTo(3);
+        int expectedSize = 13;
+        problems.forEach(p->assertThat(p.getNodes().size())
+                .isGreaterThanOrEqualTo(expectedSize).isLessThanOrEqualTo(expectedSize+1));
+    }
+
+    @Test
+    void divide39ShouldReturn2GroupsSimilarSize() {
+        GeneratorCfg cfg = new GeneratorCfg(39, 0, 500,
+                                            1000, 1000, "", "", false);
+
+        List<Node> nodes = nodesGenerator.generateNodes(cfg);
+        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+
+        List<Problem> problems = divider.divide(problem);
+
+        assertThat(problems.size()).isEqualTo(2);
+        int expectedSize = 19;
         problems.forEach(p->assertThat(p.getNodes().size())
                 .isGreaterThanOrEqualTo(expectedSize).isLessThanOrEqualTo(expectedSize+1));
     }

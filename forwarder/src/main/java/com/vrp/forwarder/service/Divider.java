@@ -9,12 +9,12 @@ import java.util.List;
 @Service
 public class Divider {
 
-    private final static int BASE_GROUP_SIZE = 16;
+    private final static int BASE_GROUP_SIZE = 20;
 
     public List<Problem> divide(Problem p){
         p.sortNodes();
         int totalSize = p.getNodes().size();
-        int nOfGroups = totalSize/BASE_GROUP_SIZE;
+        int nOfGroups = (int)Math.ceil((totalSize+0.0)/BASE_GROUP_SIZE);
         float averageGroupSize = (totalSize+0.0f)/nOfGroups;
         List<Problem> problems = new ArrayList<>();
         int i;
