@@ -24,12 +24,17 @@ public class VRPRunner {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
-    public String run(Problem p) throws JsonProcessingException {
+    public String run(Problem p){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
 
-        HttpEntity<String> request = new HttpEntity<>(objectMapper.writeValueAsString(p), headers);
+        HttpEntity<String> request = null;
+        try {
+            request = new HttpEntity<>(objectMapper.writeValueAsString(p), headers);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         log.info(request.toString());
 
         ResponseEntity<String> response = restTemplate

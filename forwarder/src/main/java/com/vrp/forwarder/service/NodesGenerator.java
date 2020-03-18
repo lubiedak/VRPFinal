@@ -19,7 +19,9 @@ public class NodesGenerator {
         this.rnd = new Random();
 
         List<Node> nodes = new ArrayList<Node>();
-        nodes.add(createNode(0, "Depot"));
+        Node depot = createNode(0, "Depot");
+        depot.setDemand(0);
+        nodes.add(depot);
         for (int i = 1; i < cfg.getNodesCount()+1; ++i) {
             nodes.add(createNode(i, "" + i));
         }

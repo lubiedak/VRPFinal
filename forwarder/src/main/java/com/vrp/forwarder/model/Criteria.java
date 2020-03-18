@@ -15,8 +15,8 @@ import lombok.Data;
 		maxNodes = 5;
 		minCapacity = 400;
 		maxCapacity = 1000;
-		minDistance = 5000;
-		maxDistance = 0;
+		minDistance = 0;
+		maxDistance = 5000;
 	}
 	
 	@Override

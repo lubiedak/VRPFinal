@@ -5,6 +5,7 @@ import com.vrp.forwarder.model.Criteria;
 import com.vrp.forwarder.model.GeneratorCfg;
 import com.vrp.forwarder.model.Node;
 import com.vrp.forwarder.model.Problem;
+import com.vrp.forwarder.service.Divider;
 import com.vrp.forwarder.service.NodesGenerator;
 import com.vrp.forwarder.service.VRPRunner;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +29,8 @@ public class NodeController {
     private final NodesGenerator generator;
 
     private final VRPRunner vrpRunner;
+
+    private final Divider divider;
 
 
     @RequestMapping(value = URL, method = RequestMethod.GET)
@@ -75,9 +79,9 @@ public class NodeController {
 
         List<Node> nodes = generator.generateNodes(cfg);
         Problem p = Problem.builder().criteria(new Criteria()).nodes(nodes).build();
-        p.sortNodes();
+        List<Problem> problems = divider.divide(p);
+        List<String> solutions = problems.stream().map(problem-> vrpRunner.run(problem)).collect(Collectors.toList());
 
-
-        return new ResponseEntity<Object>(vrpRunner.run(p), HttpStatus.OK);
+        return new ResponseEntity<Object>(solutions, HttpStatus.OK);
     }
 }
