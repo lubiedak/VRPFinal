@@ -33,32 +33,14 @@ public:
   uint16_t getDemand() const {
     return demand;
   }
-  void setDemand(uint16_t demand) {
-    this->demand = demand;
-  }
   uint32_t getId() const {
     return id;
-  }
-  void setId(uint32_t id) {
-    this->id = id;
-  }
-  const std::string& getName() const {
-    return name;
-  }
-  void setName(const std::string& name) {
-    this->name = name;
   }
   int32_t getX() const {
     return x;
   }
-  void setX(int32_t x) {
-    this->x = x;
-  }
   int32_t getY() const {
     return y;
-  }
-  void setY(int32_t y) {
-    this->y = y;
   }
   bool isDepot(){
     return 0 == name.compare("Depot");
