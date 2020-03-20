@@ -26,15 +26,14 @@ RandomProblemGenerator::~RandomProblemGenerator() {
 }
 
 Problem RandomProblemGenerator::generate() {
-  Problem p(criteria, Node(0, "Depot", 0, 0, 0));
-  p.setCriteria(criteria);
   srand(time(NULL));
+  std::vector<Node> nodes = std::vector<Node>();
   for (uint16_t i = 1; i <= params.nodes; ++i) {
     Node n = Node(i, std::string("rand_"+std::to_string(i)), rand() % params.maxX, rand() % params.maxY,
         params.minDemand + rand() % (params.maxDemand - params.minDemand));
-    p.addNode(n);
+    nodes.push_back(n);
   }
-
+  Problem p(criteria, Node(0, "Depot", 0, 0, 0), nodes);
   p.adapt();
 
   problem = p;

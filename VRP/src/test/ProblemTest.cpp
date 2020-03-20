@@ -53,11 +53,11 @@ bool ProblemTemplate_TEST(Problem p, bool silentMode, uint32_t expectedCycles, u
 }
 
 bool DistancesCreation_TEST(bool silentMode) {
-  Problem p = Problem(Criteria(0, 0, 0), Node());
-  p.addNode(Node(0, "", 0, 0, 0));
-  p.addNode(Node(0, "", 3, 4, 0));
-
-  p.generateDistances();
+  std::vector<Node> nodes = std::vector<Node>();
+  nodes.push_back(Node(0, "", 0, 0, 100));
+  nodes.push_back(Node(0, "", 3, 4, 100));
+  
+  Problem p = Problem(Criteria(1000, 100, 0), Node(), nodes);
   std::vector<std::vector<unsigned short>> dist = p.getDistances();
   return dist[1][2] == 5;
 }
@@ -96,13 +96,13 @@ bool RandomProblem_TEST(bool silentMode) {
 bool Problem5Nodes_TEST(bool silentMode) {
   Problem p = problem5Nodes();
 
-  return ProblemTemplate_TEST(p, silentMode, 25, 1501, 537);
+  return ProblemTemplate_TEST(p, silentMode, 20, 1501, 537);
 }
 
 bool Problem6Nodes_TEST(bool silentMode) {
   Problem p = problem6Nodes();
 
-  return ProblemTemplate_TEST(p, silentMode, 56, 1320, 602);
+  return ProblemTemplate_TEST(p, silentMode, 50, 1320, 602);
 }
 
 bool Problem10Nodes_TEST(bool silentMode) {

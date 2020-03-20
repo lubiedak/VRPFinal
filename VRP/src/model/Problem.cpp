@@ -9,15 +9,14 @@
 #include <math.h>
 #include <iostream>
 
-Problem::Problem(Criteria criteria, Node depot) :
-    criteria(criteria), depot(depot) {
-  std::cout << "WARNING: Problem creation. Nodes not specified." << std::endl;
+
+Problem::Problem(Problem& p) :
+    criteria(p.criteria), depot(p.depot), nodes(p.nodes), distances(p.distances), cycles(p.cycles) {
+  adapt();
 }
 
 Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes) :
     criteria(criteria), depot(depot), nodes(nodes) {
-  std::cout << "WARNING: Problem creation. Distances not specified."
-      "Counting defaults" << std::endl;
   adapt();
 }
 
@@ -26,16 +25,11 @@ Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes, std::ve
   adapt();
 }
 
-Problem::Problem(Problem& p) :
-    criteria(p.criteria), depot(p.depot), nodes(p.nodes), distances(p.distances), cycles(p.cycles) {
-  adapt();
-}
-
 Problem::Problem(const crow::json::rvalue& json){
   crow::logger logger("problem", crow::LogLevel::INFO);
   logger<<json;
   criteria = Criteria(json["criteria"]);
-  for(int i=0; i < json["nodes"].size(); ++i){
+  for(size_t i=0; i < json["nodes"].size(); ++i){
     nodes.push_back(Node(json["nodes"][i]));
   }
   depot = Node(json["depot"]);
@@ -45,7 +39,7 @@ Problem::Problem(const crow::json::rvalue& json){
 void Problem::adapt() {
   biggestDemander = findBiggestDemander();
   demandsSum = sumDemands();
-
+  fillDistanceIds();
   generateDistances();
   changeMinDemandIfNeeded();
 }
@@ -63,7 +57,10 @@ uint16_t Problem::findBiggestDemander() {
 }
 
 void Problem::fillDistanceIds(){
-
+  depot.setDistanceId(0);
+  for(size_t i=0; i<nodes.size(); ++i){
+    nodes[i].setDistanceId(i+1);
+  }
 }
 
 void Problem::generateDistances() {

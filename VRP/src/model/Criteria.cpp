@@ -52,7 +52,6 @@ std::string Criteria::toString() {
   for (auto pair : properties) {
     oss << Serialized::delimiter << pair.first << Serialized::pairDelimiter << pair.second;
   }
-
   return oss.str();
 }
 

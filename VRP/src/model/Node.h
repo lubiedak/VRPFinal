@@ -39,7 +39,11 @@ public:
     return id;
   }
   uint32_t getDistanceId() const {
-    return id;
+    return distance_id;
+  }
+
+  void setDistanceId(uint32_t d_id) {
+    distance_id = d_id;
   }
   int32_t getX() const {
     return x;
