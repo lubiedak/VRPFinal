@@ -35,7 +35,7 @@ Problem RandomProblemGenerator::generate() {
     p.addNode(n);
   }
 
-  p.generateDistances();
+  p.adapt();
 
   problem = p;
   return problem;

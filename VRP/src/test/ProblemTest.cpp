@@ -75,7 +75,7 @@ bool RandomProblem_TEST(bool silentMode) {
   RandomProblemGenerator rpg(params, c);
 
   Problem p = rpg.generate();
-  p.analyze();
+  p.adapt();
   std::cout << p.toString();
   CycleCreator cc(p);
 

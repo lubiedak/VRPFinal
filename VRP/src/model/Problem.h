@@ -25,7 +25,7 @@ public:
   
   virtual ~Problem() {}
   void generateDistances();
-  void analyze();
+  void adapt();
   uint16_t approxCyclesCount() const;
 
   void setCriteria(const Criteria& criteria) {
@@ -92,6 +92,7 @@ private:
 
   uint16_t findBiggestDemander();
   uint16_t sumDemands();
+  void fillDistanceIds();
   bool checkProblemCorrectness();
   void changeMinDemandIfNeeded();
 

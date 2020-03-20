@@ -43,7 +43,7 @@ Problem RandomModeExecutor::createProblem(std::string dir, std::string rndFile){
   Problem p = rpg.generate();
   FileUtils fileUtils;
   fileUtils.saveToFile(dir + "/input", p.toString());
-  p.analyze();
+  p.adapt();
   std::cout<<p.toString();
   return p;
 }

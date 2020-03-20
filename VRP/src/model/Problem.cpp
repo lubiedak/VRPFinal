@@ -18,18 +18,17 @@ Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes) :
     criteria(criteria), depot(depot), nodes(nodes) {
   std::cout << "WARNING: Problem creation. Distances not specified."
       "Counting defaults" << std::endl;
-  generateDistances();
-  analyze();
+  adapt();
 }
 
 Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes, std::vector<std::vector<uint16_t> > distances) :
     criteria(criteria), depot(depot), nodes(nodes), distances(distances) {
-  analyze();
+  adapt();
 }
 
 Problem::Problem(Problem& p) :
     criteria(p.criteria), depot(p.depot), nodes(p.nodes), distances(p.distances), cycles(p.cycles) {
-  analyze();
+  adapt();
 }
 
 Problem::Problem(const crow::json::rvalue& json){
@@ -40,12 +39,13 @@ Problem::Problem(const crow::json::rvalue& json){
     nodes.push_back(Node(json["nodes"][i]));
   }
   depot = Node(json["depot"]);
-  analyze();
+  adapt();
 }
 
-void Problem::analyze() {
+void Problem::adapt() {
   biggestDemander = findBiggestDemander();
   demandsSum = sumDemands();
+
   generateDistances();
   changeMinDemandIfNeeded();
 }
@@ -60,6 +60,10 @@ uint16_t Problem::findBiggestDemander() {
     }
   }
   return demander;
+}
+
+void Problem::fillDistanceIds(){
+
 }
 
 void Problem::generateDistances() {

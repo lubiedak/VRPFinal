@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
       }
       ProblemLoader p(options[INPUT].arg);
       Problem problem = p.load();
-      problem.analyze();
+      problem.adapt();
       std::cout << problem.toString();
 
       simpleSolve(outDir, problem);

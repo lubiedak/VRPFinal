@@ -28,7 +28,7 @@ Problem ProblemLoader::load() {
 
   loadCriteria();
   loadNodes();
-  p.analyze();
+  p.adapt();
   return p;
 }
 

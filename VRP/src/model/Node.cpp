@@ -10,7 +10,7 @@
 #include <iostream>
 
 Node::Node() :
-    Node(0, std::string("node"), 0, 0, 0) {
+    Node(0, 0, std::string("node"), 0, 0, 0) {
 }
 
 Node::Node(const crow::json::rvalue& json) {
@@ -19,40 +19,48 @@ Node::Node(const crow::json::rvalue& json) {
   y = json["y"].i();
   demand = json["demand"].i();
   name = json["name"].s();
-  membersCount = 5;
+  membersCount = 6;
 }
 
 Node::~Node() {
 }
 
 Node::Node(uint32_t id, const std::string& name, int32_t x, int32_t y, uint16_t demand) :
-    id(id), name(name), x(x), y(y), demand(demand) {
-  membersCount = 5;
+    id(id), distance_id(0), name(name), x(x), y(y), demand(demand) {
+  membersCount = 6;
+}
+
+Node::Node(uint32_t id, uint32_t distance_id, const std::string& name, int32_t x, int32_t y, uint16_t demand) :
+    id(id), distance_id(distance_id), name(name), x(x), y(y), demand(demand) {
+  membersCount = 6;
 }
 
 Node::Node(const Node& n) :
-    Node(n.id, n.name, n.x, n.y, n.demand) {
+    Node(n.id, n.distance_id, n.name, n.x, n.y, n.demand) {
   membersCount = n.membersCount;
 }
 
 Node& Node::operator =(const Node& n) {
-  this->id = n.id;
-  this->name = n.name;
-  this->x = n.x;
-  this->y = n.y;
-  this->demand = n.demand;
-  this->membersCount = n.membersCount;
+  id = n.id;
+  distance_id = n.distance_id;
+  name = n.name;
+  x = n.x;
+  y = n.y;
+  demand = n.demand;
+  membersCount = n.membersCount;
   return *this;
 }
 
 bool Node::operator ==(const Node& n) {
-  return id == n.id && name.compare(n.name) == 0 && x == n.x && y == n.y && demand == n.demand;
+  return id == n.id && distance_id == n.distance_id && name.compare(n.name) == 0 
+  && x == n.x && y == n.y && demand == n.demand;
 }
 
 std::string Node::toString() {
   std::stringstream oss;
   oss << std::string("class=Node");
   oss << delimiter << "id" << pairDelimiter << id;
+  oss << delimiter << "distance_id" << pairDelimiter << distance_id;
   oss << delimiter << "name" << pairDelimiter << name;
   oss << delimiter << "x" << pairDelimiter << x;
   oss << delimiter << "y" << pairDelimiter << y;
@@ -65,6 +73,7 @@ crow::json::wvalue Node::toJson() {
   crow::json::wvalue json;
 
   json["id"] = id;
+  json["distance_id"] = distance_id;
   json["name"] = name;
   json["x"] =  x;
   json["y"] = y;
@@ -93,6 +102,14 @@ bool Node::deserialize(std::string nodeStr) {
     std::cout << err << nodeStr << " field 'id' doesn't exist" << std::endl;
   } catch (const std::invalid_argument& e) {
     std::cout << err << nodeStr << " field 'id'" << std::endl;
+  }
+
+  try {
+    distance_id = (uint32_t) (std::stoi(params.at("distance_id")));
+  } catch (const std::out_of_range& e) {
+    std::cout << err << nodeStr << " field 'distance_id' doesn't exist" << std::endl;
+  } catch (const std::invalid_argument& e) {
+    std::cout << err << nodeStr << " field 'distance_id'" << std::endl;
   }
 
   try {

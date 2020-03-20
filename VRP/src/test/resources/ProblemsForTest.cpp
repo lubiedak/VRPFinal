@@ -25,7 +25,7 @@ Problem problem5Nodes() {
   nodes.push_back(Node(5, "X5", 140, 130, 300));
 
   Problem problem = Problem(criteria, depot, nodes);
-  problem.generateDistances();
+  problem.adapt();
   return problem;
 }
 
@@ -42,7 +42,7 @@ Problem problem6Nodes() {
   nodes.push_back(Node(6, "X6", 140, 170, 220));
 
   Problem problem = Problem(criteria, depot, nodes);
-  problem.generateDistances();
+  problem.adapt();
   return problem;
 }
 
@@ -63,7 +63,7 @@ Problem problem10Nodes() {
   nodes.push_back(Node(10, "X10", 220, 130, 300));
 
   Problem problem = Problem(criteria, depot, nodes);
-  problem.generateDistances();
+  problem.adapt();
   return problem;
 }
 
@@ -94,7 +94,7 @@ Problem problem20Nodes() {
   nodes.push_back(Node(20, "X20", 320, 130, 199));
 
   Problem problem = Problem(criteria, depot, nodes);
-  problem.generateDistances();
+  problem.adapt();
   return problem;
 }
 

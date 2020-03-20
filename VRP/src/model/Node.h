@@ -22,6 +22,8 @@ public:
   bool operator==(const Node&);
   virtual ~Node();
 
+  Node(uint32_t id, uint32_t distance_id, const std::string& name, int32_t x, int32_t y, uint16_t demand);
+
   Node(uint32_t id, const std::string& name, int32_t x, int32_t y, uint16_t demand);
 
   std::string toString();
@@ -36,6 +38,9 @@ public:
   uint32_t getId() const {
     return id;
   }
+  uint32_t getDistanceId() const {
+    return id;
+  }
   int32_t getX() const {
     return x;
   }
@@ -48,12 +53,12 @@ public:
 
 private:
   uint32_t id;
+  uint32_t distance_id;
   std::string name;
 
   int32_t x;
   int32_t y;
   uint16_t demand;
-
 };
 
 #endif /* MODEL_NODE_H_ */
