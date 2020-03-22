@@ -11,7 +11,7 @@ class NodeD {
     private int y;
     private int size;
 
-    public NodeD(Node node){
+     NodeD(Node node){
         id = node.getId();
         label = node.getName() + "_" + node.getDemand();
         x = node.getX();

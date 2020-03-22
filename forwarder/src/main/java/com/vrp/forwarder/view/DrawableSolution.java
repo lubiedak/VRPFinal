@@ -15,7 +15,7 @@ public class DrawableSolution {
 
     public DrawableSolution(Problem problem, List<Solution> solutions){
         nodes = problem.getNodes().stream().map(NodeD::new).collect(Collectors.toList());
-        nodes.add(new NodeD(problem.getDepot()));
+        nodes.add(new NodeD(problem.getDepot().toBuilder().demand(1000).build()));
         edges = new ArrayList<>();
     }
 }

@@ -19,9 +19,12 @@ public class NodesGenerator {
         this.rnd = new Random();
 
         List<Node> nodes = new ArrayList<Node>();
-        Node depot = createNode(0, "Depot");
-        depot.setDemand(0);
-        nodes.add(depot);
+        nodes.add(Node.builder()
+                      .name("Depot")
+                      .x(cfg.getMaxX()/2)
+                      .y(cfg.getMaxY()/2)
+                      .build());
+
         for (int i = 1; i < cfg.getNodesCount()+1; ++i) {
             nodes.add(createNode(i, "" + i));
         }
@@ -30,13 +33,12 @@ public class NodesGenerator {
     }
 
     private Node createNode(int id, String name) {
-        Node node = new Node(name);
-
-        node.setId(id);
-        node.setX(rnd.nextInt(cfg.getMaxX()));
-        node.setY(rnd.nextInt(cfg.getMaxY()));
-        node.setDemand(cfg.getMinDemand() + rnd.nextInt(cfg.getMaxDemand() - cfg.getMinDemand()));
-
-        return node;
+        return Node.builder()
+                   .name(name)
+                   .id(id)
+                   .x(rnd.nextInt(cfg.getMaxX()))
+                   .y(rnd.nextInt(cfg.getMaxY()))
+                   .demand(cfg.getMinDemand() + rnd.nextInt(cfg.getMaxDemand() - cfg.getMinDemand()))
+                .build();
     }
 }

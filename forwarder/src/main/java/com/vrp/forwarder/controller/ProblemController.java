@@ -69,11 +69,12 @@ public class ProblemController {
         List<Solution> solutions = problems.stream()
                                            .map(vrpRunner::run)
                                            .collect(Collectors.toList());
+        Solution allSolutions = new Solution(solutions);
         if(draw){
             DrawableSolution drawableSolution = new DrawableSolution(problem, solutions);
             return new ResponseEntity<>(drawableSolution, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(solutions, HttpStatus.OK);
+        return new ResponseEntity<>(allSolutions, HttpStatus.OK);
     }
 }

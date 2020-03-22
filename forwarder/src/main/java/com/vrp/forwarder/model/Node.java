@@ -1,9 +1,11 @@
 package com.vrp.forwarder.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
 @Data
+@Builder(toBuilder = true)
 public class Node {
 
 	private int id;
@@ -12,16 +14,5 @@ public class Node {
 	private int x;
 	private int y;
 	private int demand;
-	
 	private double angle;
-
-	@Override
-	public String toString() {
-		return "class=Node,id=" + id
-				+ ",name=" + name
-				+ ",x=" + x
-				+ ",y=" + y
-				+ ",demand=" + demand
-				+ ",angle=" + angle;
-	}
 }
