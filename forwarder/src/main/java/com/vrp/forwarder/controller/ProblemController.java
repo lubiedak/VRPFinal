@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-public class NodeController {
+public class ProblemController {
 
-    private static final String URL = "api/v1/node";
+    private static final String URL = "api/v1/problem";
 
     private final NodesGenerator generator;
 
@@ -32,7 +32,7 @@ public class NodeController {
 
     @RequestMapping(value = URL, method = RequestMethod.GET)
     public ResponseEntity<Object> endpoints() {
-        return new ResponseEntity<Object>(generate(0, 0, 0, 0, 0, "text", "text", false), HttpStatus.OK);
+        return new ResponseEntity<>(generate(0, 0, 0, 0, 0), HttpStatus.OK);
     }
 
 
@@ -41,24 +41,16 @@ public class NodeController {
                                             @RequestParam int minDemand,
                                             @RequestParam int maxDemand,
                                             @RequestParam int maxX,
-                                            @RequestParam int maxY,
-                                            @RequestParam(required=false) String distribution,
-                                            @RequestParam(required=false, defaultValue="xx") String name,
-                                            @RequestParam(required=false, defaultValue="false") boolean dbSave) {
+                                            @RequestParam int maxY) {
 
-        GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand,
-                                            maxX, maxY, distribution, name, dbSave);
+        GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand, maxX, maxY);
 
-        List<Node> n = generator.generateNodes(cfg);
-        Nodes nodes = new Nodes(name);
-        nodes.setNodes(n);
+        List<Node> nodes = generator.generateNodes(cfg);
 
-        Problem p = Problem.builder().criteria(new Criteria()).nodes(n).build();
-        p.sortNodes();
-        n = p.getNodes();
-        n.forEach(System.out::println);
+        Problem problem = Problem.builder().criteria(new Criteria()).nodes(nodes).build();
+        problem.sortNodes();
 
-        return new ResponseEntity<Object>(nodes, HttpStatus.OK);
+        return new ResponseEntity<>(problem, HttpStatus.OK);
     }
 
     @RequestMapping(value = URL + "/generateAndSolve", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -67,18 +59,21 @@ public class NodeController {
                                                     @RequestParam int maxDemand,
                                                     @RequestParam int maxX,
                                                     @RequestParam int maxY,
-                                                    @RequestParam(required=false) String distribution,
-                                                    @RequestParam(required=false, defaultValue="xx") String name,
-                                                    @RequestParam(required=false, defaultValue="false") boolean dbSave) throws JsonProcessingException {
+                                                    @RequestParam(required=false) boolean draw) {
 
-        GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand,
-                                            maxX, maxY, distribution, name, dbSave);
+        GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand, maxX, maxY);
 
         List<Node> nodes = generator.generateNodes(cfg);
-        Problem p = Problem.builder().criteria(new Criteria()).nodes(nodes).build();
-        List<Problem> problems = divider.divide(p);
-        List<Solution> solutions = problems.stream().map(problem-> vrpRunner.run(problem)).collect(Collectors.toList());
+        Problem problem = Problem.builder().criteria(new Criteria()).nodes(nodes).build();
+        List<Problem> problems = divider.divide(problem);
+        List<Solution> solutions = problems.stream()
+                                           .map(vrpRunner::run)
+                                           .collect(Collectors.toList());
+        if(draw){
+            DrawableSolution drawableSolution = new DrawableSolution(problem, solutions);
+            return new ResponseEntity<>(drawableSolution, HttpStatus.OK);
+        }
 
-        return new ResponseEntity<Object>(solutions, HttpStatus.OK);
+        return new ResponseEntity<>(solutions, HttpStatus.OK);
     }
 }
