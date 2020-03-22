@@ -3,6 +3,7 @@ package com.vrp.forwarder.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vrp.forwarder.model.Problem;
+import com.vrp.forwarder.model.Solution;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,9 @@ import org.springframework.web.client.RestTemplate;
 public class VRPRunner {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private String url;
 
-    public String run(Problem p){
+    public Solution run(Problem p){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -32,13 +34,13 @@ public class VRPRunner {
         HttpEntity<String> request = null;
         try {
             request = new HttpEntity<>(objectMapper.writeValueAsString(p), headers);
+            log.info(request.toString());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        log.info(request.toString());
 
-        ResponseEntity<String> response = restTemplate
-                .postForEntity("http://localhost:18080/problem/solve", request , String.class );
+        ResponseEntity<Solution> response = restTemplate
+                .postForEntity(url, request , Solution.class );
 
         return response.getBody();
     }

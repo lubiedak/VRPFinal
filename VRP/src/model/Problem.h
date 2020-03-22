@@ -92,7 +92,6 @@ private:
   uint16_t sumDemands();
   void fillDistanceIds();
   void generateDistances();
-  void changeMinDemandIfNeeded();
 
   uint16_t biggestDemander;
   uint16_t demandsSum;

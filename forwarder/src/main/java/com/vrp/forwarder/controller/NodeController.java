@@ -1,10 +1,7 @@
 package com.vrp.forwarder.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.vrp.forwarder.model.Criteria;
-import com.vrp.forwarder.model.GeneratorCfg;
-import com.vrp.forwarder.model.Node;
-import com.vrp.forwarder.model.Problem;
+import com.vrp.forwarder.model.*;
 import com.vrp.forwarder.service.Divider;
 import com.vrp.forwarder.service.NodesGenerator;
 import com.vrp.forwarder.service.VRPRunner;
@@ -80,7 +77,7 @@ public class NodeController {
         List<Node> nodes = generator.generateNodes(cfg);
         Problem p = Problem.builder().criteria(new Criteria()).nodes(nodes).build();
         List<Problem> problems = divider.divide(p);
-        List<String> solutions = problems.stream().map(problem-> vrpRunner.run(problem)).collect(Collectors.toList());
+        List<Solution> solutions = problems.stream().map(problem-> vrpRunner.run(problem)).collect(Collectors.toList());
 
         return new ResponseEntity<Object>(solutions, HttpStatus.OK);
     }

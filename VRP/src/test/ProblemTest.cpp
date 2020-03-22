@@ -96,13 +96,13 @@ bool RandomProblem_TEST(bool silentMode) {
 bool Problem5Nodes_TEST(bool silentMode) {
   Problem p = problem5Nodes();
 
-  return ProblemTemplate_TEST(p, silentMode, 20, 1501, 537);
+  return ProblemTemplate_TEST(p, silentMode, 25, 1501, 537);
 }
 
 bool Problem6Nodes_TEST(bool silentMode) {
   Problem p = problem6Nodes();
 
-  return ProblemTemplate_TEST(p, silentMode, 50, 1320, 602);
+  return ProblemTemplate_TEST(p, silentMode, 56, 1320, 602);
 }
 
 bool Problem10Nodes_TEST(bool silentMode) {

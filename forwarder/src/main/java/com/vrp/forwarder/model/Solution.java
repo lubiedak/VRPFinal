@@ -1,5 +1,12 @@
 package com.vrp.forwarder.model;
 
-public class Solution {
+import lombok.Data;
 
+import java.util.List;
+
+@Data
+public class Solution {
+    int demand;
+    int distance;
+    List<Cycle> cycles;
 }
