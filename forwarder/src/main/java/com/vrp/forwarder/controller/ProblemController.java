@@ -1,10 +1,10 @@
 package com.vrp.forwarder.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vrp.forwarder.model.*;
 import com.vrp.forwarder.service.Divider;
 import com.vrp.forwarder.service.NodesGenerator;
 import com.vrp.forwarder.service.VRPRunner;
+import com.vrp.forwarder.view.DrawableSolution;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

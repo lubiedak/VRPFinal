@@ -1,4 +1,4 @@
-package com.vrp.forwarder.model;
+package com.vrp.forwarder.view;
 
 import lombok.Data;
 

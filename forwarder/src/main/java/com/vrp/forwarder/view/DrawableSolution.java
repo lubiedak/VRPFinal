@@ -1,18 +1,21 @@
-package com.vrp.forwarder.model;
+package com.vrp.forwarder.view;
 
+import com.vrp.forwarder.model.Problem;
+import com.vrp.forwarder.model.Solution;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class DrawableSolution {
-    List<Node> nodes;
+    List<NodeD> nodes;
     List<Edge> edges;
 
     public DrawableSolution(Problem problem, List<Solution> solutions){
-        nodes = problem.getNodes();
-        nodes.add(problem.getDepot());
+        nodes = problem.getNodes().stream().map(NodeD::new).collect(Collectors.toList());
+        nodes.add(new NodeD(problem.getDepot()));
         edges = new ArrayList<>();
     }
 }
