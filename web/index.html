@@ -16,12 +16,36 @@
 	</head>
 	<body>
 		<h1>Hello world!</h1>
-	<div id="container"></div>
+	<div id="graph"></div>
+	<div class="container">
+		<div class="main">
+			<form class="form" method="post" action="#">
+				<h3>Generate Nodes</h3>
+				<div class="form-group">
+					<label>Nodes Count:</label>    <input type="number" class="form-control" value=16 name="nodes_Count" id="nodes_Count">
+				</div>
+				<div class="form-group">
+					<label>Minimum Demand:</label> <input type="number" class="form-control" value=150 name="min_Demand" id="min_Demand">
+				</div>
+				<div class="form-group">
+					<label>Maximum Demand:</label> <input type="number" class="form-control" value=500 name="max_Demand" id="max_Demand">
+				</div>
+				<div class="form-group">
+					<label>Max X:</label>          <input type="number" class="form-control" value=800 name="max_X" id="max_X">
+				</div>
+				<div class="form-group">
+					<label>Max Y:</label>          <input type="number" class="form-control" value=600 name="max_Y" id="max_Y">
+				</div>
+				<input type="button" name="generate" id="generate" value="Generate">
+				<input type="button" name="solve" id="solve" value="Solve">
+			</form>
+		</div>
+	</div>
 	<script src="./sigma.min.js"></script>
 	<script src="./sigma.parsers.json.min.js"></script>
 	<script>
 	sigma.parsers.json('data.json', {
-		container: 'container',
+		container: 'graph',
 		settings: {
 		defaultNodeColor: '#ec5148'
 		}
@@ -29,3 +53,49 @@
 	</script>
 	</body>
 </html>
+
+
+<script>
+document.getElementById('generate').onclick = function generate() {
+
+	var nodes_Count = $("#nodes_Count").val();
+	var min_Demand = $("#min_Demand").val();
+	var max_Demand = $("#max_Demand").val();
+	var max_X = $("#max_X").val();
+	var max_Y = $("#max_Y").val();
+	if (nodes_Count == '' || min_Demand == '' || max_Demand == '' || max_X == '' || max_Y == '') {
+		alert("Please fill all fields...!!!!!!");
+	} else {
+		$.ajax({
+			url:"http://127.0.0.1:8080/api/v1/problem/generate?" + 'nodesCount=' + nodes_Count +'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y,
+			type:"POST",
+			contentType:"application/json",
+			async: false,
+			dataType:'json',
+			success: function(data, status){
+				draw(data, max_X, max_Y);
+			}
+		});
+	}
+}
+
+document.getElementById('solve').onclick = function solve() {
+
+	var nodes_Count = $("#nodes_Count").val();
+	var min_Demand = $("#min_Demand").val();
+	var max_Demand = $("#max_Demand").val();
+	var max_X = $("#max_X").val();
+	var max_Y = $("#max_Y").val();
+
+	var url = "http://127.0.0.1:8080/api/v1/problem/generateAndSolve?" + 'nodesCount=' + nodes_Count 
+	+'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y
+	
+	fetch(url)
+	.then((response) => {
+		return response.json();
+	})
+	.then((data) => {
+		console.log(data);
+	});
+}
+</script>

@@ -1,18 +1,19 @@
 package com.vrp.forwarder.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 @Data
 @Builder(toBuilder = true)
+@AllArgsConstructor
 public class Node {
-
+	private final String name;
 	private int id;
-	@NonNull
-	private String name;
 	private int x;
 	private int y;
 	private int demand;
 	private double angle;
+
+	public Node(String name){
+		this.name = name;
+	}
 }

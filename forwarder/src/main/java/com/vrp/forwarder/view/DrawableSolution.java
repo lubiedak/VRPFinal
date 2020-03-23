@@ -18,4 +18,6 @@ public class DrawableSolution {
         nodes.add(new NodeD(problem.getDepot().toBuilder().demand(1000).build()));
         edges = new ArrayList<>();
     }
+
+
 }

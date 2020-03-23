@@ -4,5 +4,7 @@ import lombok.Data;
 
 @Data
 class Edge {
-
+    String id;
+    int source;
+    int destination;
 }
