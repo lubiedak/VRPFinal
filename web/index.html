@@ -7,7 +7,7 @@
 		<title>Project starter</title>
 		<link rel="stylesheet" type="text/css" href="dist/css/styles.css" />
 		<style type="text/css">
-			#container {
+			#graph {
 			  max-width: 1000px;
 			  height: 1000px;
 			  margin: auto;
@@ -16,10 +16,9 @@
 	</head>
 	<body>
 		<h1>Hello world!</h1>
-	<div id="graph"></div>
 	<div class="container">
 		<div class="main">
-			<form class="form" method="post" action="#">
+			<form id="params" class="form" method="post" action="#">
 				<h3>Generate Nodes</h3>
 				<div class="form-group">
 					<label>Nodes Count:</label>    <input type="number" class="form-control" value=16 name="nodes_Count" id="nodes_Count">
@@ -41,56 +40,36 @@
 			</form>
 		</div>
 	</div>
+
+	<div id="graph"></div>
 	<script src="./sigma.min.js"></script>
-	<script src="./sigma.parsers.json.min.js"></script>
-	<script>
-	sigma.parsers.json('data.json', {
-		container: 'graph',
-		settings: {
-		defaultNodeColor: '#ec5148'
-		}
-	});
+	<script src="./sigma.parsers.json.min.js">
 	</script>
-	</body>
-</html>
-
-
-<script>
-document.getElementById('generate').onclick = function generate() {
-
-	var nodes_Count = $("#nodes_Count").val();
-	var min_Demand = $("#min_Demand").val();
-	var max_Demand = $("#max_Demand").val();
-	var max_X = $("#max_X").val();
-	var max_Y = $("#max_Y").val();
-	if (nodes_Count == '' || min_Demand == '' || max_Demand == '' || max_X == '' || max_Y == '') {
-		alert("Please fill all fields...!!!!!!");
-	} else {
-		$.ajax({
-			url:"http://127.0.0.1:8080/api/v1/problem/generate?" + 'nodesCount=' + nodes_Count +'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y,
-			type:"POST",
-			contentType:"application/json",
-			async: false,
-			dataType:'json',
-			success: function(data, status){
-				draw(data, max_X, max_Y);
-			}
-		});
-	}
-}
-
-document.getElementById('solve').onclick = function solve() {
-
-	var nodes_Count = $("#nodes_Count").val();
-	var min_Demand = $("#min_Demand").val();
-	var max_Demand = $("#max_Demand").val();
-	var max_X = $("#max_X").val();
-	var max_Y = $("#max_Y").val();
-
-	var url = "http://127.0.0.1:8080/api/v1/problem/generateAndSolve?" + 'nodesCount=' + nodes_Count 
-	+'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y
+	<script>
 	
-	fetch(url)
+
+s = new sigma({
+		graph: '',
+		container: 'graph'
+	});
+
+document.getElementById('generate').onclick = function generate() {
+	var inputs = document.getElementById("params").elements;
+
+	var nodes_Count = inputs["nodes_Count"].value;
+	var min_Demand = inputs["min_Demand"].value;
+	var max_Demand = inputs["max_Demand"].value;
+	var max_X = inputs["max_X"].value;
+	var max_Y = inputs["max_Y"].value;
+
+	var url = "http://127.0.0.1:8080/api/v1/problem/generate?draw=true&" + 'nodesCount=' + nodes_Count 
+	+'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y
+	fetch(url, {method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json'
+    }})
 	.then((response) => {
 		return response.json();
 	})
@@ -98,4 +77,42 @@ document.getElementById('solve').onclick = function solve() {
 		console.log(data);
 	});
 }
-</script>
+
+document.getElementById('solve').onclick = function solve() {
+	var inputs = document.getElementById("params").elements;
+	var nodes_Count = inputs["nodes_Count"].value;
+	var min_Demand = inputs["min_Demand"].value;
+	var max_Demand = inputs["max_Demand"].value;
+	var max_X = inputs["max_X"].value;
+	var max_Y = inputs["max_Y"].value;
+
+	var url = "http://127.0.0.1:8080/api/v1/problem/generateAndSolve?draw=true&" + 'nodesCount=' + nodes_Count 
+	+'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y
+	
+	fetch(url, {method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json'
+    }})
+	.then((response) => {
+		return response.json();
+	})
+	.then((data) => {
+		s.graph.clear();
+		s.refresh();
+		
+		s = new sigma({
+			graph: data,
+			container: 'graph',
+			settings: {
+			minEdgeSize: 1,
+			maxEdgeSize: 5,
+			minArrowSize: 25
+		}
+		});
+	});
+}
+        </script>
+	</body>
+</html>

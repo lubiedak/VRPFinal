@@ -54,3 +54,20 @@ label{
 #generate:hover{
   background: linear-gradient(#36caf0 5%, #22abe9 100%);
 }
+
+#solve {
+    font-size: 20px;
+    margin-top: 15px;
+    background: linear-gradient(#22abe9 5%, #36caf0 100%);
+    border: 1px solid #0F799E;
+    padding: 7px 35px;
+    color: white;
+    text-shadow: 0px 1px 0px #13506D;
+    font-weight: bold;
+    border-radius: 2px;
+    cursor: pointer;
+    width: 100%;
+  }
+  #solve:hover{
+    background: linear-gradient(#36caf0 5%, #22abe9 100%);
+  }

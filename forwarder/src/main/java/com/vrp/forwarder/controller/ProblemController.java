@@ -71,7 +71,7 @@ public class ProblemController {
                                            .collect(Collectors.toList());
         Solution allSolutions = new Solution(solutions);
         if(draw){
-            DrawableSolution drawableSolution = new DrawableSolution(problem, solutions);
+            DrawableSolution drawableSolution = new DrawableSolution(problem, allSolutions);
             return new ResponseEntity<>(drawableSolution, HttpStatus.OK);
         }
 
