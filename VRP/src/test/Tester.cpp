@@ -27,6 +27,7 @@ Tester::Tester(bool silentMode) {
   tests["Problem6Nodes_TEST"]          = &Problem6Nodes_TEST;
   tests["Problem10Nodes_TEST"]         = &Problem10Nodes_TEST;
   tests["NodeDeserialization_TEST"]    = &NodeDeserialization_TEST;
+  tests["ZAnalyze_TEST"]               = &ZAnalyze_TEST;
   //tests["Problem20Nodes_TEST"]	   = &Problem20Nodes_TEST; (too long)
 }
 

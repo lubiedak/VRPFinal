@@ -17,12 +17,11 @@
 class Problem {
 public:
   Problem() { }
-  Problem(Problem& p);
+  Problem(Problem& p) = default;
   Problem(Criteria criteria, Node depot, std::vector<Node> nodes);
   Problem(Criteria criteria, Node depot, std::vector<Node> nodes, std::vector<std::vector<uint16_t> > distances);
   Problem(const crow::json::rvalue& json);
   
-  virtual ~Problem() {}
   void adapt();
   uint16_t approxCyclesCount() const;
 
@@ -45,6 +44,7 @@ public:
     return nodes;
   }
   std::vector<Node> getNodesAndDepot(uint32_t) const;
+
   void setNodes(const std::vector<Node>& nodes) {
     this->nodes = nodes;
   }
@@ -61,7 +61,9 @@ public:
   uint16_t getBiggestDemander() const {
     return biggestDemander;
   }
-
+  uint16_t getDemandsSum() const {
+    return demandsSum;
+  }
   uint16_t getMaxNodes() const {
     return criteria.maxNodes();
   }

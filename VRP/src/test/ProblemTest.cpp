@@ -5,7 +5,6 @@
  *      Author: lubiedak
  */
 
-#include "../model/Problem.h"
 #include "ProblemTest.h"
 
 #include <cstdint>
@@ -18,6 +17,7 @@
 #include "../solver/Solution.h"
 #include "resources/ProblemsForTest.h"
 #include "../random/RandomProblemGenerator.h"
+#include "../random/RandomModeExecutor.h"
 
 void printCycles(const std::vector<Cycle>& cycles) {
   int i = 0;
@@ -113,5 +113,47 @@ bool Problem10Nodes_TEST(bool silentMode) {
 bool Problem20Nodes_TEST(bool silentMode) {
   Problem p = problem20Nodes();
   return ProblemTemplate_TEST(p, silentMode, 20349, 3982, 2844);
+}
+
+bool ZAnalyze_TEST(bool silentMode) {
+  RandomModeExecutor executor;
+  for(int x = 0; x<100; ++x){
+    std::cout<<"XXXX"<<std::endl;
+    auto problem = executor.createProblem("rest", "ProblemGenParamsCfg");
+    problem = decreaseDemandToRoundDemand(problem);
+    for(size_t i = 0 ; i<1000/problem.getNodes().size(); ++i){
+      Solution solution = executor.solveProblem("rest", problem);
+      std::cout<<"XXXX;"<<i<<";"<<solution.getDemand()<<";"<<solution.getDistance()
+      <<";"<<solution.getSize()<<std::endl;
+      problem = increaseDemandsByOne(problem);
+    }
+  }
+  return true;
+}
+
+Problem decreaseDemandToRoundDemand(Problem problem){
+  int totalDemand = problem.getDemandsSum();
+  int reduction = (totalDemand - (totalDemand/1000)*1000)/problem.getNodes().size();
+  std::vector<Node> nodes;
+  for(Node node: problem.getNodes()){
+    Node newNode = node;
+    newNode.setDemand(node.getDemand() - reduction);
+    nodes.push_back(newNode);
+  }
+  problem.setNodes(nodes);
+  problem.adapt();
+  return problem;
+}
+
+Problem increaseDemandsByOne(Problem problem){
+  std::vector<Node> nodes;
+  for(Node node: problem.getNodes()){
+    Node newNode = node;
+    newNode.setDemand(node.getDemand() + 1);
+    nodes.push_back(newNode);
+  }
+  problem.setNodes(nodes);
+  problem.adapt();
+  return problem;
 }
 

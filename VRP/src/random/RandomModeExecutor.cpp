@@ -44,7 +44,6 @@ Problem RandomModeExecutor::createProblem(std::string dir, std::string rndFile){
   FileUtils fileUtils;
   fileUtils.saveToFile(dir + "/input", p.toString());
   p.adapt();
-  std::cout<<p.toString();
   return p;
 }
 

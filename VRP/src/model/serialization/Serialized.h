@@ -19,11 +19,7 @@ public:
   Serialized() {
     membersCount = 0;
   }
-  Serialized(const Serialized& s) :
-      membersCount(s.membersCount) {
-  }
-  virtual ~Serialized() {
-  }
+  Serialized(const Serialized& s) = default;
 
   virtual std::string serialize() = 0;
   virtual bool deserialize(std::string) = 0;

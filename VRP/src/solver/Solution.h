@@ -34,6 +34,9 @@ public:
   uint32_t getDemand() const {
     return demand;
   }
+  uint32_t getSize() const {
+    return optimizedCycles.size();
+  }
 
 private:
   uint32_t distance;

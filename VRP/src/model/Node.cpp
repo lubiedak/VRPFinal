@@ -22,9 +22,6 @@ Node::Node(const crow::json::rvalue& json) {
   membersCount = 6;
 }
 
-Node::~Node() {
-}
-
 Node::Node(uint32_t id, const std::string& name, int32_t x, int32_t y, uint16_t demand) :
     id(id), distance_id(0), name(name), x(x), y(y), demand(demand) {
   membersCount = 6;

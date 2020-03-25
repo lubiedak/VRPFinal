@@ -9,12 +9,6 @@
 #include <math.h>
 #include <iostream>
 
-
-Problem::Problem(Problem& p) :
-    criteria(p.criteria), depot(p.depot), nodes(p.nodes), distances(p.distances), cycles(p.cycles) {
-  adapt();
-}
-
 Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes) :
     criteria(criteria), depot(depot), nodes(nodes) {
   adapt();

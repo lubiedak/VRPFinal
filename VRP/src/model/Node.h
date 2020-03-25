@@ -20,7 +20,6 @@ public:
   Node(const crow::json::rvalue& json);
   Node& operator=(const Node&);
   bool operator==(const Node&);
-  virtual ~Node();
 
   Node(uint32_t id, uint32_t distance_id, const std::string& name, int32_t x, int32_t y, uint16_t demand);
 
@@ -35,6 +34,7 @@ public:
   uint16_t getDemand() const {
     return demand;
   }
+
   uint32_t getId() const {
     return id;
   }
@@ -45,6 +45,11 @@ public:
   void setDistanceId(uint32_t d_id) {
     distance_id = d_id;
   }
+
+  void setDemand(uint32_t demand) {
+    this->demand = demand;
+  }
+
   int32_t getX() const {
     return x;
   }
