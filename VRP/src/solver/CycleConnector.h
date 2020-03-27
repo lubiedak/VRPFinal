@@ -31,7 +31,6 @@ public:
 private:
   const Problem& problem;
   const std::vector<Cycle>& cycles;
-  std::vector<CyclesSet> specialCycles;
   std::vector<CyclesSet> baseCycles;
 
   std::unordered_map<uint32_t, CyclesSet> connections;
@@ -41,7 +40,7 @@ private:
 
   void prepareData();
 
-  void connectMap(uint16_t it);
+  void connectMap(uint16_t it, bool lastIteration = false);
   bool fullyConnected();
 
   void addCyclesSetToMap(CyclesSet& actualCycleSet, CyclesSet& baseCycle, uint16_t distance, uint32_t id, uint16_t it, uint16_t lastIt);

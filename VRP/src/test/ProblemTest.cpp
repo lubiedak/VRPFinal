@@ -117,14 +117,25 @@ bool Problem20Nodes_TEST(bool silentMode) {
 
 bool ZAnalyze_TEST(bool silentMode) {
   RandomModeExecutor executor;
-  for(int x = 0; x<100; ++x){
-    std::cout<<"XXXX"<<std::endl;
+  Problem lastProblem;
+  Solution lastSolution;
+  for(int x = 0; x<500; ++x){
+    lastSolution.setDistance(0);
+    std::cout<<"XXXX"<<x<<std::endl;
     auto problem = executor.createProblem("rest", "ProblemGenParamsCfg");
     problem = decreaseDemandToRoundDemand(problem);
     for(size_t i = 0 ; i<1000/problem.getNodes().size(); ++i){
       Solution solution = executor.solveProblem("rest", problem);
       std::cout<<"XXXX;"<<i<<";"<<solution.getDemand()<<";"<<solution.getDistance()
       <<";"<<solution.getSize()<<std::endl;
+      if(lastSolution.getDistance() > solution.getDistance() ){
+        std::cout << lastProblem.toString() << std::endl;
+        std::cout << problem.toString() << std::endl;
+        std::cout << lastSolution.toString() << std::endl;
+        std::cout << solution.toString() << std::endl;
+      }
+      lastProblem = problem;
+      lastSolution = solution;
       problem = increaseDemandsByOne(problem);
     }
   }

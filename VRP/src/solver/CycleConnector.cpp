@@ -23,19 +23,25 @@ CycleConnector::CycleConnector(const Problem& problem, const std::vector<Cycle>&
 CycleConnector::~CycleConnector() {
   connections.clear();
   baseCycles.clear();
-  specialCycles.clear();
 }
 
 void CycleConnector::connect() {
   uint16_t connIteration = 0;
-
   while (!fullyConnected() && connIteration < 20) {
     connIteration++;
     connectMap(connIteration);
     std::cout << "\niteration: " << connIteration << " connected: " << connections.size() << std::endl;
   }
+  bool lastIteration = true;
+  auto bestCycleSet = connections[allNodesConnected];
+  connIteration++;
+  connectMap(connIteration, lastIteration);
+  std::cout << "\niteration: " << connIteration << " connected: " << connections.size() << std::endl;
 
-  solution = Solution(connections[allNodesConnected], cycles);
+  if(connections[allNodesConnected].distance < bestCycleSet.distance){
+    bestCycleSet = connections[allNodesConnected];
+  }
+  solution = Solution(bestCycleSet, cycles);
 }
 
 void CycleConnector::prepareData() {
@@ -43,7 +49,6 @@ void CycleConnector::prepareData() {
 
   for (uint16_t i = 0; i < cycles.size(); ++i) {
     if (cycles[i].contains(biggestDemanderId)) {
-      specialCycles.push_back(CyclesSet(cycles[i], i, 1));
       connections[cycles[i].getId()] = CyclesSet(cycles[i], i, 1);
     } else {
       baseCycles.push_back(CyclesSet(cycles[i], i, 1));
@@ -53,38 +58,35 @@ void CycleConnector::prepareData() {
 }
 
 
-void CycleConnector::connectMap(uint16_t it) {
+void CycleConnector::connectMap(uint16_t it, bool lastIteration) {
   std::unordered_map<uint32_t, CyclesSet> newConnected = connections;
   connections.clear();
   ProgressLogger progressLogger(newConnected.size(), 20);
   progressLogger.startLog();
   uint32_t i = 0;
-  bool foundFirstFull = false;
-  auto entIt = connections.end(); //does it change during time?
+  auto endIt = connections.end();
   for (auto conn : newConnected) {
-    ++i;
-    progressLogger.logProgress(i);
+    progressLogger.logProgress(++i);
     uint32_t id1 = conn.second.id;
     for (uint16_t j = conn.second.lastIt; j < baseCycles.size(); ++j) {
       if (0 == (id1 & baseCycles[j].id)) {
         uint32_t id = (id1 | baseCycles[j].id);
-
-        if (!foundFirstFull) {
-          uint16_t distance = baseCycles[j].distance + conn.second.distance;
-          if (connections.find(id) == entIt) {
+        uint16_t distance = baseCycles[j].distance + conn.second.distance;
+        if(lastIteration){
+          if(id == allNodesConnected){ //last iteration only operates, when allNodesConnected
+            if (connections.find(id) == endIt) {
+              addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it, j);
+            } else if (connections.at(id).distance > distance) {
+              addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it, j);
+            }
+          }
+        }
+        else {
+          // Normal iteration - not the last one
+          if (connections.find(id) == endIt) {
             addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it, j);
-            foundFirstFull = (id == allNodesConnected);
           } else if (connections.at(id).distance > distance) {
             addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it, j);
-          }
-          //foundFirstFull
-        } else {
-          if (id == allNodesConnected) {
-            uint16_t distance = baseCycles[j].distance + conn.second.distance;
-            if (connections.at(id).distance > distance) {
-              addCyclesSetToMap(conn.second, baseCycles[j], distance, id, it, j);
-              std::cout<<"B";
-            }
           }
         }
       }

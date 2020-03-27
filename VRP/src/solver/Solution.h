@@ -28,8 +28,12 @@ public:
   
   std::string toString();
   crow::json::wvalue toJson();
+
   uint32_t getDistance() const {
     return distance;
+  }
+  void setDistance(uint32_t distance) {
+    this->distance = distance;
   }
   uint32_t getDemand() const {
     return demand;

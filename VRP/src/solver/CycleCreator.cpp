@@ -41,7 +41,7 @@ uint16_t CycleCreator::create() {
 
   analyzeCycles();
 
-  std::cout<<"CycleCreator: "<<cycleIds.size()<<" cycles created"<<std::endl;
+  //std::cout<<"CycleCreator: "<<cycleIds.size()<<" cycles created"<<std::endl;
 
   return cycleIds.size();
 }

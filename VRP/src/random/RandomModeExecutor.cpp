@@ -37,7 +37,7 @@ std::map<std::string, std::string> RandomModeExecutor::generateAndSolveRandomPro
 
 Problem RandomModeExecutor::createProblem(std::string dir, std::string rndFile){
   ProblemGenParams params = initFromFile(rndFile);
-  Criteria c(1000, 1000, 5, 300, 0, 1);
+  Criteria c(1000, 1000, 5, params.minDemand, 0, 1);
 
   RandomProblemGenerator rpg(params, c);
   Problem p = rpg.generate();
@@ -60,7 +60,7 @@ Solution RandomModeExecutor::solveProblem(std::string dir, Problem p) {
   FileUtils fileUtils;
   fileUtils.saveToFile(dir + "/output", solution.toString());
 
-  std::cout << solution.toString() << std::endl;
+  //std::cout << solution.toString() << std::endl;
   return solution;
 }
 
