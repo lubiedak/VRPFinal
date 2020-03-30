@@ -42,21 +42,6 @@ Cycle& Cycle::operator =(const Cycle& c) {
   return *this;
 }
 
-Cycle::Cycle(const Cycle& c) {
-  id = c.id;
-  distance = c.distance;
-  demand = c.demand;
-  capacity = c.capacity;
-  nodes = c.nodes;
-  membersCount = c.membersCount;
-  distCoef = c.distCoef;
-
-  demandRank = c.demandRank;
-  demandToDistRatio = c.demandToDistRatio;
-  demandToDistRatioRank = c.demandToDistRatioRank;
-  distanceRank = c.distanceRank;
-}
-
 Cycle::~Cycle() {
   // TODO Auto-generated destructor stub
 }

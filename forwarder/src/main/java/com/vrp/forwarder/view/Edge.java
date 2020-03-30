@@ -16,7 +16,7 @@ class Edge {
     int size;
     String color;
 
-    public static List<Edge> edges(Cycle c){
+    static List<Edge> edges(Cycle c){
         String color = "#"+(int)(Math.random() * 0x1000000);
         int[] nodes = c.getNodes();
         List<Edge> edges = new ArrayList<>();

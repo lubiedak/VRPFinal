@@ -1,7 +1,7 @@
 FROM ubuntu:bionic
 
 RUN apt-get update && \
-	apt-get install -y build-essential git cmake autoconf libtool pkg-config
+	apt-get install -y build-essential git cmake make autoconf libtool pkg-config
 
 WORKDIR /usr/include/
 

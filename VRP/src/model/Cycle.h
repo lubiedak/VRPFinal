@@ -16,7 +16,7 @@
 class Cycle: public Serialized {
 public:
   Cycle();
-  Cycle(const Cycle& c);
+  Cycle(const Cycle& c) = default;
   Cycle& operator=(const Cycle&);
   bool operator<(const Cycle&) const;
   virtual ~Cycle();
