@@ -6,6 +6,8 @@ Backend/bin/
 Backend/build/
 Backend/*.log
 Backend/node_modules/
+*.cmake/
+*compile_commands.json
 *.pyc
 VRP/VS/Debug
 VRP/VS/Release
@@ -14,6 +16,7 @@ VRP/VS/Release
 *.log
 *.idb
 *.pdb
+*.iml
 VRP/VS/VS/Release
 VRP/VS/VS/Debug
 VRP/VS/.vs
