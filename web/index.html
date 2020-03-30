@@ -42,9 +42,18 @@
 	</div>
 
 	<div id="graph"></div>
+	
 	<script src="./sigma.min.js"></script>
 	<script src="./sigma.parsers.json.min.js">
 	</script>
+	<script>
+		sigma.parsers.json('./miasta/miastaPolski.json', {
+		  container: 'graph',
+		  settings: {
+			defaultNodeColor: '#ec5148'
+		  }
+		});
+	  </script>
 	<script>
 	
 

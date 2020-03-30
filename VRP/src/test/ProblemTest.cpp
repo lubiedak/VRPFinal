@@ -119,7 +119,7 @@ bool ZAnalyze_TEST(bool silentMode) {
   RandomModeExecutor executor;
   Problem lastProblem;
   Solution lastSolution;
-  for(int x = 0; x<500; ++x){
+  for(int x = 0; x<100; ++x){
     lastSolution.setDistance(0);
     std::cout<<"XXXX"<<x<<std::endl;
     auto problem = executor.createProblem("rest", "ProblemGenParamsCfg");
