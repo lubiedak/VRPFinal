@@ -11,6 +11,12 @@
 #include <string>
 #include <vector>
 #include "../model/Node.h"
+namespace matrix
+{
+    const int BEGIN = 3;
+    const int X = 1;
+    const int Y = 2;
+}
 
 class DistanceMatrix {
 public:
