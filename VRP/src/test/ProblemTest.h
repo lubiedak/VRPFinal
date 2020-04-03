@@ -16,6 +16,7 @@ bool Problem5Nodes_TEST();
 bool Problem6Nodes_TEST();
 bool Problem10Nodes_TEST();
 bool Problem20Nodes_TEST();
+bool DistanceMatrixReading_TEST();
 bool ZAnalyze_TEST();
 int countDemand(Problem problem);
 Problem decreaseDemandToRoundDemand(Problem problem);

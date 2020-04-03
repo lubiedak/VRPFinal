@@ -18,8 +18,8 @@ public:
   DistanceMatrix(const std::string& fileName);
   ~DistanceMatrix() = default;
 
-private:
   void readFromFile(const std::string& fileName);
+private:
   std::vector<std::vector<int>> matrix;
   std::vector<Node> nodes;
 };

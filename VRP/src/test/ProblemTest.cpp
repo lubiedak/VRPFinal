@@ -18,6 +18,7 @@
 #include "resources/ProblemsForTest.h"
 #include "../random/RandomProblemGenerator.h"
 #include "../random/RandomModeExecutor.h"
+#include "../io/DistanceMatrix.h"
 
 void printCycles(const std::vector<Cycle>& cycles) {
   int i = 0;
@@ -109,8 +110,10 @@ bool Problem20Nodes_TEST() {
   return ProblemTemplate_TEST(p,20349, 3982, 2844);
 }
 
-bool DistanceMatrixReadingTest(){
-
+bool DistanceMatrixReading_TEST(){
+  DistanceMatrix distanceMatrix;
+  distanceMatrix.readFromFile("../../web/miasta/odleglosci.csv");
+  return true;
 }
 
 bool ZAnalyze_TEST() {
