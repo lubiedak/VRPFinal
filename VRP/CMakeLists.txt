@@ -16,11 +16,11 @@ include_directories(./src)
 FIND_PACKAGE( Boost 1.72 REQUIRED )
 INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
 
-# file(GLOB_RECURSE SRCS src/*.cpp)
-# file(GLOB_RECURSE HDRS src/*.h) #local
+file(GLOB_RECURSE SRCS src/*.cpp)
+file(GLOB_RECURSE HDRS src/*.h) #local
 
-file(GLOB_RECURSE SRCS /vrp/src/*.cpp) #docker
-file(GLOB_RECURSE HDRS /vrp/src/*.h)
+#file(GLOB_RECURSE SRCS /vrp/src/*.cpp) #docker
+#file(GLOB_RECURSE HDRS /vrp/src/*.h)
 
 ADD_EXECUTABLE(VRP ${SRCS})
 

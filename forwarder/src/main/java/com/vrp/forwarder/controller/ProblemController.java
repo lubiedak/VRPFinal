@@ -3,6 +3,7 @@ package com.vrp.forwarder.controller;
 import com.vrp.forwarder.model.*;
 import com.vrp.forwarder.service.Divider;
 import com.vrp.forwarder.service.NodesGenerator;
+import com.vrp.forwarder.service.SolutionOptimizer;
 import com.vrp.forwarder.service.VRPRunner;
 import com.vrp.forwarder.view.DrawableSolution;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class ProblemController {
 
     private final Divider divider;
 
+    private final SolutionOptimizer solutionOptimizer;
 
     @RequestMapping(value = URL, method = RequestMethod.GET)
     public ResponseEntity<Object> endpoints() {
@@ -70,6 +72,7 @@ public class ProblemController {
                                            .map(vrpRunner::run)
                                            .collect(Collectors.toList());
         Solution allSolutions = new Solution(solutions);
+        //allSolutions = solutionOptimizer.improveSolution(problem, allSolutions);
         if(draw){
             DrawableSolution drawableSolution = new DrawableSolution(problem, allSolutions);
             return new ResponseEntity<>(drawableSolution, HttpStatus.OK);
