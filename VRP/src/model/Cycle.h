@@ -16,6 +16,7 @@
 class Cycle: public Serialized {
 public:
   Cycle();
+  Cycle(uint32_t id,uint16_t demand, const std::vector<Node>& nodes);
   Cycle(const Cycle& c) = default;
   Cycle& operator=(const Cycle&);
   bool operator<(const Cycle&) const;
@@ -39,6 +40,7 @@ public:
   void setDistance(uint16_t distance) {
     this->distance = distance;
   }
+
   uint16_t getDistance() const {
     return distance;
   }
@@ -48,10 +50,6 @@ public:
   }
   uint32_t getId() const {
     return id;
-  }
-
-  void setNodes(const std::vector<Node>& nodes) {
-    this->nodes = nodes;
   }
 
   bool contains(uint16_t nodeId) const;

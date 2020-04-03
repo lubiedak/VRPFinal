@@ -20,10 +20,6 @@ public:
 
   void Permute(int k, int size);
 
-  void setSilentMode(bool silentMode) {
-    this->silentMode = silentMode;
-  }
-
   const std::vector<std::vector<T> >& getFullPermTable() const {
     return fullPermTable;
   }
@@ -36,7 +32,6 @@ private:
   std::vector<T> perm;
   std::vector<std::vector<T> > fullPermTable;
 
-  bool silentMode;
 };
 
 #endif /* SOLVER_PERMUTATIONGEN_H_ */

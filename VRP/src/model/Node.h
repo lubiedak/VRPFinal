@@ -18,6 +18,7 @@ public:
   Node();
   Node(const Node& n);
   Node(const crow::json::rvalue& json);
+  ~Node(){};
   Node& operator=(const Node&);
   bool operator==(const Node&);
 

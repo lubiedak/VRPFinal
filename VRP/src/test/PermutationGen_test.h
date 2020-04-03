@@ -10,10 +10,9 @@
 /**
  * This test checks if permutation works correctly
  */
-bool PermutationsGeneration_TEST(bool silentMode) {
+bool PermutationsGeneration_TEST() {
   int base = 5;
   PermutationGen<int> permGen = PermutationGen<int>(base);
-  permGen.setSilentMode(silentMode);
   permGen.Permute(base, base);
 
   return (permGen.getFullPermTable()[3][2] == 1 && permGen.getFullPermTable()[10][0] == 3);

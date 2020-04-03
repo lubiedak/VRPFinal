@@ -14,8 +14,7 @@
 #include "SerializationTest.h"
 #include "ProblemTest.h"
 
-Tester::Tester(bool silentMode) {
-  this->silentMode = silentMode;
+Tester::Tester() {
 
   tests["PermutationsGeneration_TEST"] = &PermutationsGeneration_TEST;
   tests["CriteriaSerialization_TEST"]  = &CriteriaSerialization_TEST;
@@ -27,7 +26,7 @@ Tester::Tester(bool silentMode) {
   tests["Problem6Nodes_TEST"]          = &Problem6Nodes_TEST;
   tests["Problem10Nodes_TEST"]         = &Problem10Nodes_TEST;
   tests["NodeDeserialization_TEST"]    = &NodeDeserialization_TEST;
-  tests["ZAnalyze_TEST"]               = &ZAnalyze_TEST;
+  //tests["ZAnalyze_TEST"]               = &ZAnalyze_TEST;
   //tests["Problem20Nodes_TEST"]	   = &Problem20Nodes_TEST; (too long)
 }
 
@@ -40,7 +39,7 @@ void Tester::runAll() {
   int passed = 0;
   for (auto test : tests) {
     std::cout << test.first << ": STARTED" << std::endl;
-    bool status = test.second(this->silentMode);
+    bool status = test.second();
     status ? passed++ : failed++;
     std::cout << test.first << ": " << (status ? "PASSED" : "FAILED") << std::endl;
   }

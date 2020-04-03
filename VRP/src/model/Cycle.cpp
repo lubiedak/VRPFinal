@@ -24,6 +24,10 @@ Cycle::Cycle() :
   this->demandToDistRatioRank = 0.0;
   this->distanceRank = 0.0;
 }
+Cycle::Cycle(uint32_t id, uint16_t demand, const std::vector<Node>& nodes) :
+  id(id), demand(demand), nodes(nodes) {
+  membersCount = 6;
+}
 
 Cycle& Cycle::operator =(const Cycle& c) {
   this->id = c.id;

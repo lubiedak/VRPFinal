@@ -10,13 +10,13 @@
 
 #include "../model/Problem.h"
 
-bool DistancesCreation_TEST(bool silentMode);
-bool RandomProblem_TEST(bool silentMode);
-bool Problem5Nodes_TEST(bool silentMode);
-bool Problem6Nodes_TEST(bool silentMode);
-bool Problem10Nodes_TEST(bool silentMode);
-bool Problem20Nodes_TEST(bool silentMode);
-bool ZAnalyze_TEST(bool silentMode);
+bool DistancesCreation_TEST();
+bool RandomProblem_TEST();
+bool Problem5Nodes_TEST();
+bool Problem6Nodes_TEST();
+bool Problem10Nodes_TEST();
+bool Problem20Nodes_TEST();
+bool ZAnalyze_TEST();
 int countDemand(Problem problem);
 Problem decreaseDemandToRoundDemand(Problem problem);
 Problem increaseDemandsByOne(Problem problem);

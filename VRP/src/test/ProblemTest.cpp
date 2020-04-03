@@ -33,7 +33,7 @@ void printConnected(const std::vector<CyclesSet*>& connected) {
   }
 }
 
-bool ProblemTemplate_TEST(Problem p, bool silentMode, uint32_t expectedCycles, uint32_t expectedDemand,
+bool ProblemTemplate_TEST(Problem p, uint32_t expectedCycles, uint32_t expectedDemand,
     uint32_t expectedDistance) {
   CycleCreator cc(p);
 
@@ -45,14 +45,11 @@ bool ProblemTemplate_TEST(Problem p, bool silentMode, uint32_t expectedCycles, u
 
   Solution solution = ccon.getSolution();
 
-  if (!silentMode)
-    std::cout << solution.toString() << std::endl;
-
   return expectedCycles == cycles.size() && solution.getDemand() == expectedDemand
       && solution.getDistance() == expectedDistance;
 }
 
-bool DistancesCreation_TEST(bool silentMode) {
+bool DistancesCreation_TEST() {
   std::vector<Node> nodes = std::vector<Node>();
   nodes.push_back(Node(0, "", 0, 0, 100));
   nodes.push_back(Node(0, "", 3, 4, 100));
@@ -62,7 +59,7 @@ bool DistancesCreation_TEST(bool silentMode) {
   return dist[1][2] == 5;
 }
 
-bool RandomProblem_TEST(bool silentMode) {
+bool RandomProblem_TEST() {
   ProblemGenParams params;
   params.maxDemand = 500;
   params.minDemand = 100;
@@ -87,35 +84,36 @@ bool RandomProblem_TEST(bool silentMode) {
 
   Solution solution = ccon.getSolution();
 
-  if (!silentMode)
-    std::cout << solution.toString() << std::endl;
-
   return true;
 }
 
-bool Problem5Nodes_TEST(bool silentMode) {
+bool Problem5Nodes_TEST() {
   Problem p = problem5Nodes();
 
-  return ProblemTemplate_TEST(p, silentMode, 25, 1501, 537);
+  return ProblemTemplate_TEST(p, 25, 1501, 537);
 }
 
-bool Problem6Nodes_TEST(bool silentMode) {
+bool Problem6Nodes_TEST() {
   Problem p = problem6Nodes();
 
-  return ProblemTemplate_TEST(p, silentMode, 56, 1320, 602);
+  return ProblemTemplate_TEST(p, 56, 1320, 602);
 }
 
-bool Problem10Nodes_TEST(bool silentMode) {
+bool Problem10Nodes_TEST() {
   Problem p = problem10Nodes();
-  return ProblemTemplate_TEST(p, silentMode, 175, 3001, 1943);
+  return ProblemTemplate_TEST(p, 175, 3001, 1943);
 }
 
-bool Problem20Nodes_TEST(bool silentMode) {
+bool Problem20Nodes_TEST() {
   Problem p = problem20Nodes();
-  return ProblemTemplate_TEST(p, silentMode, 20349, 3982, 2844);
+  return ProblemTemplate_TEST(p,20349, 3982, 2844);
 }
 
-bool ZAnalyze_TEST(bool silentMode) {
+bool DistanceMatrixReadingTest(){
+
+}
+
+bool ZAnalyze_TEST() {
   RandomModeExecutor executor;
   Problem lastProblem;
   Solution lastSolution;

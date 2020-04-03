@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
     option::Option* options = argParser.getOptions();
     if (options[TEST].arg) {
       std::cout << header("TEST");
-      Tester tester(true);
+      Tester tester;
       tester.runAll();
     }
     if (options[RANDOM].arg) {
