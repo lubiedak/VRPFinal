@@ -17,6 +17,7 @@ public:
     RandomModeExecutor(void){};
     std::map<std::string, std::string> generateAndSolveRandomProblems(int n);
     Problem createProblem(std::string dir, std::string rndFile);
+    Problem createProblemForCities(std::string dir, std::string rndFile);
     Solution solveProblem(std::string dir, Problem p);
 private:
     std::string prepareExecutionDirectoryName();

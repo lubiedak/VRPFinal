@@ -10,6 +10,7 @@
 #include "../solver/CycleCreator.h"
 #include "../solver/CycleConnector.h"
 #include "io/FileUtils.h"
+#include "io/DistanceMatrix.h"
 
 #include <ctime>
 #include <iostream>
@@ -44,6 +45,26 @@ Problem RandomModeExecutor::createProblem(std::string dir, std::string rndFile){
   FileUtils fileUtils;
   fileUtils.saveToFile(dir + "/input", p.toString());
   p.adapt();
+  return p;
+}
+
+Problem RandomModeExecutor::createProblemForCities(std::string dir, std::string rndFile){
+  ProblemGenParams params = initFromFile(rndFile);
+  Criteria c(1000, 1000, 5, params.minDemand, 0, 1);
+  
+  DistanceMatrix matrix;
+  matrix.readFromFile("../../web/miasta/odleglosci.csv");
+  Node depot = matrix.getNodes()[21];
+  std::vector<Node> allNodes = matrix.getNodes();
+  std::vector<Node> nodes(allNodes.begin(), allNodes.begin()+20);
+  std::vector<std::vector<uint16_t>> distances = matrix.getDistances();
+  for(auto n : nodes){
+    n.setDemand(params.minDemand + rand() % (params.maxDemand - params.minDemand));
+  }
+  RandomProblemGenerator rpg(params, c);
+  Problem p = Problem(c,depot,nodes,distances);
+  FileUtils fileUtils;
+  fileUtils.saveToFile(dir + "/input", p.toString());
   return p;
 }
 

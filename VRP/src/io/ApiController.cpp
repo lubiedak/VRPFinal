@@ -1,6 +1,7 @@
 #include "ApiController.h"
 #include "crow_all.h"
 #include "../random/RandomModeExecutor.h"
+#include "DistanceMatrix.h"
 #include <iostream>
 
 void ApiController::run(void){
@@ -35,6 +36,15 @@ void ApiController::run(void){
 	([](){
         RandomModeExecutor executor;
         auto problem = executor.createProblem("rest", "ProblemGenParamsCfg");
+        crow::json::wvalue response = executor.solveProblem("rest", problem).toJson();
+        
+        return response;
+    });
+
+    CROW_ROUTE(app,"/random/problem/solution/cities")
+	([](){
+        RandomModeExecutor executor;
+        auto problem = executor.createProblemForCities("rest", "ProblemGenParamsCfg");
         crow::json::wvalue response = executor.solveProblem("rest", problem).toJson();
         
         return response;

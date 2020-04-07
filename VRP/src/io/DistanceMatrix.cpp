@@ -23,10 +23,10 @@ void DistanceMatrix::readFromFile(const std::string &fileName)
         nodes.push_back(Node(i - matrix::BEGIN, cells[i][0], x, y, 0));
     }
 
-    matrix = std::vector<std::vector<int>>(cells.size() - matrix::BEGIN);
+    matrix = std::vector<std::vector<uint16_t>>(cells.size() - matrix::BEGIN);
     for (size_t i = matrix::BEGIN; i < cells.size(); ++i)
     {
-        matrix[i - matrix::BEGIN] = std::vector<int>(cells[i].size() - matrix::BEGIN);
+        matrix[i - matrix::BEGIN] = std::vector<uint16_t>(cells[i].size() - matrix::BEGIN);
         for (size_t j = matrix::BEGIN; j < cells[i].size(); ++j)
         {
             matrix[i - matrix::BEGIN][j - matrix::BEGIN] = std::stoi(cells[i][j]);

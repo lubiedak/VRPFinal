@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -80,4 +81,20 @@ public class ProblemController {
 
         return new ResponseEntity<>(allSolutions, HttpStatus.OK);
     }
+/*
+    @RequestMapping(value = URL + "/generateAndSolveSSE", method = RequestMethod.GET, produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<DrawableSolution> generateAndSolveSSE(@RequestParam int nodesCount,
+                                                  @RequestParam int minDemand,
+                                                  @RequestParam int maxDemand,
+                                                  @RequestParam int maxX,
+                                                  @RequestParam int maxY) {
+        GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand, maxX, maxY);
+
+        List<Node> nodes = generator.generateNodes(cfg);
+        Problem problem = Problem.builder().criteria(new Criteria()).nodes(nodes).build();
+        List<Problem> problems = divider.divide(problem);
+
+        return Flux.just(problems.toArray()).map(p-> new DrawableSolution((Problem)p, vrpRunner.run((Problem)p)));
+    }*/
+
 }

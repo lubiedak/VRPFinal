@@ -16,7 +16,8 @@ Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes) :
 
 Problem::Problem(Criteria criteria, Node depot, std::vector<Node> nodes, std::vector<std::vector<uint16_t> > distances) :
     criteria(criteria), depot(depot), nodes(nodes), distances(distances) {
-  adapt();
+  biggestDemander = findBiggestDemander();
+  demandsSum = sumDemands();
 }
 
 Problem::Problem(const crow::json::rvalue& json){

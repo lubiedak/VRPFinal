@@ -25,8 +25,14 @@ public:
   ~DistanceMatrix() = default;
 
   void readFromFile(const std::string& fileName);
+  std::vector<Node> getNodes(){
+    return nodes;
+  }
+  std::vector<std::vector<uint16_t>> getDistances(){
+    return matrix;
+  }
 private:
-  std::vector<std::vector<int>> matrix;
+  std::vector<std::vector<uint16_t>> matrix;
   std::vector<Node> nodes;
 };
 #endif

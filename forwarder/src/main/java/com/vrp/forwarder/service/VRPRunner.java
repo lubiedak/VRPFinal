@@ -40,7 +40,7 @@ public class VRPRunner {
         }
 
         ResponseEntity<Solution> response = restTemplate
-                .postForEntity(url, request , Solution.class );
+                .getForEntity(url, Solution.class );
 
         return response.getBody();
     }

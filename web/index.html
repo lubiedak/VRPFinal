@@ -37,6 +37,7 @@
 				</div>
 				<input type="button" name="generate" id="generate" value="Generate">
 				<input type="button" name="solve" id="solve" value="Solve">
+				<input type="button" name="solveSSE" id="solveSSE" value="SolveSSE">
 			</form>
 		</div>
 	</div>
@@ -121,6 +122,29 @@ document.getElementById('solve').onclick = function solve() {
 		}
 		});
 	});
+}
+
+document.getElementById('solveSSE').onclick = function solveSSE() {
+	var inputs = document.getElementById("params").elements;
+	var nodes_Count = inputs["nodes_Count"].value;
+	var min_Demand = inputs["min_Demand"].value;
+	var max_Demand = inputs["max_Demand"].value;
+	var max_X = inputs["max_X"].value;
+	var max_Y = inputs["max_Y"].value;
+
+	var url = "http://127.0.0.1:8080/api/v1/problem/generateAndSolveSSE?" + 'nodesCount=' + nodes_Count 
+	+'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y
+	
+	const evtSource = new EventSource(url);
+	evtSource.onmessage = function(event) {
+	  const newElement = document.createElement("li");
+	  const eventList = document.getElementById("list");
+
+	  newElement.innerHTML = "message: " + event.data;
+	  eventList.appendChild(newElement);
+	  console.log(eventList)
+	}
+
 }
         </script>
 	</body>
