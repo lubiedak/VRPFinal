@@ -8,6 +8,7 @@ import lombok.*;
 public class Node {
 	private final String name;
 	private int id;
+	private int distance_id;
 	private int x;
 	private int y;
 	private int demand;

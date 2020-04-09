@@ -48,29 +48,6 @@ Problem RandomModeExecutor::createProblem(std::string dir, std::string rndFile){
   return p;
 }
 
-Problem RandomModeExecutor::createProblemForCities(std::string dir, std::string rndFile){
-  ProblemGenParams params = initFromFile(rndFile);
-  Criteria c(1000, 10000, 5, params.minDemand, 0, 1);
-  
-  DistanceMatrix matrix;
-  matrix.readFromFile("../../web/miasta/odleglosci.csv");
-  Node depot = matrix.getNodes()[21];
-  std::vector<Node> allNodes = matrix.getNodes();
-  std::vector<Node> nodes(allNodes.begin(), allNodes.begin()+20);
-  std::vector<std::vector<uint16_t>> distances = matrix.getDistances();
-  for(auto &n : nodes){
-    n.setDemand(params.minDemand + rand() % (params.maxDemand - params.minDemand));
-    n.setDistanceId(n.getId());
-  }
-  depot.setDistanceId(depot.getId());
-  RandomProblemGenerator rpg(params, c);
-  Problem p = Problem(c,depot,nodes,distances);
-  std::cout<<p.toString();
-  FileUtils fileUtils;
-  fileUtils.saveToFile(dir + "/input", p.toString());
-  return p;
-}
-
 Solution RandomModeExecutor::solveProblem(std::string dir, Problem p) {
   CycleCreator cc(p);
   cc.create();
@@ -86,6 +63,14 @@ Solution RandomModeExecutor::solveProblem(std::string dir, Problem p) {
 
   std::cout << solution.toString() << std::endl;
   return solution;
+}
+
+Solution RandomModeExecutor::solveProblemForCities(std::string dir, Problem p) {
+  DistanceMatrix distanceMatrix;
+  distanceMatrix.readFromFile("../../web/miasta/odleglosci.csv");
+
+  p.setDistances(distanceMatrix.getDistances());
+  return solveProblem(dir, p);
 }
 
 std::string RandomModeExecutor::prepareExecutionDirectoryName(){

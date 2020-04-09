@@ -1,4 +1,4 @@
 vrprunner:
-  url: http://localhost:18080/random/problem/solution/cities
+  url: http://localhost:18080/problem/solve/cities
 cities:
   path: ../web/miasta/odleglosci.csv

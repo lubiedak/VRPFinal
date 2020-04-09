@@ -28,7 +28,9 @@ Problem::Problem(const crow::json::rvalue& json){
     nodes.push_back(Node(json["nodes"][i]));
   }
   depot = Node(json["depot"]);
-  adapt();
+  biggestDemander = findBiggestDemander();
+  demandsSum = sumDemands();
+  std::cout<<nodes[10].toString()<<std::endl;
 }
 
 void Problem::adapt() {

@@ -15,6 +15,7 @@ Node::Node() :
 
 Node::Node(const crow::json::rvalue& json) {
   id = json["id"].i();
+  distance_id = json["distance_id"].i();
   x = json["x"].i();
   y = json["y"].i();
   demand = json["demand"].i();

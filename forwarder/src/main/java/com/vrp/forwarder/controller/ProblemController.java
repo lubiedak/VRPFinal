@@ -1,10 +1,7 @@
 package com.vrp.forwarder.controller;
 
 import com.vrp.forwarder.model.*;
-import com.vrp.forwarder.service.Divider;
-import com.vrp.forwarder.service.NodesGenerator;
-import com.vrp.forwarder.service.SolutionOptimizer;
-import com.vrp.forwarder.service.VRPRunner;
+import com.vrp.forwarder.service.*;
 import com.vrp.forwarder.view.DrawableSolution;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,13 +21,15 @@ public class ProblemController {
 
     private static final String URL = "api/v1/problem";
 
-    private final NodesGenerator generator;
+    private final ProblemGenerator problemGenerator;
 
     private final VRPRunner vrpRunner;
 
     private final Divider divider;
 
     private final SolutionOptimizer solutionOptimizer;
+
+    private final CitiesReader citiesReader;
 
     @RequestMapping(value = URL, method = RequestMethod.GET)
     public ResponseEntity<Object> endpoints() {
@@ -48,9 +46,7 @@ public class ProblemController {
 
         GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand, maxX, maxY);
 
-        List<Node> nodes = generator.generateNodes(cfg);
-
-        Problem problem = Problem.builder().criteria(new Criteria()).nodes(nodes).build();
+        Problem problem = problemGenerator.generate(cfg);
         problem.sortNodes();
 
         return new ResponseEntity<>(problem, HttpStatus.OK);
@@ -66,15 +62,29 @@ public class ProblemController {
 
         GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand, maxX, maxY);
 
-        List<Node> nodes = generator.generateNodes(cfg);
-        Problem problem = Problem.builder().criteria(new Criteria()).nodes(nodes).build();
+        return runAndReturnSolution(draw, problemGenerator.generate(cfg));
+    }
+
+    @RequestMapping(value = URL + "/generateAndSolve4Cities", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> generateAndSolve4Cities( @RequestParam int nodesCount,
+                                                    @RequestParam int minDemand,
+                                                    @RequestParam int maxDemand,
+                                                    @RequestParam int maxX,
+                                                    @RequestParam int maxY,
+                                                    @RequestParam(required=false) boolean draw) {
+
+        GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand, maxX, maxY);
+        return runAndReturnSolution(draw, problemGenerator.generateForCities(cfg));
+    }
+
+    private ResponseEntity<Object> runAndReturnSolution(boolean draw, Problem problem) {
         List<Problem> problems = divider.divide(problem);
         List<Solution> solutions = problems.stream()
                                            .map(vrpRunner::run)
                                            .collect(Collectors.toList());
         Solution allSolutions = new Solution(solutions);
         //allSolutions = solutionOptimizer.improveSolution(problem, allSolutions);
-        if(draw){
+        if (draw) {
             DrawableSolution drawableSolution = new DrawableSolution(problem, allSolutions);
             return new ResponseEntity<>(drawableSolution, HttpStatus.OK);
         }
@@ -90,7 +100,7 @@ public class ProblemController {
                                                   @RequestParam int maxY) {
         GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand, maxX, maxY);
 
-        List<Node> nodes = generator.generateNodes(cfg);
+        List<Node> nodes = problemGenerator.generate(cfg);
         Problem problem = Problem.builder().criteria(new Criteria()).nodes(nodes).build();
         List<Problem> problems = divider.divide(problem);
 

@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class Divider {
 
-    private final static int BASE_GROUP_SIZE = 20;
+    private final static int BASE_GROUP_SIZE = 17;
 
     public List<Problem> divide(Problem p){
         p.sortNodes();

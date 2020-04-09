@@ -6,6 +6,7 @@ import com.vrp.forwarder.model.Problem;
 import com.vrp.forwarder.model.Solution;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpEntity;
@@ -17,13 +18,13 @@ import org.springframework.web.client.RestTemplate;
 
 
 @Service
-@Data
 @ConfigurationProperties(prefix = "vrprunner")
 @Slf4j
 @RequiredArgsConstructor
 public class VRPRunner {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    @Setter
     private String url;
 
     public Solution run(Problem p){
@@ -40,7 +41,7 @@ public class VRPRunner {
         }
 
         ResponseEntity<Solution> response = restTemplate
-                .getForEntity(url, Solution.class );
+                .postForEntity(url, request, Solution.class );
 
         return response.getBody();
     }

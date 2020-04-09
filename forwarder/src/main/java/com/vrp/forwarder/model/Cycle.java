@@ -31,9 +31,8 @@ public class Cycle {
 	}
 
 	public List<Node> toNodes(Problem problem){
-		return problem.getNodes()
+		return problem.getNodesWithDepot()
 					  .stream()
-					  .skip(1)
 					  .filter(node-> Arrays.stream(nodes).anyMatch(id -> node.getId()==id))
 					  .collect(Collectors.toList());
 	}

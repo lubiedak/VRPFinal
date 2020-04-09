@@ -41,15 +41,6 @@ void ApiController::run(void){
         return response;
     });
 
-    CROW_ROUTE(app,"/random/problem/solution/cities")
-	([](){
-        RandomModeExecutor executor;
-        auto problem = executor.createProblemForCities("rest", "ProblemGenParamsCfg");
-        crow::json::wvalue response = executor.solveProblem("rest", problem).toJson();
-        
-        return response;
-    });
-
     CROW_ROUTE(app, "/problem/solve")
     .methods("POST"_method)
     ([](const crow::request& req){
@@ -60,6 +51,19 @@ void ApiController::run(void){
             return crow::response(400);
         Problem p = Problem(json);
         Solution s = executor.solveProblem("rest", p);
+        return crow::response(s.toJson());
+    });
+
+    CROW_ROUTE(app, "/problem/solve/cities")
+    .methods("POST"_method)
+    ([](const crow::request& req){
+        auto json = crow::json::load(req.body);
+
+        RandomModeExecutor executor;
+        if (!json)
+            return crow::response(400);
+        Problem p = Problem(json);
+        Solution s = executor.solveProblemForCities("rest", p);
         return crow::response(s.toJson());
     });
 

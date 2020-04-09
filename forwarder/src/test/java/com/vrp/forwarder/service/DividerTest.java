@@ -15,7 +15,7 @@ class DividerTest {
 
     private final Divider divider = new Divider();
 
-    private final NodesGenerator nodesGenerator = new NodesGenerator();
+    private final ProblemGenerator problemGenerator = new ProblemGenerator(null);
     private final int MAX_GROUP_SIZE = 20;
     private final int MIN_GROUP_SIZE = 10;
 
@@ -24,8 +24,7 @@ class DividerTest {
     void divide80ShouldReturn4EqualGroups() {
         GeneratorCfg cfg = new GeneratorCfg(80, 0, 500);
 
-        List<Node> nodes = nodesGenerator.generateNodes(cfg);
-        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+        Problem problem = problemGenerator.generate(cfg);
 
         List<Problem> problems = divider.divide(problem);
 
@@ -36,9 +35,7 @@ class DividerTest {
     @Test
     void divide85ShouldReturnEqualGroups() {
         GeneratorCfg cfg = new GeneratorCfg(85, 0, 500);
-
-        List<Node> nodes = nodesGenerator.generateNodes(cfg);
-        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+        Problem problem = problemGenerator.generate(cfg);
 
         List<Problem> problems = divider.divide(problem);
 
@@ -49,9 +46,7 @@ class DividerTest {
     @Test
     void divide84ShouldReturn5GroupsSimilarSize() {
         GeneratorCfg cfg = new GeneratorCfg(84, 0, 500);
-
-        List<Node> nodes = nodesGenerator.generateNodes(cfg);
-        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+        Problem problem = problemGenerator.generate(cfg);
 
         List<Problem> problems = divider.divide(problem);
 
@@ -64,9 +59,7 @@ class DividerTest {
     @Test
     void divide20ShouldReturn1Group() {
         GeneratorCfg cfg = new GeneratorCfg(20, 0, 500);
-
-        List<Node> nodes = nodesGenerator.generateNodes(cfg);
-        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+        Problem problem = problemGenerator.generate(cfg);
 
         List<Problem> problems = divider.divide(problem);
 
@@ -77,9 +70,7 @@ class DividerTest {
     @Test
     void divide40ShouldReturn2GroupsSameSize() {
         GeneratorCfg cfg = new GeneratorCfg(40, 0, 500);
-
-        List<Node> nodes = nodesGenerator.generateNodes(cfg);
-        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+        Problem problem = problemGenerator.generate(cfg);
 
         List<Problem> problems = divider.divide(problem);
 
@@ -91,9 +82,7 @@ class DividerTest {
     @Test
     void divide41ShouldReturn3GroupsSimilarSize() {
         GeneratorCfg cfg = new GeneratorCfg(41, 0, 500);
-
-        List<Node> nodes = nodesGenerator.generateNodes(cfg);
-        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+        Problem problem = problemGenerator.generate(cfg);
 
         List<Problem> problems = divider.divide(problem);
 
@@ -106,9 +95,7 @@ class DividerTest {
     @Test
     void divide39ShouldReturn2GroupsSimilarSize() {
         GeneratorCfg cfg = new GeneratorCfg(39, 0, 500);
-
-        List<Node> nodes = nodesGenerator.generateNodes(cfg);
-        Problem problem = Problem.builder().depot(new Node("Depot")).criteria(new Criteria()).nodes(nodes).build();
+        Problem problem = problemGenerator.generate(cfg);
 
         List<Problem> problems = divider.divide(problem);
 

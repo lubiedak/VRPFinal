@@ -6,6 +6,8 @@ import lombok.Data;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Data
 @Builder
@@ -14,17 +16,16 @@ public class Problem {
 	Criteria criteria;
 	Node depot;
 
-
 	public void sortNodes(){
-		depot = nodes.stream()
-				.filter(x -> x.getName().equals("Depot"))
-				.findFirst()
-				.get();
-		nodes.remove(depot);
 		NodeClassifier classifier = new NodeClassifier(depot);
 		
 		nodes.forEach((node) -> node.setAngle(classifier.classify(node)));
 		nodes.sort(Comparator.comparing(Node::getAngle));
+	}
+
+	List<Node> getNodesWithDepot(){
+		return Stream.concat(Stream.of(depot), nodes.stream())
+					 .collect(Collectors.toList());
 	}
 
 }

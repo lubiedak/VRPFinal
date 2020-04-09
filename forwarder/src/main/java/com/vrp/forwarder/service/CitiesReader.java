@@ -1,6 +1,9 @@
 package com.vrp.forwarder.service;
 
 import com.vrp.forwarder.model.Node;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -12,14 +15,18 @@ import java.util.List;
 
 @Component
 @ConfigurationProperties(prefix = "cities")
+@Slf4j
 public class CitiesReader {
-
+    @Setter
     private String path;
 
     private static final int COORDS_MULTIPLIER = 50;
 
-    public List<Node> readCities(){
-        List<Node> nodes = new ArrayList<>();
+    @Getter
+    private List<Node> cities;
+
+    void readCities(){
+        cities = new ArrayList<>();
         List<String> lines = new ArrayList<>();
         try {
             lines = Files.readAllLines(Path.of(path));
@@ -27,15 +34,16 @@ public class CitiesReader {
             e.printStackTrace();
         }
         int id = 0;
-        for(String line : lines){
+        for(String line : lines.subList(3,lines.size())){
             String[] cells = line.split(";");
-            nodes.add( Node.builder().name(cells[0])
-                           .x((int)(COORDS_MULTIPLIER*Double.valueOf(cells[1])))
-                           .y((int)(COORDS_MULTIPLIER*Double.valueOf(cells[2])))
+            cities.add(Node.builder().name(cells[0])
+                           .x((int)(COORDS_MULTIPLIER*Double.valueOf(cells[2])))
+                           .y((int)(COORDS_MULTIPLIER*Double.valueOf(cells[1])))
                            .demand(0)
+                           .distance_id(id)
                            .id(id++)
                            .build());
         }
-        return nodes;
+        log.info(cities.toString());
     }
 }
