@@ -25,7 +25,10 @@ public class CitiesReader {
     @Getter
     private List<Node> cities;
 
-    void readCities(){
+    public void readCities(){
+        if(cities.size() > 0)
+            return;
+
         cities = new ArrayList<>();
         List<String> lines = new ArrayList<>();
         try {
