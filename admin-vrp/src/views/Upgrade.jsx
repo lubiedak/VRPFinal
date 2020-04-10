@@ -31,8 +31,8 @@ class Icons extends Component {
             <Col md={8} mdOffset={2}>
               <Card
                 hCenter
-                title="Light Bootstrap Dashboard PRO React"
-                category="Are you looking for more components? Please check our Premium Version of Light Bootstrap Dashboard React."
+                title="VRP PRO React"
+                category="Are you looking for more components? Please check our Premium Version of VRP React."
                 ctTableResponsive
                 ctTableFullWidth
                 ctTableUpgrade
