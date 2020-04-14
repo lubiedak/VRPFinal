@@ -26,27 +26,28 @@ public class CitiesReader {
     private List<Node> cities;
 
     public void readCities(){
-        if(cities.size() > 0)
-            return;
+        if(cities == null) {
 
-        cities = new ArrayList<>();
-        List<String> lines = new ArrayList<>();
-        try {
-            lines = Files.readAllLines(Path.of(path));
-        } catch (IOException e) {
-            e.printStackTrace();
+            cities = new ArrayList<>();
+            List<String> lines = new ArrayList<>();
+            try {
+                lines = Files.readAllLines(Path.of(path));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            int id = 0;
+            for (String line : lines.subList(3, lines.size())) {
+                String[] cells = line.split(";");
+                cities.add(Node.builder()
+                               .name(cells[0])
+                               .x((int) (COORDS_MULTIPLIER * Double.valueOf(cells[2])))
+                               .y((int) (COORDS_MULTIPLIER * Double.valueOf(cells[1])))
+                               .region(cells[3])
+                               .demand(0)
+                               .distance_id(id)
+                               .id(id++)
+                               .build());
+            }
         }
-        int id = 0;
-        for(String line : lines.subList(3,lines.size())){
-            String[] cells = line.split(";");
-            cities.add(Node.builder().name(cells[0])
-                           .x((int)(COORDS_MULTIPLIER*Double.valueOf(cells[2])))
-                           .y((int)(COORDS_MULTIPLIER*Double.valueOf(cells[1])))
-                           .demand(0)
-                           .distance_id(id)
-                           .id(id++)
-                           .build());
-        }
-        log.info(cities.toString());
     }
 }

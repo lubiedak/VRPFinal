@@ -14,6 +14,10 @@ public class Node {
 	private int demand;
 	private double angle;
 
+	//Maybe in seperate class ?
+	private int group;
+	private String region;
+
 	public Node(String name){
 		this.name = name;
 	}
