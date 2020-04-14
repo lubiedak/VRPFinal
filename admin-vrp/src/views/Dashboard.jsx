@@ -4,16 +4,6 @@
 * VRP - v1.3.0
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
 */
 import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
@@ -53,9 +43,9 @@ class Dashboard extends Component {
           <Row>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-server text-warning" />}
-                statsText="Capacity"
-                statsValue="105GB"
+                bigIcon={<i className="pe-7s-car text-warning" />}
+                statsText="Fleet Size"
+                statsValue="23"
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
@@ -63,16 +53,16 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-wallet text-success" />}
-                statsText="Revenue"
-                statsValue="$1,345"
+                statsText="Total capacity"
+                statsValue="690 m³"
                 statsIcon={<i className="fa fa-calendar-o" />}
                 statsIconText="Last day"
               />
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-graph1 text-danger" />}
-                statsText="Errors"
+                bigIcon={<i className="pe-7s-id text-danger" />}
+                statsText="Drivers available"
                 statsValue="23"
                 statsIcon={<i className="fa fa-clock-o" />}
                 statsIconText="In the last hour"
@@ -80,9 +70,9 @@ class Dashboard extends Component {
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="fa fa-twitter text-info" />}
-                statsText="Followers"
-                statsValue="+45"
+                bigIcon={<i className="fa pe-7s-server" />}
+                statsText="Total demand"
+                statsValue='921 m³'
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
