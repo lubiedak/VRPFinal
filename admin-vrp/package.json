@@ -15,8 +15,10 @@
     "react-router": "5.0.0",
     "react-router-dom": "5.0.0",
     "react-scripts": "3.0.0",
+    "react-sigma": "^1.2.34",
     "react-toggle": "4.0.2"
   },
+  "proxy": "http://localhost:8080",
   "devDependencies": {
     "@types/googlemaps": "3.30.19",
     "@types/markerclustererplus": "2.1.33",

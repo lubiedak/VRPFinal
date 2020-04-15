@@ -17,7 +17,7 @@ class NodeD {
         label = node.getName() + "_" + node.getDemand();
         x = node.getX();
         y = node.getY();
-        color = node.getRegion() == null ? "" : "#"+(node.getRegion().hashCode() % 0x100000);
+        color = node.getRegion() == null ? "" : "#"+(Math.abs(node.getRegion().hashCode()) % 0x100000);
         size = node.getDemand() == 0 ? 40 : node.getDemand();
     }
 }

@@ -22,7 +22,7 @@ public class DrawableSolution {
                         .map(Edge::edges).flatMap(List::stream).collect(Collectors.toList());
     }
 
-    public DrawableSolution(List<Node> cities, int n){
+    public DrawableSolution(List<Node> cities, int n, List<String> depots){
         int minX = cities.stream().min(Comparator.comparing(Node::getX)).orElseThrow().getX();
         int maxX = cities.stream().max(Comparator.comparing(Node::getX)).orElseThrow().getX();
         int minY = cities.stream().min(Comparator.comparing(Node::getY)).orElseThrow().getY();
@@ -33,12 +33,12 @@ public class DrawableSolution {
         for(int i = 1; i<n; i++){
             int x = minX+i*(maxX-minX)/n;
             int y = minY+i*(maxY-minY)/n;
-            markers.add(Node.builder().x(minX).y(y).demand(100).id(1000+i).build());
-            markers.add(Node.builder().x(maxX).y(y).demand(100).id(2000+i).build());
+            markers.add(Node.builder().x(minX).y(y).demand(100).id(1000+i).name("x"+i).build());
+            markers.add(Node.builder().x(maxX).y(y).demand(100).id(2000+i).name("x"+i).build());
             edges.add(Edge.builder().source(1000+i).target(2000+i).id(""+12+i).build());
 
-            markers.add(Node.builder().x(x).y(minY).demand(100).id(3000+i).build());
-            markers.add(Node.builder().x(x).y(maxY).demand(100).id(4000+i).build());
+            markers.add(Node.builder().x(x).y(minY).demand(100).id(3000+i).name("y"+i).build());
+            markers.add(Node.builder().x(x).y(maxY).demand(100).id(4000+i).name("y"+i).build());
 
             edges.add(Edge.builder().source(3000+i).target(4000+i).id(""+34+i).build());
         }
