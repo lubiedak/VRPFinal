@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -43,7 +44,9 @@ public class CitiesReader {
                                .x((int) (COORDS_MULTIPLIER * Double.valueOf(cells[2])))
                                .y((int) (COORDS_MULTIPLIER * Double.valueOf(cells[1])))
                                .region(cells[3])
+                               .group(cells[4])
                                .demand(0)
+                               .depot(!StringUtils.isEmpty(cells[0]) && cells[0].equals(cells[4]))
                                .distance_id(id)
                                .id(id++)
                                .build());

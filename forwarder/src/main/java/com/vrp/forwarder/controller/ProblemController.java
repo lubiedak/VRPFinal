@@ -29,7 +29,6 @@ public class ProblemController {
 
     private final SolutionOptimizer solutionOptimizer;
 
-    private final CitiesReader citiesReader;
 
     @RequestMapping(value = URL, method = RequestMethod.GET)
     public ResponseEntity<Object> endpoints() {
@@ -91,20 +90,5 @@ public class ProblemController {
 
         return new ResponseEntity<>(allSolutions, HttpStatus.OK);
     }
-/*
-    @RequestMapping(value = URL + "/generateAndSolveSSE", method = RequestMethod.GET, produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<DrawableSolution> generateAndSolveSSE(@RequestParam int nodesCount,
-                                                  @RequestParam int minDemand,
-                                                  @RequestParam int maxDemand,
-                                                  @RequestParam int maxX,
-                                                  @RequestParam int maxY) {
-        GeneratorCfg cfg = new GeneratorCfg(nodesCount, minDemand, maxDemand, maxX, maxY);
-
-        List<Node> nodes = problemGenerator.generate(cfg);
-        Problem problem = Problem.builder().criteria(new Criteria()).nodes(nodes).build();
-        List<Problem> problems = divider.divide(problem);
-
-        return Flux.just(problems.toArray()).map(p-> new DrawableSolution((Problem)p, vrpRunner.run((Problem)p)));
-    }*/
 
 }

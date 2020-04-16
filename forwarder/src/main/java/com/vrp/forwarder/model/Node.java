@@ -15,8 +15,9 @@ public class Node {
 	private double angle;
 
 	//Maybe in seperate class ?
-	private int group;
+	private String group;
 	private String region;
+	private boolean depot;
 
 	public Node(String name){
 		this.name = name;

@@ -44,5 +44,11 @@ public class CitiesController {
         return map.keySet().stream().collect(Collectors.groupingBy(map::get));
     }
 
+    @RequestMapping(value = URL+"/group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object CitiesDividedByGroup() {
+        citiesReader.readCities();
+        var map = citiesReader.getCities().stream().collect(Collectors.toMap(Node::getName, Node::getRegion));
+        return map.keySet().stream().collect(Collectors.groupingBy(map::get));
+    }
 
 }
