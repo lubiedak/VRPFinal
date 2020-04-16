@@ -13,7 +13,7 @@ class GraphFetcher extends Component {
     };
 
     componentDidMount() {
-        fetch('/api/v1/city/divided/4')
+        fetch('/api/v1/city/group/Wrocław')
             .then(res => res.json())
             .then((data) => {
                 this.setState({ nodes: data })

@@ -38,7 +38,7 @@ public class CitiesController {
     }
 
     @RequestMapping(value = URL+"/region", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object CitiesDividedByRegion() {
+    public Object citiesDividedByRegion() {
         citiesReader.readCities();
         var map = citiesReader.getCities().stream().collect(Collectors.toMap(Node::getName, Node::getRegion));
         return map.keySet().stream().collect(Collectors.groupingBy(map::get));
@@ -47,8 +47,19 @@ public class CitiesController {
     @RequestMapping(value = URL+"/group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Object CitiesDividedByGroup() {
         citiesReader.readCities();
-        var map = citiesReader.getCities().stream().collect(Collectors.toMap(Node::getName, Node::getRegion));
+        var map = citiesReader.getCities().stream().collect(Collectors.toMap(Node::getName, Node::getGroup));
         return map.keySet().stream().collect(Collectors.groupingBy(map::get));
+    }
+
+
+    @RequestMapping(value = URL+"/group/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object citiesFromGroup(@PathVariable String name) {
+        citiesReader.readCities();
+        List<Node> citiesFromGroup = citiesReader.getCities()
+                                                 .stream()
+                                                 .filter(c->c.getGroup().equals(name))
+                                                 .collect(Collectors.toList());
+        return new DrawableSolution(citiesFromGroup, 1,null);
     }
 
 }
