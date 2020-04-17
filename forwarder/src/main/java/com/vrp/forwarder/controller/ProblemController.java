@@ -1,5 +1,7 @@
 package com.vrp.forwarder.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vrp.forwarder.model.*;
 import com.vrp.forwarder.service.*;
 import com.vrp.forwarder.view.DrawableSolution;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +31,8 @@ public class ProblemController {
     private final Divider divider;
 
     private final SolutionOptimizer solutionOptimizer;
+
+    private final ObjectMapper objectMapper;
 
 
     @RequestMapping(value = URL, method = RequestMethod.GET)
@@ -76,19 +81,29 @@ public class ProblemController {
         return runAndReturnSolution(draw, problemGenerator.generateForCities(cfg));
     }
 
-    private ResponseEntity<Object> runAndReturnSolution(boolean draw, Problem problem) {
+    private ResponseEntity runAndReturnSolution(boolean draw, Problem problem) {
+        Problem problemCopy = Problem.builder().build();
+        try {
+            problemCopy = objectMapper
+                    .readValue(objectMapper.writeValueAsString(problem), Problem.class);
+        }catch (JsonProcessingException ignored){}
+
         List<Problem> problems = divider.divide(problem);
         List<Solution> solutions = problems.stream()
                                            .map(vrpRunner::run)
                                            .collect(Collectors.toList());
         Solution allSolutions = new Solution(solutions);
-        //allSolutions = solutionOptimizer.improveSolution(problem, allSolutions);
+
+        Solution optimized = solutionOptimizer.improveMiddleCycles(problem, solutions.get(0), solutions.get(1));
         if (draw) {
-            DrawableSolution drawableSolution = new DrawableSolution(problem, allSolutions);
-            return new ResponseEntity<>(drawableSolution, HttpStatus.OK);
+            DrawableSolution drawableSolution = new DrawableSolution(problemCopy, optimized);
+
+            DrawableSolution drawableSolution2 = new DrawableSolution(problemCopy, allSolutions);
+
+            return ResponseEntity.ok(Arrays.asList(drawableSolution, drawableSolution2));
         }
 
-        return new ResponseEntity<>(allSolutions, HttpStatus.OK);
+        return new ResponseEntity<>(optimized, HttpStatus.OK);
     }
 
 }

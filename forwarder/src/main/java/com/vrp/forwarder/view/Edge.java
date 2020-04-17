@@ -36,7 +36,7 @@ class Edge {
                       .source(nodes[i])
                       .target(nodes[0])
                       .color(color)
-                      .size(1)
+                      .size(2)
                       .build());
 
         return edges;

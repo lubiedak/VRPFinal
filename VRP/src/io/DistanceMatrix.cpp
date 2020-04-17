@@ -26,10 +26,10 @@ void DistanceMatrix::readFromFile(const std::string &fileName)
     matrix = std::vector<std::vector<uint16_t>>(cells.size() - matrix::BEGIN);
     for (size_t i = matrix::BEGIN; i < cells.size(); ++i)
     {
-        matrix[i - matrix::BEGIN] = std::vector<uint16_t>(cells[i].size() - matrix::BEGIN);
-        for (size_t j = matrix::BEGIN; j < cells[i].size(); ++j)
+        matrix[i - matrix::BEGIN] = std::vector<uint16_t>(cells[i].size() - matrix::BEGIN_Y);
+        for (size_t j = matrix::BEGIN_Y; j < cells[i].size(); ++j)
         {
-            matrix[i - matrix::BEGIN][j - matrix::BEGIN] = std::stoi(cells[i][j]);
+            matrix[i - matrix::BEGIN][j - matrix::BEGIN_Y] = std::stoi(cells[i][j]);
         }
     }
 }

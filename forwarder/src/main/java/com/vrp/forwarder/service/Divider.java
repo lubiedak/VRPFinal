@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class Divider {
 
-    private final static int BASE_GROUP_SIZE = 17;
+    private final static int BASE_GROUP_SIZE = 18;
 
     public List<Problem> divideCitiesIntoProblems(List<Node> allCities) {
         List<Node> cities = new ArrayList<>(allCities);
