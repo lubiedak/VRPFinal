@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class SolutionOptimizer {
 
-    private static final int NODES_TO_OPTIMIZE = 17;
+    private static final int NODES_TO_OPTIMIZE = 16;
     private final VRPRunner vrpRunner;
     private final ObjectMapper objectMapper;
 
@@ -50,9 +50,9 @@ public class SolutionOptimizer {
         Solution improved = reRunForNewCycles(problem, cycles);
         Solution improved2 = reRunForNewCycles(problemCopy, allCycles);
         Solution old = rebuild(allCycles);
-        System.out.println("Second half Before optimization: " + improved2.getDistance());
+        System.out.println("Second half Before optimization: " + old.getDistance());
 
-        System.out.println("After optimization: " + old.getDistance());
+        System.out.println("After optimization: " + improved2.getDistance());
 
         Solution newSolution = new Solution(Arrays.asList(improved, old));
 
@@ -73,6 +73,7 @@ public class SolutionOptimizer {
         List<Node> nodes = cycles.stream()
                                  .map(c->c.toNodes(problem))
                                  .flatMap(List::stream)
+                                 .filter(n->!n.getName().equals("Depot"))
                                  .distinct()
                                  .collect(Collectors.toList());
         problem.setNodes(nodes);
