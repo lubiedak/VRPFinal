@@ -6,7 +6,6 @@
  */
 
 #include "RandomModeExecutor.h"
-#include "RandomProblemGenerator.h"
 #include "../solver/CycleCreator.h"
 #include "../solver/CycleConnector.h"
 #include "io/FileUtils.h"
@@ -38,7 +37,7 @@ std::map<std::string, std::string> RandomModeExecutor::generateAndSolveRandomPro
 
 Problem RandomModeExecutor::createProblem(std::string dir, std::string rndFile){
   ProblemGenParams params = initFromFile(rndFile);
-  Criteria c(1000, 1000, 5, params.minDemand, 0, 1);
+  Criteria c(1000, 5000, 5, params.minDemand, 0, 1);
 
   RandomProblemGenerator rpg(params, c);
   Problem p = rpg.generate();
@@ -48,8 +47,19 @@ Problem RandomModeExecutor::createProblem(std::string dir, std::string rndFile){
   return p;
 }
 
-Solution RandomModeExecutor::solveProblem(std::string dir, Problem p) {
-  CycleCreator cc(p);
+Problem RandomModeExecutor::createProblem(std::string dir, ProblemGenParams params){
+  Criteria c(1000, 5000, 5, params.minDemand, 0, 1);
+
+  RandomProblemGenerator rpg(params, c);
+  Problem p = rpg.generate();
+  FileUtils fileUtils;
+  fileUtils.saveToFile(dir + "/input", p.toString());
+  p.adapt();
+  return p;
+}
+
+Solution RandomModeExecutor::solveProblem(std::string dir, Problem p, bool optimize) {
+  CycleCreator cc(p, optimize);
   cc.create();
   std::vector<Cycle> cycles = cc.getCycles();
 

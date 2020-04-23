@@ -11,13 +11,15 @@
 #include <string>
 #include "../solver/Solution.h"
 #include "../model/Problem.h"
+#include "RandomProblemGenerator.h"
 
 class RandomModeExecutor {
 public:
     RandomModeExecutor(void){};
     std::map<std::string, std::string> generateAndSolveRandomProblems(int n);
     Problem createProblem(std::string dir, std::string rndFile);
-    Solution solveProblem(std::string dir, Problem p);
+    Problem createProblem(std::string dir, ProblemGenParams params);
+    Solution solveProblem(std::string dir, Problem p, bool optimize=false);
     Solution solveProblemForCities(std::string dir, Problem p);
 private:
     std::string prepareExecutionDirectoryName();

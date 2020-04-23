@@ -51,6 +51,10 @@ public:
   void addNode(const Node& node) {
     nodes.push_back(node);
   }
+  void removeLastNode() {
+    nodes.pop_back();
+    adapt();
+  }
   void setDepot(const Node& node) {
     depot = node;
   }
@@ -69,6 +73,9 @@ public:
   }
   uint16_t getMinNodes() const {
     return criteria.minNodes();
+  }
+  void setMinNodes(int n) {
+    criteria.setMinNodes(n);
   }
   uint16_t getMaxCapacity() const {
     return criteria.maxCapacity();

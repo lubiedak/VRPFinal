@@ -60,6 +60,10 @@ public:
     properties["minCapacity"] = minC;
   }
 
+  void setMinNodes(uint16_t n){
+    properties["minNodes"] = n;
+  }
+
 private:
   std::map<std::string, uint16_t> properties;
 };

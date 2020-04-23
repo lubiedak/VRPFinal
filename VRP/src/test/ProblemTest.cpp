@@ -10,6 +10,7 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include <time.h>
 
 #include "../solver/CycleConnector.h"
 #include "../solver/CycleCreator.h"
@@ -101,7 +102,9 @@ bool Problem6Nodes_TEST() {
 }
 
 bool Problem10Nodes_TEST() {
+  std::cout<<"Moze to";
   Problem p = problem10Nodes();
+  std::cout<<"Moze to";
   return ProblemTemplate_TEST(p, 175, 3001, 1943);
 }
 
@@ -113,6 +116,36 @@ bool Problem20Nodes_TEST() {
 bool DistanceMatrixReading_TEST(){
   DistanceMatrix distanceMatrix;
   distanceMatrix.readFromFile("../../web/miasta/odleglosci.csv");
+  return true;
+}
+
+bool ZPerformance_TEST() {
+  RandomModeExecutor executor;
+  Problem lastProblem;
+  Solution lastSolution;
+  ProblemGenParams params = initFromFile("/Users/lukasz.biedak/workspace/VRPFinal/VRP/build/ProblemGenParamsCfg");
+  for(int x = 0; x<100; x++){
+    std::cout<<"XXXX "<<x<<std::endl;
+    params.nodes = 20;
+    auto problem = executor.createProblem("rest", params);
+    problem = setDemandsTo(problem, 250);
+    
+    for(int i = 0; i<7; i++){
+      clock_t tStart = clock();
+      Solution solution = executor.solveProblem("rest", problem);
+      double time = (double)(clock() - tStart)/CLOCKS_PER_SEC;
+      std::cout<<"XXXX;"<<problem.size()<<";"<<solution.getDemand()<<";"
+        <<solution.getDistance()<<";"<<time<<std::endl;
+
+      tStart = clock();
+      solution = executor.solveProblem("rest", problem, true);
+      time = (double)(clock() - tStart)/CLOCKS_PER_SEC;
+      std::cout<<"XXXX;"<<problem.size()<<";"<<solution.getDemand()<<";"
+        <<solution.getDistance()<<";"<<time<<std::endl;
+
+      problem.removeLastNode();
+    }
+  }
   return true;
 }
 
@@ -162,6 +195,18 @@ Problem increaseDemandsByOne(Problem problem){
   for(Node node: problem.getNodes()){
     Node newNode = node;
     newNode.setDemand(node.getDemand() + 1);
+    nodes.push_back(newNode);
+  }
+  problem.setNodes(nodes);
+  problem.adapt();
+  return problem;
+}
+
+Problem setDemandsTo(Problem problem, int demand){
+  std::vector<Node> nodes;
+  for(Node node: problem.getNodes()){
+    Node newNode = node;
+    newNode.setDemand(demand);
     nodes.push_back(newNode);
   }
   problem.setNodes(nodes);
