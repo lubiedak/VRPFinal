@@ -102,9 +102,7 @@ bool Problem6Nodes_TEST() {
 }
 
 bool Problem10Nodes_TEST() {
-  std::cout<<"Moze to";
   Problem p = problem10Nodes();
-  std::cout<<"Moze to";
   return ProblemTemplate_TEST(p, 175, 3001, 1943);
 }
 
@@ -124,13 +122,17 @@ bool ZPerformance_TEST() {
   Problem lastProblem;
   Solution lastSolution;
   ProblemGenParams params = initFromFile("/Users/lukasz.biedak/workspace/VRPFinal/VRP/build/ProblemGenParamsCfg");
+  int allOperations=0;
+  int optimizationIsWorse = 0;
   for(int x = 0; x<100; x++){
     std::cout<<"XXXX "<<x<<std::endl;
-    params.nodes = 20;
+    params.nodes = 22;
     auto problem = executor.createProblem("rest", params);
-    problem = setDemandsTo(problem, 250);
+    //problem = setDemandsTo(problem, 250);
     
-    for(int i = 0; i<7; i++){
+    for(int i = 0; i<4; i++){
+      allOperations++;
+      std::cout<<"                                 XXXX "<<x<<std::endl;
       clock_t tStart = clock();
       Solution solution = executor.solveProblem("rest", problem);
       double time = (double)(clock() - tStart)/CLOCKS_PER_SEC;
@@ -138,11 +140,19 @@ bool ZPerformance_TEST() {
         <<solution.getDistance()<<";"<<time<<std::endl;
 
       tStart = clock();
-      solution = executor.solveProblem("rest", problem, true);
+      Solution solutionOptimized = executor.solveProblem("rest", problem, true);
       time = (double)(clock() - tStart)/CLOCKS_PER_SEC;
-      std::cout<<"XXXX;"<<problem.size()<<";"<<solution.getDemand()<<";"
-        <<solution.getDistance()<<";"<<time<<std::endl;
-
+      std::cout<<"XXXX;"<<problem.size()<<";"<<solutionOptimized.getDemand()<<";"
+        <<solutionOptimized.getDistance()<<";"<<time<<std::endl;
+      
+      if(solution.getDistance() < solutionOptimized.getDistance()){
+        optimizationIsWorse++;
+        std::cout<<"                                                                  XXXXXX;"<<problem.size()<<";"<<solution.getDistance()<<";"
+        <<solutionOptimized.getDistance()<<";"<<optimizationIsWorse<<";"<<allOperations<<std::endl;
+      }
+      if(allOperations%50==0){
+        std::cout<<"                                                                  XXXXXX;"<<allOperations<<std::endl;
+      }
       problem.removeLastNode();
     }
   }

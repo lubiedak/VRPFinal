@@ -44,7 +44,7 @@ void CycleCreator::create() {
   }
   analyzeCycles();
   optimize();
-  std::cout<<"XXXXCycleCreator: "<<cycles.size()<<std::endl;
+  std::cout<<"                                 XXXXCycleCreator: "<<cycles.size()<<std::endl;
 }
 
 std::vector<uint32_t> CycleCreator::countPossibleCycles() {
@@ -118,7 +118,7 @@ void CycleCreator::analyzeCycles(){
 }
 
 void CycleCreator::optimize(){
-  if(optimizations){
+  if(optimizations && problem.size() > 18){
     removeFarSingleNodeCycles();
     removeFarAndLowOnDemandDoubleNodesCycles();
   }
@@ -137,7 +137,7 @@ void CycleCreator::removeFarSingleNodeCycles(){
     }
   }
   //We don't want to remove top closest single node cycles
-  singleNodeCycles.erase(singleNodeCycles.begin(), singleNodeCycles.begin() + maxSize-1);
+  singleNodeCycles.erase(singleNodeCycles.begin(), singleNodeCycles.begin() + singleNodeCycles.size()/3);
   
   for(auto c: singleNodeCycles){
     removeSafe(c.getId());
@@ -149,14 +149,14 @@ void CycleCreator::removeFarAndLowOnDemandDoubleNodesCycles(){
   std::vector<Cycle> cyclesToRemove;
   for(int i = 0; i < size; ++i){
     if(cycles[i].size() == 3 
-    && cycles[i].getDemandRank() <= 0.6 
-    && cycles[i].getDistanceRank() > 0.55){
+    && (cycles[i].getDemandRank() <= 70 
+    && cycles[i].getDistanceRank() > 62)){
       cyclesToRemove.push_back(cycles[i]);
     }
   }
   for(auto c: cyclesToRemove){
     removeSafe(c.getId());
-  }  
+  }
 }
 
 void CycleCreator::removeSafe(uint32_t id){
