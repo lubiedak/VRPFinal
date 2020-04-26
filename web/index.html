@@ -8,8 +8,13 @@
 		<link rel="stylesheet" type="text/css" href="dist/css/styles.css" />
 		<style type="text/css">
 			#graph {
-			  max-width: 1000px;
-			  height: 1000px;
+			  max-width: 500px;
+			  height: 500px;
+			  margin: auto;
+			};
+			#graph2 {
+			  max-width: 500px;
+			  height: 500px;
 			  margin: auto;
 			}
 		  </style>
@@ -20,7 +25,7 @@
 			<form id="params" class="form" method="post" action="#">
 				<h3>Generate Nodes</h3>
 				<div class="form-group">
-					<label>Nodes Count:</label>    <input type="number" class="form-control" value=16 name="nodes_Count" id="nodes_Count">
+					<label>Nodes Count:</label>    <input type="number" class="form-control" value=36 name="nodes_Count" id="nodes_Count">
 				</div>
 				<div class="form-group">
 					<label>Minimum Demand:</label> <input type="number" class="form-control" value=150 name="min_Demand" id="min_Demand">
@@ -32,7 +37,7 @@
 					<label>Max X:</label>          <input type="number" class="form-control" value=800 name="max_X" id="max_X">
 				</div>
 				<div class="form-group">
-					<label>Max Y:</label>          <input type="number" class="form-control" value=600 name="max_Y" id="max_Y">
+					<label>Max Y:</label>          <input type="number" class="form-control" value=800 name="max_Y" id="max_Y">
 				</div>
 				<input type="button" name="generate" id="generate" value="Generate">
 				<input type="button" name="solve" id="solve" value="Solve">
@@ -42,7 +47,9 @@
 		</div>
 	</div>
 
-	<div id="graph"></div>
+	<div id="graph" style="width: 540px; height: 500px; float: left;"></div>
+
+	<div id="graph2" style="width: 540px; height: 500px; float right;"></div>
 	
 	<script src="./sigma.min.js"></script>
 	<script src="./sigma.parsers.json.min.js">
@@ -61,6 +68,10 @@
 s = new sigma({
 		graph: '',
 		container: 'graph'
+	});
+s2 = new sigma({
+		graph: '',
+		container: 'graph2'
 	});
 
 document.getElementById('generate').onclick = function generate() {
@@ -96,7 +107,7 @@ document.getElementById('solve').onclick = function solve() {
 	var max_X = inputs["max_X"].value;
 	var max_Y = inputs["max_Y"].value;
 
-	var url = "http://127.0.0.1:8080/api/v1/problem/generateAndSolve4Cities?draw=true&" + 'nodesCount=' + nodes_Count 
+	var url = "http://127.0.0.1:8080/api/v1/problem/generateAndSolve?draw=true&" + 'nodesCount=' + nodes_Count 
 	+'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y
 	
 	fetch(url, {method: 'POST',
@@ -113,8 +124,16 @@ document.getElementById('solve').onclick = function solve() {
 		s.refresh();
 		
 		s = new sigma({
-			graph: data,
+			graph: data[0],
 			container: 'graph'
+		});
+		
+		s2.graph.clear();
+		s2.refresh();
+		
+		s2 = new sigma({
+			graph: data[1],
+			container: 'graph2'
 		});
 	});
 }

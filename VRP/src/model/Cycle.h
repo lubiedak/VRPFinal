@@ -48,8 +48,13 @@ public:
   void setId(uint32_t id) {
     this->id = id;
   }
+
   uint32_t getId() const {
     return id;
+  }
+
+  uint16_t size() const {
+    return nodes.size();
   }
 
   bool contains(uint16_t nodeId) const;
@@ -62,8 +67,16 @@ public:
     distanceRank = position*100.0f/size;
   }
 
+  float getDistanceRank() {
+    return distanceRank;
+  }
+
   void setDemandRank(int position, int size) {
     demandRank = position*100.0f/size;
+  }
+
+  float getDemandRank() {
+    return demandRank;
   }
 
   float getDemandToDistRatio() const {

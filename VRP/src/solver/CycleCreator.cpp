@@ -16,13 +16,18 @@ CycleCreator::CycleCreator(const Problem& p) :
   permGen = PermutationGen<int>(problem.getMaxNodes());
   permGen.Permute(problem.getMaxNodes(), problem.getMaxNodes());
   silentMode = false;
+  optimizations = false;
+}
+
+CycleCreator::CycleCreator(const Problem& p, bool optimize) : CycleCreator(p){
+  optimizations = optimize;
 }
 
 CycleCreator::~CycleCreator() {
   // TODO Auto-generated destructor stub
 }
 
-uint16_t CycleCreator::create() {
+void CycleCreator::create() {
   /**
    * cycleId is binary representation of cycle from vector of cycles
    * 5 ==> 101 ==> Node_0 and Node_2
@@ -37,12 +42,9 @@ uint16_t CycleCreator::create() {
 
     cycles[i].selfOptimize(problem.getDistances(), perms);
   }
-
   analyzeCycles();
-
-  //std::cout<<"CycleCreator: "<<cycleIds.size()<<" cycles created"<<std::endl;
-
-  return cycleIds.size();
+  optimize();
+  std::cout<<"                                 XXXXCycleCreator: "<<cycles.size()<<std::endl;
 }
 
 std::vector<uint32_t> CycleCreator::countPossibleCycles() {
@@ -95,6 +97,7 @@ bool compareByDemand(const Cycle& c1, const Cycle& c2){
 
 void CycleCreator::analyzeCycles(){
   //Sort by DemandToDistance ratio
+  //TODO does it work?
   std::sort(cycles.begin(), cycles.end(), compareByDemandDistanceRatio);
   int size = cycles.size();
   for(int i = 0; i < size; ++i){
@@ -113,3 +116,60 @@ void CycleCreator::analyzeCycles(){
     cycles[i].setDistanceRank(i, size);
   }
 }
+
+void CycleCreator::optimize(){
+  if(optimizations && problem.size() > 18){
+    removeFarSingleNodeCycles();
+    removeFarAndLowOnDemandDoubleNodesCycles();
+  }
+}
+
+void CycleCreator::removeFarSingleNodeCycles(){
+  int size = cycles.size();
+  std::vector<Cycle> singleNodeCycles;
+  int maxSize = 0;
+  for(int i = 0; i < size; ++i){
+    if(cycles[i].size() == 2){
+      singleNodeCycles.push_back(cycles[i]);
+    }
+    if(cycles[i].size()>maxSize){
+      maxSize=cycles[i].size();
+    }
+  }
+  //We don't want to remove top closest single node cycles
+  singleNodeCycles.erase(singleNodeCycles.begin(), singleNodeCycles.begin() + singleNodeCycles.size()/3);
+  
+  for(auto c: singleNodeCycles){
+    removeSafe(c.getId());
+  }  
+}
+
+void CycleCreator::removeFarAndLowOnDemandDoubleNodesCycles(){
+  int size = cycles.size();
+  std::vector<Cycle> cyclesToRemove;
+  for(int i = 0; i < size; ++i){
+    if(cycles[i].size() == 3 
+    && (cycles[i].getDemandRank() <= 70 
+    && cycles[i].getDistanceRank() > 62)){
+      cyclesToRemove.push_back(cycles[i]);
+    }
+  }
+  for(auto c: cyclesToRemove){
+    removeSafe(c.getId());
+  }
+}
+
+void CycleCreator::removeSafe(uint32_t id){
+  int sum = 0;
+  for(auto c : cycles){
+    c.getId() && id ? sum++: sum;
+  }
+  if(sum>1){
+    auto toRemove = std::find_if(std::begin(cycles), std::end(cycles),
+            [&](Cycle& c) { return (c.getId() == id); });
+    cycles.erase(toRemove);
+  }
+}
+
+// Remove 2 low on demand and far from depot
+

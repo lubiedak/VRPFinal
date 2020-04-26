@@ -1,5 +1,7 @@
 package com.vrp.forwarder.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,10 +11,13 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Solution {
     int demand;
     int distance;
     List<Cycle> cycles;
+    double angle;
 
     public Solution(List<Solution> solutions){
         cycles = new ArrayList<>();
@@ -23,8 +28,9 @@ public class Solution {
         });
     }
 
-    public void sortCycles(Problem problem){
+    public void countAngles(Problem problem){
         cycles.forEach(c->c.countAngleToDepot(problem));
+        angle = cycles.stream().mapToDouble(Cycle::getAngleToDepot).sum()/cycles.size();
         cycles.sort(Comparator.comparing(Cycle::getAngleToDepot));
     }
 

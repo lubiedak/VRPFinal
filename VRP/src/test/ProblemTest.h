@@ -18,8 +18,10 @@ bool Problem10Nodes_TEST();
 bool Problem20Nodes_TEST();
 bool DistanceMatrixReading_TEST();
 bool ZAnalyze_TEST();
+bool ZPerformance_TEST();
 int countDemand(Problem problem);
 Problem decreaseDemandToRoundDemand(Problem problem);
 Problem increaseDemandsByOne(Problem problem);
+Problem setDemandsTo(Problem problem, int demand);
 
 #endif /* TEST_PROBLEMTEST_H_ */

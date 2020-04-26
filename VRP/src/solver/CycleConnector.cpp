@@ -40,6 +40,8 @@ void CycleConnector::connect() {
 
   if(connections[allNodesConnected].distance < bestCycleSet.distance){
     bestCycleSet = connections[allNodesConnected];
+    std::cout << "Connector: improved in last iteration" << std::endl;
+
   }
   solution = Solution(bestCycleSet, cycles);
 }

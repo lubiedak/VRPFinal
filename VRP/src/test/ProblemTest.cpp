@@ -10,6 +10,7 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include <time.h>
 
 #include "../solver/CycleConnector.h"
 #include "../solver/CycleCreator.h"
@@ -116,6 +117,48 @@ bool DistanceMatrixReading_TEST(){
   return true;
 }
 
+bool ZPerformance_TEST() {
+  RandomModeExecutor executor;
+  Problem lastProblem;
+  Solution lastSolution;
+  ProblemGenParams params = initFromFile("/Users/lukasz.biedak/workspace/VRPFinal/VRP/build/ProblemGenParamsCfg");
+  int allOperations=0;
+  int optimizationIsWorse = 0;
+  for(int x = 0; x<100; x++){
+    std::cout<<"XXXX "<<x<<std::endl;
+    params.nodes = 22;
+    auto problem = executor.createProblem("rest", params);
+    //problem = setDemandsTo(problem, 250);
+    
+    for(int i = 0; i<4; i++){
+      allOperations++;
+      std::cout<<"                                 XXXX "<<x<<std::endl;
+      clock_t tStart = clock();
+      Solution solution = executor.solveProblem("rest", problem);
+      double time = (double)(clock() - tStart)/CLOCKS_PER_SEC;
+      std::cout<<"XXXX;"<<problem.size()<<";"<<solution.getDemand()<<";"
+        <<solution.getDistance()<<";"<<time<<std::endl;
+
+      tStart = clock();
+      Solution solutionOptimized = executor.solveProblem("rest", problem, true);
+      time = (double)(clock() - tStart)/CLOCKS_PER_SEC;
+      std::cout<<"XXXX;"<<problem.size()<<";"<<solutionOptimized.getDemand()<<";"
+        <<solutionOptimized.getDistance()<<";"<<time<<std::endl;
+      
+      if(solution.getDistance() < solutionOptimized.getDistance()){
+        optimizationIsWorse++;
+        std::cout<<"                                                                  XXXXXX;"<<problem.size()<<";"<<solution.getDistance()<<";"
+        <<solutionOptimized.getDistance()<<";"<<optimizationIsWorse<<";"<<allOperations<<std::endl;
+      }
+      if(allOperations%50==0){
+        std::cout<<"                                                                  XXXXXX;"<<allOperations<<std::endl;
+      }
+      problem.removeLastNode();
+    }
+  }
+  return true;
+}
+
 bool ZAnalyze_TEST() {
   RandomModeExecutor executor;
   Problem lastProblem;
@@ -162,6 +205,18 @@ Problem increaseDemandsByOne(Problem problem){
   for(Node node: problem.getNodes()){
     Node newNode = node;
     newNode.setDemand(node.getDemand() + 1);
+    nodes.push_back(newNode);
+  }
+  problem.setNodes(nodes);
+  problem.adapt();
+  return problem;
+}
+
+Problem setDemandsTo(Problem problem, int demand){
+  std::vector<Node> nodes;
+  for(Node node: problem.getNodes()){
+    Node newNode = node;
+    newNode.setDemand(demand);
     nodes.push_back(newNode);
   }
   problem.setNodes(nodes);
