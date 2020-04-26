@@ -29,7 +29,7 @@ Tester::Tester() {
   //tests["ZDistanceMatrixReadingTest"]   = &DistanceMatrixReading_TEST;
 
   //tests["ZAnalyze_TEST"]               = &ZAnalyze_TEST;
-  tests["ZPerformance_TEST"] = &ZPerformance_TEST;
+  //tests["ZPerformance_TEST"] = &ZPerformance_TEST;
   //tests["Problem20Nodes_TEST"]	   = &Problem20Nodes_TEST; (too long)
 }
 

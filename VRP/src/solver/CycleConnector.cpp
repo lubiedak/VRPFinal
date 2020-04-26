@@ -40,6 +40,8 @@ void CycleConnector::connect() {
 
   if(connections[allNodesConnected].distance < bestCycleSet.distance){
     bestCycleSet = connections[allNodesConnected];
+    std::cout << "Connector: improved in last iteration" << std::endl;
+
   }
   solution = Solution(bestCycleSet, cycles);
 }
@@ -62,11 +64,11 @@ void CycleConnector::connectMap(uint16_t it, bool lastIteration) {
   std::unordered_map<uint32_t, CyclesSet> newConnected = connections;
   connections.clear();
   ProgressLogger progressLogger(newConnected.size(), 20);
-  //progressLogger.startLog();
+  progressLogger.startLog();
   uint32_t i = 0;
   auto endIt = connections.end();
   for (auto conn : newConnected) {
-    //progressLogger.logProgress(++i);
+    progressLogger.logProgress(++i);
     uint32_t id1 = conn.second.id;
     for (uint16_t j = conn.second.lastIt; j < baseCycles.size(); ++j) {
       if (0 == (id1 & baseCycles[j].id)) {
