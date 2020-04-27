@@ -169,7 +169,7 @@ bool ZAnalyze_TEST() {
     auto problem = executor.createProblem("rest", "ProblemGenParamsCfg");
     problem = decreaseDemandToRoundDemand(problem);
     for(size_t i = 0 ; i<1000/problem.getNodes().size(); ++i){
-      Solution solution = executor.solveProblem("rest", problem);
+      Solution solution = executor.solveProblem("rest", problem, true);
       std::cout<<"XXXX;"<<i<<";"<<solution.getDemand()<<";"<<solution.getDistance()
       <<";"<<solution.getSize()<<std::endl;
       if(lastSolution.getDistance() > solution.getDistance() ){

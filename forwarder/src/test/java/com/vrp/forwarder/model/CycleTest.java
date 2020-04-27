@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CycleTest {
 
 
-    private final ProblemGenerator problemGenerator = new ProblemGenerator(null);
+    private final ProblemGenerator problemGenerator = new ProblemGenerator();
 
     @Test
     void shouldFilterSpecifiedNodesFromCycle() {

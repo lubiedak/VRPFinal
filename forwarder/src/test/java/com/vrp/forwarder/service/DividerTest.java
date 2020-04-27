@@ -1,8 +1,7 @@
 package com.vrp.forwarder.service;
 
-import com.vrp.forwarder.model.Criteria;
+import com.vrp.forwarder.divider.Divider;
 import com.vrp.forwarder.model.GeneratorCfg;
-import com.vrp.forwarder.model.Node;
 import com.vrp.forwarder.model.Problem;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +14,7 @@ class DividerTest {
 
     private final Divider divider = new Divider();
 
-    private final ProblemGenerator problemGenerator = new ProblemGenerator(null);
+    private final ProblemGenerator problemGenerator = new ProblemGenerator();
     private final int MAX_GROUP_SIZE = 20;
     private final int MIN_GROUP_SIZE = 10;
 
@@ -26,7 +25,7 @@ class DividerTest {
 
         Problem problem = problemGenerator.generate(cfg);
 
-        List<Problem> problems = divider.divide(problem);
+        List<Problem> problems = divider.divide(problem, 20);
 
         assertThat(problems.size()).isEqualTo(4);
         problems.forEach(p->assertThat(p.getNodes().size()).isEqualTo(MAX_GROUP_SIZE));
@@ -37,7 +36,7 @@ class DividerTest {
         GeneratorCfg cfg = new GeneratorCfg(85, 0, 500);
         Problem problem = problemGenerator.generate(cfg);
 
-        List<Problem> problems = divider.divide(problem);
+        List<Problem> problems = divider.divide(problem, 20);
 
         assertThat(problems.size()).isEqualTo(5);
         problems.forEach(p->assertThat(p.getNodes().size()).isEqualTo(17));
@@ -48,7 +47,7 @@ class DividerTest {
         GeneratorCfg cfg = new GeneratorCfg(84, 0, 500);
         Problem problem = problemGenerator.generate(cfg);
 
-        List<Problem> problems = divider.divide(problem);
+        List<Problem> problems = divider.divide(problem, 20);
 
         assertThat(problems.size()).isEqualTo(5);
         int expectedSize = 16;
@@ -61,7 +60,7 @@ class DividerTest {
         GeneratorCfg cfg = new GeneratorCfg(20, 0, 500);
         Problem problem = problemGenerator.generate(cfg);
 
-        List<Problem> problems = divider.divide(problem);
+        List<Problem> problems = divider.divide(problem, 20);
 
         assertThat(problems.size()).isEqualTo(1);
         assertThat(problems.get(0).getNodes().size()).isEqualTo(MAX_GROUP_SIZE);
@@ -72,7 +71,7 @@ class DividerTest {
         GeneratorCfg cfg = new GeneratorCfg(40, 0, 500);
         Problem problem = problemGenerator.generate(cfg);
 
-        List<Problem> problems = divider.divide(problem);
+        List<Problem> problems = divider.divide(problem, 20);
 
         assertThat(problems.size()).isEqualTo(2);
         problems.forEach(p->assertThat(p.getNodes().size())
@@ -84,7 +83,7 @@ class DividerTest {
         GeneratorCfg cfg = new GeneratorCfg(41, 0, 500);
         Problem problem = problemGenerator.generate(cfg);
 
-        List<Problem> problems = divider.divide(problem);
+        List<Problem> problems = divider.divide(problem, 20);
 
         assertThat(problems.size()).isEqualTo(3);
         int expectedSize = 13;
@@ -97,7 +96,7 @@ class DividerTest {
         GeneratorCfg cfg = new GeneratorCfg(39, 0, 500);
         Problem problem = problemGenerator.generate(cfg);
 
-        List<Problem> problems = divider.divide(problem);
+        List<Problem> problems = divider.divide(problem, 20);
 
         assertThat(problems.size()).isEqualTo(2);
         int expectedSize = 19;

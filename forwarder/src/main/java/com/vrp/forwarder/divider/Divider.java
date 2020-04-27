@@ -1,8 +1,9 @@
-package com.vrp.forwarder.service;
+package com.vrp.forwarder.divider;
 
 import com.vrp.forwarder.model.Criteria;
 import com.vrp.forwarder.model.Node;
 import com.vrp.forwarder.model.Problem;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,9 +13,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class Divider {
-
-    private final static int BASE_GROUP_SIZE = 18;
 
     public List<Problem> divideCitiesIntoProblems(List<Node> allCities) {
         List<Node> cities = new ArrayList<>(allCities);
@@ -38,10 +38,10 @@ public class Divider {
                   .collect(Collectors.toList());
     }
 
-    public List<Problem> divide(Problem p){
+    public List<Problem> divide(Problem p, int baseGroupSize){
         p.sortNodes();
         int totalSize = p.getNodes().size();
-        int nOfGroups = (int)Math.ceil((totalSize+0.0)/BASE_GROUP_SIZE);
+        int nOfGroups = (int)Math.ceil((totalSize+0.0)/ baseGroupSize);
         float averageGroupSize = (totalSize+0.0f)/nOfGroups;
         List<Problem> problems = new ArrayList<>();
         int i;

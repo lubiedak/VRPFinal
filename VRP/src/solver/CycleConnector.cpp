@@ -39,8 +39,8 @@ void CycleConnector::connect() {
   std::cout << "\niteration: " << connIteration << " connected: " << connections.size() << std::endl;
 
   if(connections[allNodesConnected].distance < bestCycleSet.distance){
+    std::cout << "XXXX Connector: improved in last iteration: "<< bestCycleSet.distance << " vs "<< connections[allNodesConnected].distance <<std::endl;
     bestCycleSet = connections[allNodesConnected];
-    std::cout << "Connector: improved in last iteration" << std::endl;
 
   }
   solution = Solution(bestCycleSet, cycles);

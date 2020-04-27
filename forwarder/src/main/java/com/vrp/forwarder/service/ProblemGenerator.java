@@ -16,8 +16,6 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class ProblemGenerator {
 
-    private final CitiesReader citiesReader;
-
     private final Random rnd = new Random();
 
     public Problem generate(GeneratorCfg cfg) {
@@ -33,21 +31,6 @@ public class ProblemGenerator {
         }
         return Problem.builder()
                       .nodes(nodes)
-                      .depot(depot)
-                      .criteria(new Criteria())
-                      .build();
-    }
-
-    public Problem generateForCities(GeneratorCfg cfg) {
-        citiesReader.readCities();
-        List<Node> cities = citiesReader.getCities();
-        Node depot = cities.stream().filter(c-> c.getName().equals("Łódź")).findFirst().orElseGet(null);
-        cities.remove(depot);
-        cities.forEach(c -> c.setDemand(rndDemand(cfg)));
-
-
-        return Problem.builder()
-                      .nodes(cities.subList(0,200))
                       .depot(depot)
                       .criteria(new Criteria())
                       .build();
