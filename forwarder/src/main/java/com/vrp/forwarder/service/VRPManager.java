@@ -30,7 +30,7 @@ public class VRPManager {
     public ResponseEntity runAndReturnSolution(boolean draw, Problem problem) {
         Problem problemCopy = makeCopy(problem);
 
-        List<Problem> problems = divider.divide(problem);
+        List<Problem> problems = divider.divide(problem,18);
         List<Solution> solutions = problems.stream()
                                            .map(vrpRunner::run)
                                            .collect(Collectors.toList());

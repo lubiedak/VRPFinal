@@ -16,7 +16,7 @@
 
 */
 import Dashboard from "views/Dashboard.jsx";
-import UserProfile from "views/UserProfile.jsx";
+import ControlPanel from "views/ControlPanel.jsx";
 import TableList from "views/TableList.jsx";
 import Typography from "views/Typography.jsx";
 import Icons from "views/Icons.jsx";
@@ -35,9 +35,9 @@ const dashboardRoutes = [
   },
   {
     path: "/user",
-    name: "User Profile",
+    name: "Control Panel",
     icon: "pe-7s-user",
-    component: UserProfile,
+    component: ControlPanel,
     layout: "/admin"
   },
   {
