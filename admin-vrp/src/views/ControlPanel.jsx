@@ -44,15 +44,8 @@ class ControlPanel extends Component {
                 content={
                   <form>
                     <FormInputs
-                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
+                      ncols={["col-md-4", "col-md-4"]}
                       properties={[
-                        {
-                          label: "Fleet size",
-                          type: "number",
-                          bsClass: "form-control",
-                          placeholder: "fleetSize",
-                          defaultValue: "20",
-                        },
                         {
                           label: "Optimize execution",
                           placeholder: "optimize",

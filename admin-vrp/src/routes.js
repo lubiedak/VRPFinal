@@ -17,7 +17,7 @@
 */
 import Dashboard from "views/Dashboard.jsx";
 import ControlPanel from "views/ControlPanel.jsx";
-import TableList from "views/TableList.jsx";
+import Fleet from "views/Fleet.jsx";
 import Typography from "views/Typography.jsx";
 import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
@@ -41,10 +41,10 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/table",
-    name: "Table List",
+    path: "/fleet",
+    name: "Fleet",
     icon: "pe-7s-note2",
-    component: TableList,
+    component: Fleet,
     layout: "/admin"
   },
   {
