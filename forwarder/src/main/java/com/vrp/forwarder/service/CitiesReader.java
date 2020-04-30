@@ -23,34 +23,37 @@ public class CitiesReader {
 
     private static final int COORDS_MULTIPLIER = 50;
 
-    @Getter
     private List<Node> cities;
 
-    public void readCities(){
+    public List<Node> getCities(){
         if(cities == null) {
+            readCities();
+        }
+        return cities;
+    }
 
-            cities = new ArrayList<>();
-            List<String> lines = new ArrayList<>();
-            try {
-                lines = Files.readAllLines(Path.of(path));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            int id = 0;
-            for (String line : lines.subList(3, lines.size())) {
-                String[] cells = line.split(";");
-                cities.add(Node.builder()
-                               .name(cells[0])
-                               .x((int) (COORDS_MULTIPLIER * Double.valueOf(cells[2])))
-                               .y((int) (COORDS_MULTIPLIER * Double.valueOf(cells[1])))
-                               .region(cells[3])
-                               .group(cells[4])
-                               .demand(0)
-                               .depot(!StringUtils.isEmpty(cells[0]) && cells[0].equals(cells[4]))
-                               .distance_id(id)
-                               .id(id++)
-                               .build());
-            }
+    private void readCities(){
+        cities = new ArrayList<>();
+        List<String> lines = new ArrayList<>();
+        try {
+            lines = Files.readAllLines(Path.of(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int id = 0;
+        for (String line : lines.subList(3, lines.size())) {
+            String[] cells = line.split(";");
+            cities.add(Node.builder()
+                           .name(cells[0])
+                           .x((int) (COORDS_MULTIPLIER * Double.valueOf(cells[2])))
+                           .y((int) (COORDS_MULTIPLIER * Double.valueOf(cells[1])))
+                           .region(cells[3])
+                           .group(cells[4])
+                           .demand(0)
+                           .depot(!StringUtils.isEmpty(cells[0]) && cells[0].equals(cells[4]))
+                           .distance_id(id)
+                           .id(id++)
+                           .build());
         }
     }
 }

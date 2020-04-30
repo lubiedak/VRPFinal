@@ -55,5 +55,4 @@ public class ProblemController {
 
         return vrpManager.runAndReturnSolution(draw, problemGenerator.generate(cfg));
     }
-
 }
