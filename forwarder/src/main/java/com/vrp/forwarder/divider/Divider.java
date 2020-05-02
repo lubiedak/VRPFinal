@@ -22,9 +22,11 @@ public class Divider {
                                   .filter(Node::isDepot)
                                   .collect(Collectors.toList());
         cities.removeAll(depots);
+        final List<Node> citiesFinal = cities.stream().map(n->n.toBuilder().demand(250).build()).collect(Collectors.toList());
+
         Map<Node, List<Node>> map = depots.stream()
                                           .collect(Collectors.toMap(Function.identity(),
-                                                                    depot -> cities.stream()
+                                                                    depot -> citiesFinal.stream()
                                                                                    .filter(c -> c.getGroup()
                                                                                                  .equals(depot.getName()))
                                                                                    .collect(Collectors.toList())));

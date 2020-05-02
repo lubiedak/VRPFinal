@@ -13,7 +13,8 @@ class GraphFetcher extends Component {
     };
 
     componentDidMount() {
-        fetch('/api/v1/city/divided/1')
+        fetch('/api/v1/city/solve/1?draw=true', {
+            method: 'POST'})
             .then(res => res.json())
             .then((data) => {
                 this.setState({ nodes: data })

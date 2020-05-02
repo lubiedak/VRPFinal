@@ -18,7 +18,6 @@ public class DemandReader {
     private final Random rnd = new Random();
 
     public Problem generateForCities(GeneratorCfg cfg) {
-        citiesReader.readCities();
         List<Node> cities = citiesReader.getCities();
         Node depot = cities.stream().filter(c-> c.getName().equals("Łódź")).findFirst().orElseGet(null);
         cities.remove(depot);

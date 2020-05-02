@@ -1,9 +1,10 @@
 package com.vrp.forwarder.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder(toBuilder = true)
+@SuperBuilder(toBuilder = true)
 @AllArgsConstructor
 public class Node {
 	private final String name;

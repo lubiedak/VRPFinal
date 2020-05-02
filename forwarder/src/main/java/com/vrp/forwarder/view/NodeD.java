@@ -3,8 +3,6 @@ package com.vrp.forwarder.view;
 import com.vrp.forwarder.model.Node;
 import lombok.Data;
 
-import java.util.Objects;
-
 @Data
 class NodeD {
     private int id;
@@ -21,6 +19,6 @@ class NodeD {
         y = node.getY();
         color = node.getGroup() == null ? "" : "#"+(Math.abs(node.getGroup().hashCode()) % 0x100000);
         size = node.getDemand() == 0 ? 40 : node.getDemand();
-        size = node.isDepot() ? 120 : size;
+        size = node.isDepot() ? 500 : size;
     }
 }

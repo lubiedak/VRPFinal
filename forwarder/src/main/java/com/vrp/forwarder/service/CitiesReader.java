@@ -1,7 +1,6 @@
 package com.vrp.forwarder.service;
 
 import com.vrp.forwarder.model.Node;
-import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -107,7 +107,7 @@ document.getElementById('solve').onclick = function solve() {
 	var max_X = inputs["max_X"].value;
 	var max_Y = inputs["max_Y"].value;
 
-	var url = "http://127.0.0.1:8080/api/v1/problem/generateAndSolve?draw=true&" + 'nodesCount=' + nodes_Count 
+	var url = "http://127.0.0.1:8080/api/v1/city/solve/whatever?draw=true&" + 'nodesCount=' + nodes_Count 
 	+'&minDemand='+min_Demand+'&maxDemand='+max_Demand +'&maxX='+ max_X + '&maxY=' +max_Y
 	
 	fetch(url, {method: 'POST',
@@ -124,7 +124,7 @@ document.getElementById('solve').onclick = function solve() {
 		s.refresh();
 		
 		s = new sigma({
-			graph: data[0],
+			graph: data,
 			container: 'graph'
 		});
 		

@@ -77,7 +77,7 @@ public class SolutionOptimizer {
                                  .distinct()
                                  .collect(Collectors.toList());
         problem.setNodes(nodes);
-        Solution improvedSolution = vrpRunner.run(problem);
+        Solution improvedSolution = vrpRunner.runStandard(problem);
         if(currentDistance > improvedSolution.getDistance()){
             return improvedSolution;
         }

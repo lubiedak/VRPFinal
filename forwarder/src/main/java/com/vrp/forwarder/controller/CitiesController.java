@@ -62,4 +62,12 @@ public class CitiesController {
         return null;
     }
 
+    @RequestMapping(value = URL + "/solve/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity generateAndSolve( @PathVariable String name,
+                                            @RequestParam(required=false) boolean draw){
+        
+        
+        return vrpManager.runForCities(draw);
+    }
+
 }

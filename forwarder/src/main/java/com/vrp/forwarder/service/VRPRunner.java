@@ -26,23 +26,37 @@ public class VRPRunner {
     private final ObjectMapper objectMapper;
     @Setter
     private String url;
+    @Setter
+    private String urlCities;
 
-    public Solution run(Problem p){
-        HttpHeaders headers = new HttpHeaders();
+    public Solution runStandard(final Problem p) {
+        final HttpEntity<String> request = prepareRequest(p);
+
+        final ResponseEntity<Solution> response = restTemplate.postForEntity(url, request, Solution.class);
+
+        return response.getBody();
+    }
+
+
+    public Solution runForCities(final Problem p) {
+        final HttpEntity<String> request = prepareRequest(p);
+
+        final ResponseEntity<Solution> response = restTemplate.postForEntity(urlCities, request, Solution.class);
+
+        return response.getBody();
+    }
+
+    private HttpEntity<String> prepareRequest(final Problem p) {
+        final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
 
         HttpEntity<String> request = null;
         try {
             request = new HttpEntity<>(objectMapper.writeValueAsString(p), headers);
             log.info(request.toString());
-        } catch (JsonProcessingException e) {
+        } catch (final JsonProcessingException e) {
             e.printStackTrace();
         }
-
-        ResponseEntity<Solution> response = restTemplate
-                .postForEntity(url, request, Solution.class );
-
-        return response.getBody();
+        return request;
     }
 }
